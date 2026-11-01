@@ -210,13 +210,23 @@
   </header>
 
   <main>
-   <section class="hero" id="beranda">
-  <div class="container hero-grid">
+   
+<section class="hero" id="beranda" style="
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(rgba(255,255,255,0.42), rgba(255,255,255,0.42)),
+    url('gedung%20kdmp.jpg') center/cover no-repeat;
+">
+  <div class="container hero-grid" style="
+    position:relative;
+    z-index:1;
+    padding-top:80px;
+    padding-bottom:80px;
+  ">
     <div>
       <span class="eyebrow">BERSAMA MEMBANGUN DESA</span>
-
       <h1>Koperasi Kuat,<br>Desa Lebih Sejahtera.</h1>
-
       <p>
         Selamat datang di website KDMP Pendowo Asri.
         Media informasi koperasi untuk mendukung pelayanan,
@@ -227,14 +237,6 @@
         <a class="btn btn-white" href="#profil">Kenali Koperasi Kami</a>
         <a class="btn btn-outline" href="#berita">Lihat Informasi</a>
       </div>
-    </div>
-
-    <div class="hero-card">
-      <img
-        src="gedung%20kdmp.jpg"
-        alt="Gedung KDMP Pendowo Asri"
-        style="width:100%; min-height:320px; height:100%; object-fit:cover; border-radius:20px; display:block;"
-      >
     </div>
   </div>
 </section>
