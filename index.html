@@ -105,13 +105,59 @@
     }
     .hero-card h3 { margin: 0 0 6px; color: var(--dark); }
     .hero-card p { color: var(--muted); font-size: 14px; margin: 0; }
-    .stats { background: white; margin-top: -1px; }
-    .stats-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      border: 1px solid #f0dddd; border-radius: 14px;
-      transform: translateY(-22px); background: white;
-      box-shadow: 0 10px 30px #67121a0a;
-    }
+    .stats {
+  background: white;
+  margin-top: -1px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid #f0dddd;
+  border-radius: 16px;
+  transform: translateY(-22px);
+  background: white;
+  box-shadow: 0 12px 30px rgba(103, 18, 26, 0.08);
+  overflow: hidden;
+}
+
+.stat {
+  padding: 25px 18px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.stat:not(:last-child) {
+  border-right: 1px solid #f0dddd;
+}
+
+.stat strong {
+  display: block;
+  color: #b91c2c;
+  font-size: 19px;
+  margin-bottom: 7px;
+}
+
+.stat span {
+  display: block;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat {
+    padding: 18px;
+  }
+
+  .stat:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid #f0dddd;
+  }
+}
     .stat { text-align: center; padding: 18px 10px; }
     .stat strong { display: block; color: var(--red); font-size: 18px; }
     .stat span { color: var(--muted); font-size: 12px; }
