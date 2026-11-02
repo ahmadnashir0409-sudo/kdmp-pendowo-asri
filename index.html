@@ -222,7 +222,33 @@
       border: 1px solid #f0e5e5; border-radius: 15px;
       overflow: hidden; background: white;
       box-shadow: 0 7px 22px #54101608;
-    }
+    } #newsList {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+#newsList .card {
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(84, 16, 22, 0.09);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#newsList .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 32px rgba(84, 16, 22, 0.14);
+}
+
+@media (max-width: 768px) {
+  #newsList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  #newsList {
+    grid-template-columns: 1fr;
+  }
+}
     .card-image {
       height: 150px; display: grid; place-items: center;
       background: linear-gradient(135deg, #fff0f0, #fbd9dc);
