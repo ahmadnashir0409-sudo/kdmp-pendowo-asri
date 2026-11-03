@@ -502,7 +502,10 @@ const SUPABASE_ANON_KEY = "sb_publishable_ISI_KEY_ASLI_LU";
           }
         }
       );
-      if (!response.ok) throw new Error(`Gagal memuat ${table}`);
+      if (!response.ok) {
+  const detail = await response.text();
+  throw new Error(`Gagal memuat ${table}: ${response.status} - ${detail}`);
+}
       return response.json();
     }
 
@@ -533,8 +536,9 @@ const SUPABASE_ANON_KEY = "sb_publishable_ISI_KEY_ASLI_LU";
             </div>
           </article>`).join("");
       } catch (error) {
-        element.innerHTML = '<div class="empty">Berita belum dapat dimuat. Silakan coba lagi nanti.</div>';
-      }
+  console.error(error);
+  element.innerHTML = `<div class="empty">${escapeHTML(error.message)}</div>`;
+}
     }
 
     async function loadActivities() {
