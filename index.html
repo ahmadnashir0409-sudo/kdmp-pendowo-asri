@@ -82,7 +82,10 @@
     .footer-row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
     footer p { margin: 4px 0; color: #d7c9ca; font-size: 13px; }
     .notice { font-size: 12px; color: var(--muted); margin-top: 20px; text-align: center; }
-    /* BELANJA */
+    /* BELANJA 2 TAB - KAYAK DI FOTO LU */
+    .shop-tabs { display: flex; gap: 0; max-width: 640px; margin: 0 auto 10px; background: #fff; border: 1px solid #f0dddd; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 16px rgba(84,16,22,.06); }
+    .shop-tabs button { flex: 1; padding: 15px 10px; border: 0; background: #fff; font-weight: 800; font-size: 14px; cursor: pointer; color: #252525; }
+    .shop-tabs button.active { background: #ffe3e5; color: #b91c2c; border-bottom: 3px solid #b91c2c; }
     .qty-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid #ddd; background: #fff; font-size: 18px; cursor: pointer; }
     .qty-btn.plus { border: 0; background: var(--red); color: #fff; }
     .cart-box { background: #fff; border: 1px solid #f0dddd; border-radius: 18px; padding: 24px; margin-top: 28px; box-shadow: 0 10px 28px rgba(84,16,22,.08); }
@@ -99,6 +102,7 @@
       .stats-grid { grid-template-columns: 1fr; }
       .stat + .stat { border-top: 1px solid #f3e5e5; border-right: none; }
       section { padding: 48px 0; }
+      .shop-tabs button { font-size: 12px; padding: 13px 6px; }
     }
     @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } .stat { padding: 18px; } .stat:not(:last-child) { border-right: none; border-bottom: 1px solid #f0dddd; } }
     @media (max-width: 768px) { #newsList { grid-template-columns: repeat(2, 1fr); } .about-grid { grid-template-columns: 1fr; gap: 28px; } }
@@ -196,10 +200,17 @@
       </div>
     </section>
 
-    <!-- BELANJA GERAI -->
+    <!-- BELANJA GERAI - UDAH DIBEDAIN 2 TAB -->
     <section id="belanja">
       <div class="container">
-        <div class="section-head"><span>Gerai Koperasi</span><h2>Belanja di Gerai KDMP</h2><p>Pilih barang, atur jumlah, checkout langsung ke WA Kasir.</p></div>
+        <div class="section-head"><span>Gerai Koperasi</span><h2>Belanja di Gerai KDMP</h2><p>Pilih sesuai kebutuhanmu, checkout langsung ke WA Kasir.</p></div>
+
+        <div class="shop-tabs">
+          <button id="tabDapur" class="active" onclick="setShopTab('dapur')">🍳 Belanja Kebutuhan Dapur</button>
+          <button id="tabWarung" onclick="setShopTab('warung')">🏪 Untuk Stok Warung Kamu</button>
+        </div>
+        <p id="tabDesc" style="text-align:center;color:#6b7280;font-size:13px;margin:0 0 18px">Buat masak hari ini - harga ecer, ambil 1-2 pcs juga bisa.</p>
+
         <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:22px">
           <input id="searchProduk" placeholder="Cari barang... contoh: Beras" style="max-width:360px;padding:12px 16px;border-radius:30px;border:1px solid #f0dddd;flex:1" oninput="renderProduk()">
           <button onclick="renderProduk()" style="background:#b91c2c;color:#fff;border:0;padding:12px 22px;border-radius:30px;font-weight:700">Cari</button>
@@ -209,7 +220,7 @@
           <h3 style="margin:0 0 14px">🛒 Keranjang Belanja</h3>
           <div id="cartList"><p style="color:#6b7280">Keranjang masih kosong. Pilih barang di atas dulu bre.</p></div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
-            <input id="namaPembeli" class="input-line" placeholder="Nama Pembeli, contoh: Pak RT 02" style="flex:1;min-width:200px">
+            <input id="namaPembeli" class="input-line" placeholder="Nama Pembeli, contoh: Bu RT 02" style="flex:1;min-width:200px">
             <input id="alamatPembeli" class="input-line" placeholder="Alamat / RT, contoh: Pendowo Asri RT 02" style="flex:1;min-width:200px">
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:18px">
@@ -253,7 +264,6 @@
   </footer>
 
   <script>
-    // GANTI NOMOR INI PAKE NOMOR WA KASIR LU
     const WA_KASIR = "6281234567890";
     const SUPABASE_URL = "https://ntelnblacqrwunjctxwd.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_0sk7S7bpzuW9MnqDwDYW1g_4ccOYlTK";
@@ -280,7 +290,7 @@
       try {
         const rows = await getTable("berita", "select=judul,ringkasan,kategori,tanggal_sumber,created_at,url_sumber&status=eq.terbit&order=created_at.desc&limit=6");
         if (!rows || !rows.length) { element.innerHTML = '<div class="empty">Belum ada berita yang diterbitkan. Login admin untuk nambah berita.</div>'; return; }
-        element.innerHTML = rows.map(item => `<article class="card"><div class="card-image">📰</div><div class="card-body"><span class="tag">${escapeHTML(item.kategori || "Berita")}</span><h3>${escapeHTML(item.judul)}</h3><p>${escapeHTML(item.ringkasan || "")}</p><div class="meta">${formatDate(item.tanggal_sumber || item.created_at)}</div>${item.url_sumber ? `<p><a style="color:var(--red);font-weight:bold" href="${escapeHTML(item.url_sumber)}" target="_blank" rel="noopener noreferrer">Baca sumber ↗</a></p>` : ""}</div></article>`).join("");
+        element.innerHTML = rows.map(item => `<article class="card"><div class="card-image">📰</div><div class="card-body"><span class="tag">${escapeHTML(item.kategori || "Berita")}</span><h3>${escapeHTML(item.judul)}</h3><p>${escapeHTML(item.ringkasan || "")}</p><div class="meta">${formatDate(item.tanggal_sumber || item.created_at)}</div></div></article>`).join("");
       } catch (error) { element.innerHTML = '<div class="empty">Belum ada berita. Login admin untuk nambah berita.</div>'; }
     }
     async function loadActivities() {
@@ -305,30 +315,52 @@
       } catch (error) { element.innerHTML = '<div class="empty">Profil tim belum dapat dimuat saat ini.</div>'; }
     }
 
-    // ===== BELANJA =====
+    // ===== BELANJA 2 TAB =====
     let cart = {};
     let allProduk = [];
+    let activeShopTab = 'dapur';
+    function setShopTab(tab){
+      activeShopTab = tab;
+      document.getElementById('tabDapur').classList.toggle('active', tab==='dapur');
+      document.getElementById('tabWarung').classList.toggle('active', tab==='warung');
+      document.getElementById('tabDesc').textContent = tab==='dapur'
+        ? 'Buat masak hari ini - harga ecer, ambil 1-2 pcs juga bisa.'
+        : 'Buat jualan lagi - harga grosir / dus, stok warung lebih hemat.';
+      renderProduk();
+    }
+    function getDefaultProduk(){
+      return [
+        {nama:'Beras Premium 5 Kg', harga:65000, stok:20, emoji:'🍚', deskripsi:'Beras pulen kualitas gerai KDMP', kategori:'dapur'},
+        {nama:'Minyak Goreng 1 Liter', harga:18000, stok:30, emoji:'🧴', deskripsi:'Minyak goreng kemasan 1 liter', kategori:'dapur'},
+        {nama:'Gula Pasir 1 Kg', harga:16500, stok:25, emoji:'🧂', deskripsi:'Gula pasir bersih', kategori:'dapur'},
+        {nama:'Telur Ayam 1 Kg', harga:28000, stok:15, emoji:'🥚', deskripsi:'Telur ayam segar', kategori:'dapur'},
+        {nama:'Kopi Bubuk Pendowo 250gr', harga:25000, stok:12, emoji:'☕', deskripsi:'Kopi khas desa', kategori:'dapur'},
+        {nama:'Sembako Paket Hemat', harga:95000, stok:10, emoji:'🛍️', deskripsi:'Paket beras + minyak + gula', kategori:'dapur'},
+        {nama:'Minyak Goreng 1 Dus (12 x 1L)', harga:198000, stok:8, emoji:'🧴', deskripsi:'Harga grosir untuk stok warung, lebih hemat', kategori:'warung'},
+        {nama:'Mie Instan 1 Dus (40 pcs)', harga:108000, stok:10, emoji:'🍜', deskripsi:'Mie instan campur rasa, siap jual lagi', kategori:'warung'},
+        {nama:'Beras 1 Karung 25 Kg', harga:305000, stok:6, emoji:'🍚', deskripsi:'Beras karungan untuk stok warung', kategori:'warung'},
+        {nama:'Gula Pasir 1 Dus (20 Kg)', harga:315000, stok:5, emoji:'🧂', deskripsi:'Gula dus untuk warung', kategori:'warung'},
+        {nama:'Kopi Renteng 1 Lusin', harga:45000, stok:20, emoji:'☕', deskripsi:'Kopi sachet renteng, laris di warung', kategori:'warung'},
+        {nama:'Sabun Cuci 1 Dus', harga:125000, stok:7, emoji:'🧼', deskripsi:'Sabun cuci piring / baju grosir', kategori:'warung'},
+      ];
+    }
     function renderProduk(){
       const el = document.getElementById('produkList');
       const q = (document.getElementById('searchProduk')?.value||'').toLowerCase();
       let list = getLocal('kdmp_produk');
-      if(!list.length){
-        list = [
-          {nama:'Beras Premium 5 Kg', harga:65000, stok:20, emoji:'🍚', deskripsi:'Beras pulen kualitas gerai KDMP'},
-          {nama:'Minyak Goreng 1 Liter', harga:18000, stok:30, emoji:'🧴', deskripsi:'Minyak goreng kemasan 1 liter'},
-          {nama:'Gula Pasir 1 Kg', harga:16500, stok:25, emoji:'🧂', deskripsi:'Gula pasir bersih'},
-          {nama:'Telur Ayam 1 Kg', harga:28000, stok:15, emoji:'🥚', deskripsi:'Telur ayam segar'},
-          {nama:'Sembako Paket Hemat', harga:95000, stok:10, emoji:'🛍️', deskripsi:'Paket beras + minyak + gula'},
-          {nama:'Kopi Bubuk Pendowo 250gr', harga:25000, stok:12, emoji:'☕', deskripsi:'Kopi khas desa'},
-        ];
-      }
+      if(!list.length) list = getDefaultProduk();
+      list = list.map(p => ({...p, kategori: p.kategori || 'dapur'}));
       allProduk = list;
-      const filtered = list.filter(p=>p.nama.toLowerCase().includes(q));
-      if(!filtered.length){ el.innerHTML='<div class="empty">Barang tidak ditemukan. Coba kata lain bre.</div>'; return; }
+      const filtered = list.filter(p => p.kategori === activeShopTab && p.nama.toLowerCase().includes(q));
+      if(!filtered.length){
+        el.innerHTML = `<div class="empty">${activeShopTab==='dapur' ? 'Barang dapur tidak ditemukan.' : 'Barang warung tidak ditemukan.'} Coba kata lain bre.</div>`;
+        return;
+      }
       el.innerHTML = filtered.map((p)=>{
         const idx = list.indexOf(p);
         const qty = cart[idx]?.qty||0;
-        return `<article class="card"><div class="card-image" style="font-size:56px">${p.emoji||'🛒'}</div><div class="card-body"><span class="tag">Stok: ${p.stok}</span><h3>${escapeHTML(p.nama)}</h3><p>${escapeHTML(p.deskripsi||'')}</p><b style="color:#b91c2c;font-size:17px">Rp ${p.harga.toLocaleString('id-ID')}</b><div style="display:flex;align-items:center;gap:10px;margin-top:14px"><button class="qty-btn" onclick="changeQty(${idx},-1)">-</button><b>${qty}</b><button class="qty-btn plus" onclick="changeQty(${idx},1)">+</button><button onclick="addToCart(${idx})" style="margin-left:auto;background:#b91c2c;color:#fff;border:0;padding:9px 14px;border-radius:8px;font-weight:700">+ Keranjang</button></div></div></article>`;
+        const label = p.kategori==='warung' ? 'Grosir / Dus' : 'Ecer / Dapur';
+        return `<article class="card"><div class="card-image" style="font-size:56px">${p.emoji||'🛒'}</div><div class="card-body"><span class="tag">${label} - Stok: ${p.stok}</span><h3>${escapeHTML(p.nama)}</h3><p>${escapeHTML(p.deskripsi||'')}</p><b style="color:#b91c2c;font-size:17px">Rp ${p.harga.toLocaleString('id-ID')}</b><div style="display:flex;align-items:center;gap:10px;margin-top:14px"><button class="qty-btn" onclick="changeQty(${idx},-1)">-</button><b>${qty}</b><button class="qty-btn plus" onclick="changeQty(${idx},1)">+</button><button onclick="addToCart(${idx})" style="margin-left:auto;background:#b91c2c;color:#fff;border:0;padding:9px 14px;border-radius:8px;font-weight:700">+ Keranjang</button></div></div></article>`;
       }).join('');
       renderCart();
     }
@@ -352,7 +384,8 @@
       let total = 0;
       el.innerHTML = items.map((it)=>{
         const sub = it.harga*it.qty; total+=sub;
-        return `<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f1eeee;align-items:center"><div><b>${it.emoji} ${escapeHTML(it.nama)}</b><br><small style="color:#6b7280">Rp ${it.harga.toLocaleString('id-ID')} x ${it.qty}</small></div><b>Rp ${sub.toLocaleString('id-ID')}</b></div>`;
+        const tag = it.kategori==='warung' ? '[Stok Warung]' : '[Dapur]';
+        return `<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f1eeee;align-items:center"><div><b>${it.emoji} ${escapeHTML(it.nama)}</b><br><small style="color:#6b7280">${tag} - Rp ${it.harga.toLocaleString('id-ID')} x ${it.qty}</small></div><b>Rp ${sub.toLocaleString('id-ID')}</b></div>`;
       }).join('');
       document.getElementById('cartTotal').textContent = 'Total: Rp ' + total.toLocaleString('id-ID');
     }
@@ -363,7 +396,7 @@
       const nama = document.getElementById('namaPembeli').value.trim()||'-';
       const alamat = document.getElementById('alamatPembeli').value.trim()||'-';
       let total = 0; let lines = [];
-      items.forEach((it,i)=>{ const sub=it.harga*it.qty; total+=sub; lines.push(`${i+1}. ${it.nama} - ${it.qty} x Rp ${it.harga.toLocaleString('id-ID')} = Rp ${sub.toLocaleString('id-ID')}`); });
+      items.forEach((it,i)=>{ const sub=it.harga*it.qty; total+=sub; const tag = it.kategori==='warung' ? 'Stok Warung' : 'Dapur'; lines.push(`${i+1}. [${tag}] ${it.nama} - ${it.qty} x Rp ${it.harga.toLocaleString('id-ID')} = Rp ${sub.toLocaleString('id-ID')}`); });
       const pesan = `Halo Kasir KDMP Pendowo Asri! Saya mau pesan:\n\n${lines.join('\n')}\n\nTotal: Rp ${total.toLocaleString('id-ID')}\n\nNama: ${nama}\nAlamat: ${alamat}\n\nMohon konfirmasi pesanan saya ya, terima kasih!`;
       window.open(`https://wa.me/${getWA()}?text=${encodeURIComponent(pesan)}`, '_blank');
     }
