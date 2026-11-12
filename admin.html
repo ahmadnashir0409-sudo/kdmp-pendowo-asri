@@ -3,121 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin - KDMP Pendowo Asri</title>
+<title>Admin KDMP Pendowo Asri</title>
 <style>
-  *{box-sizing:border-box}
-  body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#FFFFFF;color:#0F0F0F;-webkit-font-smoothing:antialiased}
-  header{background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid #FFE1E5;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:20}
-  header a{color:#FF0A2A;text-decoration:none;font-weight:900}
-  header b span{color:#FF0A2A}
-  #adminName{font-size:13px;font-weight:800;background:#FFF0F1;color:#FF0A2A;padding:6px 12px;border-radius:999px;border:1px solid #FFD6DB}
-  .wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
-  .card{background:#fff;border:1.5px solid #FFE1E5;border-radius:22px;padding:22px;margin-bottom:18px;box-shadow:0 8px 24px rgba(255,10,42,.06)}
-  .card h3{margin:0 0 14px;font-size:18px;font-weight:900} .card h3 span{color:#FF0A2A}
-  input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid #FFE1E5;border-radius:14px;margin:6px 0 12px;font-size:14px;font-family:inherit;background:#FFF5F6;outline:none;color:#0F0F0F}
-  input:focus,textarea:focus,select:focus{border-color:#FF0A2A;box-shadow:0 0 0 4px rgba(255,10,42,.12);background:#fff}
-  button{padding:11px 18px;border:0;border-radius:999px;font-weight:800;cursor:pointer}
-  .btn-red{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;box-shadow:0 8px 18px rgba(255,10,42,.32)}
-  .btn-white{background:#fff;border:1.5px solid #FFE1E5;color:#333}
-  .btn-green{background:linear-gradient(135deg,#00C853,#00E676);color:#fff}
-  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;background:#fff;border:1.5px solid #FFE1E5;border-radius:999px;padding:5px}
-  .tabs button{background:transparent;border:0;color:#555}
-  .tabs button.active{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff}
-  .item{border:1px solid #FFE1E5;border-radius:16px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+  *{box-sizing:border-box} body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#FFF5F6;padding:14px}
+  h1{font-size:22px} h2{font-size:18px;margin-top:28px}
+  .card{background:#fff;border:1.5px solid #FFE1E5;border-radius:16px;padding:14px;margin-bottom:12px}
+  input,textarea,select{width:100%;padding:11px;border:1.5px solid #FFE1E5;border-radius:12px;margin-bottom:8px;font-family:inherit}
+  button{padding:11px 16px;border-radius:999px;border:0;font-weight:800;cursor:pointer}
+  .btn-red{background:#FF0A2A;color:#fff} .btn-ghost{background:#fff;border:1.5px solid #FFD6DB;color:#FF0A2A}
+  .row{display:flex;gap:10px;align-items:center} .row img{width:70px;height:70px;object-fit:cover;border-radius:50%;border:2px solid #FFE1E5}
+  .item{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#fff;border:1px solid #FFE1E5;border-radius:12px;padding:10px;margin-bottom:8px}
+  .item img{width:55px;height:55px;object-fit:cover;border-radius:50%}
+  .tabs{display:flex;gap:8px;margin:14px 0} .tabs button{flex:1;background:#fff;border:1.5px solid #FFE1E5}
+  .tabs button.active{background:#FF0A2A;color:#fff}
   .hidden{display:none}
-  .login-box{max-width:420px;margin:50px auto;background:#fff;padding:28px;border-radius:24px;box-shadow:0 20px 50px rgba(255,10,42,.15);border:1px solid #FFE1E5}
-  .login-box h2{margin:0 0 6px;color:#FF0A2A;font-size:26px;font-weight:900}
-  .badge{display:inline-block;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:900;background:#FFF0F1;color:#FF0A2A;border:1px solid #FFD6DB}
-  .badge.warung{background:#FFF7ED;color:#EA580C;border-color:#FED7AA}
-  label{font-size:13px;font-weight:800;color:#333}
-  .welcome{background:linear-gradient(135deg,#FF0A2A,#FF7A00);color:#fff;border-radius:18px;padding:16px 18px;margin-bottom:18px;box-shadow:0 12px 28px rgba(255,10,42,.28);font-size:14px;line-height:1.5}
-  /* FOTO PREVIEW */
-  .foto-box{display:flex;gap:12px;align-items:flex-start;margin:6px 0 12px}
-  .foto-preview{width:110px;height:110px;border-radius:14px;border:1.5px dashed #FFD6DB;background:#FFF5F6;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;font-size:36px;color:#FF0A2A;font-weight:900}
-  .foto-preview img{width:100%;height:100%;object-fit:cover}
-  .foto-actions{flex:1}
-  .btn-foto{display:inline-block;background:#0F0F0F;color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:800;cursor:pointer}
-  .produk-admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .produk-admin-card{background:#fff;border:1px solid #EEE;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
-  .produk-admin-img{background:linear-gradient(180deg,#FFF0F1,#FFFFFF);height:110px;display:flex;align-items:center;justify-content:center;font-size:52px;overflow:hidden}
-  .produk-admin-img img{width:100%;height:100%;object-fit:cover}
-  .produk-admin-body{padding:10px;display:flex;flex-direction:column;gap:5px;flex:1}
-  .produk-admin-body h4{margin:0;font-size:13px;line-height:1.35;min-height:34px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:700}
-  .produk-admin-btns{display:flex;gap:6px;margin-top:auto} .produk-admin-btns button{flex:1;padding:8px 4px;font-size:12px}
-  @media(max-width:600px){ .tabs{border-radius:18px} .tabs button{flex:1 1 40%;font-size:12px} .produk-admin-grid{grid-template-columns:repeat(3,1fr);gap:8px} .produk-admin-img{height:85px;font-size:38px} .produk-admin-body h4{font-size:11px} .produk-admin-btns{flex-direction:column} .foto-box{flex-direction:column} }
 </style>
 </head>
 <body>
-<header><a href="index.html">← Balik ke Website</a><b>Dashboard Admin <span>KDMP</span></b><span id="adminName"></span></header>
-<div id="loginPage" class="wrap"><div class="login-box"><h2>Login Admin</h2><p>Login untuk update Berita, Struktur & Produk Gerai</p><label>Username</label><input id="userInput" value="admin"><label>Password</label><input id="passInput" type="password" value="kdmp123"><button class="btn-red" style="width:100%;padding:14px" onclick="doLogin()">Masuk Dashboard →</button><p id="loginMsg" style="color:#FF0A2A;text-align:center;font-weight:700"></p></div></div>
-<div id="dashPage" class="wrap hidden">
-  <div class="welcome">👋 Halo Admin! Tambah foto produk biar warga langsung tau barangnya yang mana.</div>
-  <div class="tabs"><button id="tabBerita" class="active" onclick="showTab('berita')">📰 Berita</button><button id="tabStruktur" onclick="showTab('struktur')">👥 Struktur</button><button id="tabProduk" onclick="showTab('produk')">🛒 Produk Gerai</button><button id="tabSetting" onclick="showTab('setting')">⚙️ Pengaturan</button><button onclick="doLogout()" style="margin-left:auto;background:#0F0F0F;color:#fff">Logout</button></div>
-  <div id="panel-berita"><div class="card"><h3>Tambah / Edit <span>Berita</span></h3><label>Judul Berita</label><input id="bJudul" placeholder="Contoh: Rapat Anggota Tahunan"><label>Ringkasan</label><textarea id="bRingkasan" rows="3"></textarea><label>Kategori</label><input id="bKategori" placeholder="Informasi / Kegiatan"><label>Tanggal</label><input id="bTanggal" type="date"><button class="btn-red" onclick="saveBerita()">Simpan Berita</button><button class="btn-white" onclick="resetBerita()">Batal Edit</button></div><div class="card"><h3>Daftar <span>Berita</span></h3><div id="listBerita"></div></div></div>
-  <div id="panel-struktur" class="hidden"><div class="card"><h3>Tambah / Edit <span>Struktur</span></h3><label>Nama</label><input id="sNama" placeholder="Contoh: Budi Santoso"><label>Jabatan</label><input id="sJabatan" placeholder="Ketua / Bendahara"><label>Deskripsi</label><textarea id="sDeskripsi" rows="2"></textarea><button class="btn-red" onclick="saveStruktur()">Simpan Anggota</button><button class="btn-white" onclick="resetStruktur()">Batal Edit</button></div><div class="card"><h3>Daftar <span>Struktur</span></h3><div id="listStruktur"></div></div></div>
-  <div id="panel-produk" class="hidden">
-    <div class="card"><h3>Tambah / Edit <span>Produk Gerai</span></h3>
-      <label>Nama Barang</label><input id="pNama" placeholder="Contoh: Beras 5 Kg">
-      <label>Masuk ke Kategori Mana?</label><select id="pKategori"><option value="dapur">🍳 Dapur - Eceran</option><option value="warung">🏪 Warung - Grosir / Dus</option></select>
-      <label>Harga (Rp)</label><input id="pHarga" type="number" placeholder="65000">
-      <label>Stok</label><input id="pStok" type="number" placeholder="20">
-      <label>📸 Foto Produk - INI YANG BARU BRE</label>
-      <div class="foto-box">
-        <div class="foto-preview" id="fotoPreview">📷</div>
-        <div class="foto-actions">
-          <label class="btn-foto" for="pFotoFile">📁 Pilih Foto dari Galeri / Kamera</label>
-          <input type="file" id="pFotoFile" accept="image/*" style="display:none" onchange="previewFoto(event)">
-          <input id="pFotoUrl" placeholder="Atau paste link foto di sini (opsional)" oninput="previewFotoUrl()">
-          <small style="color:#888">Tips: Foto barangnya di gerai pake HP, langsung upload. Foto otomatis dikecilin biar web gak lemot. Kalau mau hapus foto, klik Hapus Foto.</small><br>
-          <button class="btn-white" style="padding:8px 12px;font-size:12px;margin-top:6px" onclick="hapusFoto()">🗑️ Hapus Foto</button>
-        </div>
-      </div>
-      <label>Emoji (kalau gak ada foto)</label><input id="pEmoji" placeholder="Contoh: 🍚">
-      <label>Deskripsi</label><textarea id="pDeskripsi" rows="2"></textarea>
-      <button class="btn-red" onclick="saveProduk()">Simpan Produk</button><button class="btn-white" onclick="resetProduk()">Batal Edit</button>
-    </div>
-    <div class="card"><h3>Daftar <span>Produk Gerai</span> - Foto Asli</h3><div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap"><button class="btn-white" onclick="filterProdukAdmin('semua')">Semua</button><button class="btn-white" onclick="filterProdukAdmin('dapur')">🍳 Dapur</button><button class="btn-white" onclick="filterProdukAdmin('warung')">🏪 Warung</button></div><div id="listProduk"></div></div>
-  </div>
-  <div id="panel-setting" class="hidden"><div class="card"><h3>Pengaturan <span>Admin & WA</span></h3><label>Username Baru</label><input id="setUser" value="admin"><label>Password Baru</label><input id="setPass" value="kdmp123"><label>Nomor WA Kasir (62...)</label><input id="setWA" value="6281234567890"><label>Nama Kasir</label><input id="setNamaKasir" value="Kasir KDMP Pendowo Asri"><button class="btn-green" onclick="saveSetting()">Simpan Pengaturan</button></div></div>
+<h1>🛠️ Admin KDMP Pendowo Asri</h1>
+<a href="index.html">← Lihat Website</a>
+<div class="tabs">
+  <button id="tProduk" class="active" onclick="showTab('produk')">Produk</button>
+  <button id="tBerita" onclick="showTab('berita')">Berita</button>
+  <button id="tStruktur" onclick="showTab('struktur')">Struktur</button>
+  <button id="tSetting" onclick="showTab('setting')">Setting</button>
 </div>
+
+<div id="tab-produk">
+  <div class="card"><h2>+ Tambah Produk</h2>
+    <input id="pNama" placeholder="Nama Produk">
+    <div class="row"><input id="pHarga" type="number" placeholder="Harga"><input id="pStok" type="number" placeholder="Stok"></div>
+    <select id="pKategori"><option value="dapur">Kebutuhan Dapur</option><option value="warung">Stok Warung</option></select>
+    <input id="pEmoji" placeholder="Emoji (contoh 🍚)">
+    <button class="btn-red" onclick="tambahProduk()">Simpan Produk</button>
+  </div><div id="listProduk"></div>
+</div>
+
+<div id="tab-berita" class="hidden">
+  <div class="card"><h2>+ Tambah Berita</h2>
+    <input id="bJudul" placeholder="Judul Berita"><textarea id="bRingkasan" placeholder="Ringkasan"></textarea>
+    <input id="bKategori" placeholder="Kategori (Informasi / Kegiatan)">
+    <button class="btn-red" onclick="tambahBerita()">Simpan Berita</button>
+  </div><div id="listBerita"></div>
+</div>
+
+<div id="tab-struktur">
+  <div class="card"><h2>+ Tambah Pengurus + Foto</h2>
+    <input id="sNama" placeholder="Nama Lengkap - Contoh: Bapak RT 01">
+    <input id="sJabatan" placeholder="Jabatan - Contoh: Ketua">
+    <input id="sDeskripsi" placeholder="Deskripsi singkat">
+    <label style="font-size:13px;font-weight:700">Foto Pengurus:</label>
+    <div class="row" style="margin:8px 0">
+      <img id="sPreview" src="" style="display:none">
+      <span id="sNoFoto" style="font-size:13px;color:#888">Belum ada foto</span>
+      <input type="file" id="sFoto" accept="image/*" onchange="previewFoto(event)" style="border:0;padding:0">
+    </div>
+    <button class="btn-red" onclick="tambahStruktur()">Simpan Pengurus</button>
+    <button class="btn-ghost" onclick="resetStrukturForm()">Batal / Reset</button>
+  </div><div id="listStruktur"></div>
+</div>
+
+<div id="tab-setting" class="hidden">
+  <div class="card"><h2>Setting WA Kasir</h2>
+    <input id="setWa" placeholder="Nomor WA - Contoh: 6281234567890 (pakai 62, jangan 0)">
+    <input id="setKasir" placeholder="Nama Kasir">
+    <button class="btn-red" onclick="simpanSetting()">Simpan Setting</button>
+  </div>
+</div>
+
 <script>
-  function getData(k){ try{ return JSON.parse(localStorage.getItem(k))||[] }catch(e){ return [] } }
-  function setData(k,v){ localStorage.setItem(k, JSON.stringify(v)) }
-  function getSetting(){ try{ return JSON.parse(localStorage.getItem('kdmp_setting'))||{user:'admin',pass:'kdmp123',wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} }catch(e){ return {user:'admin',pass:'kdmp123',wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} } }
-  let editIndex=-1, editType='', filterAdmin='semua', fotoSementara='';
-  function doLogin(){ const s=getSetting(); if(document.getElementById('userInput').value.trim()===s.user && document.getElementById('passInput').value.trim()===s.pass){ localStorage.setItem('kdmp_login','1'); showDash(); } else document.getElementById('loginMsg').textContent='Username / Password salah bre!'; }
-  function doLogout(){ localStorage.removeItem('kdmp_login'); location.reload(); }
-  function showDash(){ document.getElementById('loginPage').classList.add('hidden'); document.getElementById('dashPage').classList.remove('hidden'); document.getElementById('adminName').textContent='Halo, '+getSetting().user; const s=getSetting(); document.getElementById('setUser').value=s.user; document.getElementById('setPass').value=s.pass; document.getElementById('setWA').value=s.wa; document.getElementById('setNamaKasir').value=s.kasir; renderAll(); }
-  if(localStorage.getItem('kdmp_login')==='1') showDash();
-  function showTab(t){ ['berita','struktur','produk','setting'].forEach(x=>{ document.getElementById('panel-'+x).classList.toggle('hidden',x!==t); const b=document.getElementById('tab'+x.charAt(0).toUpperCase()+x.slice(1)); if(b) b.classList.toggle('active',x===t); }); }
-  // === FOTO: COMPRESS BIAR GAK GEDE ===
-  function previewFoto(e){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=(ev)=>{ const img=new Image(); img.onload=()=>{ const c=document.createElement('canvas'); const max=800; let w=img.width,h=img.height; if(w>max){ h=h*max/w; w=max; } c.width=w; c.height=h; c.getContext('2d').drawImage(img,0,0,w,h); fotoSementara=c.toDataURL('image/jpeg',0.75); document.getElementById('fotoPreview').innerHTML=`<img src="${fotoSementara}">`; document.getElementById('pFotoUrl').value=''; }; img.src=ev.target.result; }; r.readAsDataURL(f); }
-  function previewFotoUrl(){ const u=document.getElementById('pFotoUrl').value.trim(); if(u){ fotoSementara=u; document.getElementById('fotoPreview').innerHTML=`<img src="${u}" onerror="this.parentElement.textContent='📷'">`; } }
-  function hapusFoto(){ fotoSementara=''; document.getElementById('fotoPreview').textContent='📷'; document.getElementById('pFotoUrl').value=''; document.getElementById('pFotoFile').value=''; }
-  function saveBerita(){ const l=getData('kdmp_berita'); const d={judul:document.getElementById('bJudul').value,ringkasan:document.getElementById('bRingkasan').value,kategori:document.getElementById('bKategori').value||'Berita',tanggal:document.getElementById('bTanggal').value||new Date().toISOString().slice(0,10)}; if(!d.judul) return alert('Judul wajib diisi!'); if(editType==='berita'&&editIndex>=0) l[editIndex]=d; else l.unshift(d); setData('kdmp_berita',l); resetBerita(); renderAll(); alert('Berita tersimpan!'); }
-  function resetBerita(){ editIndex=-1; editType=''; ['bJudul','bRingkasan','bKategori','bTanggal'].forEach(id=>document.getElementById(id).value=''); }
-  function saveStruktur(){ const l=getData('kdmp_struktur'); const d={nama:document.getElementById('sNama').value,jabatan:document.getElementById('sJabatan').value,deskripsi:document.getElementById('sDeskripsi').value}; if(!d.nama) return alert('Nama wajib diisi!'); if(editType==='struktur'&&editIndex>=0) l[editIndex]=d; else l.push(d); setData('kdmp_struktur',l); resetStruktur(); renderAll(); alert('Struktur tersimpan!'); }
-  function resetStruktur(){ editIndex=-1; editType=''; ['sNama','sJabatan','sDeskripsi'].forEach(id=>document.getElementById(id).value=''); }
-  function saveProduk(){
-    const l=getData('kdmp_produk');
-    const d={nama:document.getElementById('pNama').value,kategori:document.getElementById('pKategori').value,harga:parseInt(document.getElementById('pHarga').value||0),stok:parseInt(document.getElementById('pStok').value||0),emoji:document.getElementById('pEmoji').value||'🛒',deskripsi:document.getElementById('pDeskripsi').value,foto:fotoSementara||document.getElementById('pFotoUrl').value.trim()||''};
-    if(!d.nama||!d.harga) return alert('Nama & Harga wajib diisi!');
-    if(editType==='produk'&&editIndex>=0) l[editIndex]=d; else l.push(d);
-    setData('kdmp_produk',l); resetProduk(); renderAll(); alert('Produk + Foto tersimpan! Cek di website utama.');
-  }
-  function resetProduk(){ editIndex=-1; editType=''; ['pNama','pHarga','pStok','pEmoji','pDeskripsi','pFotoUrl'].forEach(id=>document.getElementById(id).value=''); document.getElementById('pKategori').value='dapur'; hapusFoto(); }
-  function saveSetting(){ const s={user:document.getElementById('setUser').value,pass:document.getElementById('setPass').value,wa:document.getElementById('setWA').value,kasir:document.getElementById('setNamaKasir').value}; localStorage.setItem('kdmp_setting',JSON.stringify(s)); alert('Pengaturan tersimpan!'); }
-  function filterProdukAdmin(f){ filterAdmin=f; renderAll(); }
+  function getData(k){ try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return []} }
+  function setData(k,v){ localStorage.setItem(k,JSON.stringify(v)); renderAll(); }
+  function showTab(t){ ['produk','berita','struktur','setting'].forEach(x=>{ document.getElementById('tab-'+x).classList.toggle('hidden',x!==t); document.getElementById('t'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active',x===t); }); }
+  let fotoStrukturTemp = '';
+  function previewFoto(e){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=function(ev){ fotoStrukturTemp=ev.target.result; const img=document.getElementById('sPreview'); img.src=fotoStrukturTemp; img.style.display='block'; document.getElementById('sNoFoto').style.display='none'; }; r.readAsDataURL(f); }
+  function resetStrukturForm(){ document.getElementById('sNama').value=''; document.getElementById('sJabatan').value=''; document.getElementById('sDeskripsi').value=''; document.getElementById('sFoto').value=''; fotoStrukturTemp=''; document.getElementById('sPreview').style.display='none'; document.getElementById('sNoFoto').style.display='block'; }
+  function tambahStruktur(){ const nama=document.getElementById('sNama').value.trim(); const jabatan=document.getElementById('sJabatan').value.trim(); if(!nama||!jabatan) return alert('Nama & Jabatan wajib diisi bre!'); const d=getData('kdmp_struktur'); d.push({nama,jabatan,deskripsi:document.getElementById('sDeskripsi').value, foto:fotoStrukturTemp}); setData('kdmp_struktur',d); resetStrukturForm(); alert('Pengurus berhasil ditambah!'); }
+  function hapusStruktur(i){ if(!confirm('Hapus pengurus ini?')) return; const d=getData('kdmp_struktur'); d.splice(i,1); setData('kdmp_struktur',d); }
+  function tambahProduk(){ const nama=document.getElementById('pNama').value.trim(); if(!nama) return alert('Nama produk wajib!'); const d=getData('kdmp_produk'); d.push({nama,kategori:document.getElementById('pKategori').value,harga:Number(document.getElementById('pHarga').value)||0,stok:Number(document.getElementById('pStok').value)||0,emoji:document.getElementById('pEmoji').value||'📦',deskripsi:'',foto:''}); setData('kdmp_produk',d); }
+  function hapusProduk(i){ if(!confirm('Hapus produk?')) return; const d=getData('kdmp_produk'); d.splice(i,1); setData('kdmp_produk',d); }
+  function tambahBerita(){ const judul=document.getElementById('bJudul').value.trim(); if(!judul) return alert('Judul wajib!'); const d=getData('kdmp_berita'); d.push({judul,ringkasan:document.getElementById('bRingkasan').value,kategori:document.getElementById('bKategori').value||'Berita'}); setData('kdmp_berita',d); }
+  function hapusBerita(i){ if(!confirm('Hapus berita?')) return; const d=getData('kdmp_berita'); d.splice(i,1); setData('kdmp_berita',d); }
+  function simpanSetting(){ localStorage.setItem('kdmp_setting',JSON.stringify({wa:document.getElementById('setWa').value, kasir:document.getElementById('setKasir').value})); alert('Setting tersimpan!'); }
   function renderAll(){
-    const b=getData('kdmp_berita'); document.getElementById('listBerita').innerHTML=b.length?b.map((x,i)=>`<div class="item"><div><b>${x.judul}</b><small>${x.kategori} - ${x.tanggal}</small></div><div><button class="btn-white" onclick="editBerita(${i})">Edit</button> <button class="btn-red" onclick="delItem('kdmp_berita',${i})">Hapus</button></div></div>`).join(''):'<p>Belum ada berita</p>';
-    const s=getData('kdmp_struktur'); document.getElementById('listStruktur').innerHTML=s.length?s.map((x,i)=>`<div class="item"><div><b>${x.nama}</b><small>${x.jabatan}</small></div><div><button class="btn-white" onclick="editStruktur(${i})">Edit</button> <button class="btn-red" onclick="delItem('kdmp_struktur',${i})">Hapus</button></div></div>`).join(''):'<p>Belum ada struktur</p>';
-    let p=getData('kdmp_produk'); if(filterAdmin!=='semua') p=p.map((x,idx)=>({...x,_idx:idx})).filter(x=>(x.kategori||'dapur')===filterAdmin); else p=p.map((x,idx)=>({...x,_idx:idx}));
-    document.getElementById('listProduk').innerHTML=p.length?`<div class="produk-admin-grid">`+p.map(x=>{ const imgHtml=x.foto?`<img src="${x.foto}">`:x.emoji; return `<div class="produk-admin-card"><div class="produk-admin-img">${imgHtml}</div><div class="produk-admin-body"><span class="badge ${x.kategori==='warung'?'warung':''}">${x.kategori==='warung'?'🏪 Warung':'🍳 Dapur'}</span><h4>${x.nama}</h4><div style="font-weight:900;color:#FF0A2A">Rp ${x.harga.toLocaleString('id-ID')}</div><small>Stok: ${x.stok}</small><div class="produk-admin-btns"><button class="btn-white" onclick="editProduk(${x._idx})">Edit</button><button class="btn-red" onclick="delItem('kdmp_produk',${x._idx})">Hapus</button></div></div></div>` }).join('')+`</div>`:'<p>Belum ada produk.</p>';
+    document.getElementById('listProduk').innerHTML=getData('kdmp_produk').map((x,i)=>`<div class="item"><span>${x.emoji} ${x.nama} - Rp ${x.harga}</span><button class="btn-ghost" onclick="hapusProduk(${i})">Hapus</button></div>`).join('');
+    document.getElementById('listBerita').innerHTML=getData('kdmp_berita').map((x,i)=>`<div class="item"><span><b>${x.judul}</b><br>${x.ringkasan||''}</span><button class="btn-ghost" onclick="hapusBerita(${i})">Hapus</button></div>`).join('');
+    document.getElementById('listStruktur').innerHTML=getData('kdmp_struktur').map((x,i)=>`<div class="item"><div style="display:flex;gap:10px;align-items:center">${x.foto?`<img src="${x.foto}">`:`<div style="width:55px;height:55px;border-radius:50%;background:#FFF0F1;display:flex;align-items:center;justify-content:center">👤</div>`}<span><b>${x.nama}</b><br>${x.jabatan}</span></div><button class="btn-ghost" onclick="hapusStruktur(${i})">Hapus</button></div>`).join('');
+    try{ const s=JSON.parse(localStorage.getItem('kdmp_setting'))||{}; document.getElementById('setWa').value=s.wa||''; document.getElementById('setKasir').value=s.kasir||''; }catch(e){}
   }
-  function editBerita(i){ const x=getData('kdmp_berita')[i]; document.getElementById('bJudul').value=x.judul; document.getElementById('bRingkasan').value=x.ringkasan; document.getElementById('bKategori').value=x.kategori; document.getElementById('bTanggal').value=x.tanggal; editIndex=i; editType='berita'; }
-  function editStruktur(i){ const x=getData('kdmp_struktur')[i]; document.getElementById('sNama').value=x.nama; document.getElementById('sJabatan').value=x.jabatan; document.getElementById('sDeskripsi').value=x.deskripsi; editIndex=i; editType='struktur'; showTab('struktur'); }
-  function editProduk(i){ const x=getData('kdmp_produk')[i]; document.getElementById('pNama').value=x.nama; document.getElementById('pKategori').value=x.kategori||'dapur'; document.getElementById('pHarga').value=x.harga; document.getElementById('pStok').value=x.stok; document.getElementById('pEmoji').value=x.emoji; document.getElementById('pDeskripsi').value=x.deskripsi; fotoSementara=x.foto||''; if(x.foto && x.foto.startsWith('http')) document.getElementById('pFotoUrl').value=x.foto; document.getElementById('fotoPreview').innerHTML=x.foto?`<img src="${x.foto}">`:'📷'; editIndex=i; editType='produk'; showTab('produk'); window.scrollTo({top:0,behavior:'smooth'}); }
-  function delItem(k,i){ if(!confirm('Yakin hapus?')) return; const l=getData(k); l.splice(i,1); setData(k,l); renderAll(); }
+  renderAll();
 </script>
 </body>
 </html>
