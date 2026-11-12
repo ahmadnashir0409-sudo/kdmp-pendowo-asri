@@ -5,57 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin - KDMP Pendowo Asri</title>
 <style>
-  *{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#fff8f8;color:#252525}
-  header{background:#b91c2c;color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-  header a{color:#fff;text-decoration:none;font-weight:700}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#FFFFFF;color:#0F0F0F;-webkit-font-smoothing:antialiased}
+  header{background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid #FFE1E5;color:#0F0F0F;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:20}
+  header a{color:#FF0A2A;text-decoration:none;font-weight:900}
+  header b{letter-spacing:-.3px}
+  header b span{color:#FF0A2A}
+  #adminName{font-size:13px;font-weight:800;background:#FFF0F1;color:#FF0A2A;padding:6px 12px;border-radius:999px;border:1px solid #FFD6DB}
   .wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
-  .card{background:#fff;border:1px solid #f0dddd;border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 8px 24px rgba(84,16,22,.06)}
-  input,textarea,select{width:100%;padding:12px;border:1px solid #e5e7eb;border-radius:10px;margin:6px 0 12px;font-size:14px;font-family:inherit;background:#fff}
-  button{padding:11px 18px;border:0;border-radius:10px;font-weight:700;cursor:pointer}
-  .btn-red{background:#b91c2c;color:#fff} .btn-white{background:#fff;border:1px solid #ddd} .btn-green{background:#16a34a;color:#fff}
-  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-  .tabs button{background:#fff;border:1px solid #f0dddd}
-  .tabs button.active{background:#b91c2c;color:#fff}
-  .item{border:1px solid #eee;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
-  .item b{display:block} .item small{color:#6b7280}
+  .card{background:#fff;border:1.5px solid #FFE1E5;border-radius:22px;padding:22px;margin-bottom:18px;box-shadow:0 8px 24px rgba(255,10,42,.06)}
+  .card h3{margin:0 0 14px;font-size:18px;letter-spacing:-.3px;font-weight:900}
+  .card h3 span{color:#FF0A2A}
+  input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid #FFE1E5;border-radius:14px;margin:6px 0 12px;font-size:14px;font-family:inherit;background:#FFF5F6;outline:none;color:#0F0F0F}
+  input:focus,textarea:focus,select:focus{border-color:#FF0A2A;box-shadow:0 0 0 4px rgba(255,10,42,.12);background:#fff}
+  button{padding:11px 18px;border:0;border-radius:999px;font-weight:800;cursor:pointer;transition:.2s}
+  button:active{transform:scale(.97)}
+  .btn-red{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;box-shadow:0 8px 18px rgba(255,10,42,.32)}
+  .btn-white{background:#fff;border:1.5px solid #FFE1E5;color:#333}
+  .btn-green{background:linear-gradient(135deg,#00C853,#00E676);color:#fff;box-shadow:0 8px 18px rgba(0,200,83,.28)}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;background:#fff;border:1.5px solid #FFE1E5;border-radius:999px;padding:5px;box-shadow:0 6px 18px rgba(255,10,42,.06)}
+  .tabs button{background:transparent;border:0;color:#555}
+  .tabs button.active{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;box-shadow:0 6px 14px rgba(255,10,42,.32)}
+  .item{border:1px solid #FFE1E5;border-radius:16px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;background:#fff}
+  .item b{display:block} .item small{color:#777}
   .hidden{display:none}
-  .login-box{max-width:420px;margin:60px auto;background:#fff;padding:28px;border-radius:18px;box-shadow:0 15px 40px rgba(0,0,0,.08)}
-  .login-box h2{margin:0 0 6px;color:#781521} .login-box p{color:#6b7280;font-size:13px}
-  .badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:800;background:#fff0f0;color:#b91c2c}
-  .badge.warung{background:#fef3c7;color:#92400e}
-  label{font-size:13px;font-weight:700;color:#374151}
+  .login-box{max-width:420px;margin:50px auto;background:#fff;padding:28px;border-radius:24px;box-shadow:0 0 0 1px #FFE1E5,0 20px 50px rgba(255,10,42,.15);border:1px solid #FFE1E5}
+  .login-box h2{margin:0 0 6px;color:#FF0A2A;font-size:26px;letter-spacing:-.6px;font-weight:900}
+  .login-box p{color:#777;font-size:13px}
+  .login-badge{display:inline-block;background:#FFF0F1;color:#FF0A2A;padding:6px 11px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.8px;border:1px solid #FFD6DB;margin-bottom:12px}
+  .badge{display:inline-block;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:900;background:#FFF0F1;color:#FF0A2A;border:1px solid #FFD6DB}
+  .badge.warung{background:#FFF7ED;color:#EA580C;border-color:#FED7AA}
+  label{font-size:13px;font-weight:800;color:#333}
+  .welcome{background:linear-gradient(135deg,#FF0A2A,#FF7A00);color:#fff;border-radius:18px;padding:16px 18px;margin-bottom:18px;box-shadow:0 12px 28px rgba(255,10,42,.28);font-size:14px;line-height:1.5}
+  .welcome b{color:#fff}
+  @media(max-width:600px){ .tabs{border-radius:18px} .tabs button{flex:1 1 40%;font-size:12px} .item{flex-direction:column;align-items:flex-start} }
 </style>
 </head>
 <body>
-<header><a href="index.html">← Balik ke Website</a><b>Dashboard Admin KDMP</b><span id="adminName"></span></header>
+<header><a href="index.html">← Balik ke Website</a><b>Dashboard Admin <span>KDMP</span></b><span id="adminName"></span></header>
 
 <!-- LOGIN -->
 <div id="loginPage" class="wrap">
   <div class="login-box">
+    <span class="login-badge">✦ KDMP FUTURE READY</span>
     <h2>Login Admin</h2>
     <p>Login untuk update Berita, Struktur & Produk Gerai</p>
     <label>Username</label><input id="userInput" placeholder="admin" value="admin">
     <label>Password</label><input id="passInput" type="password" placeholder="kdmp123" value="kdmp123">
-    <button class="btn-red" style="width:100%" onclick="doLogin()">Masuk Dashboard</button>
-    <p id="loginMsg" style="color:#b91c2c;text-align:center"></p>
-    <p style="text-align:center;background:#fff5f5;padding:10px;border-radius:10px;font-size:13px">Default: <b>admin</b> / <b>kdmp123</b><br>Ganti di menu Pengaturan setelah login</p>
+    <button class="btn-red" style="width:100%;padding:14px;font-size:15px" onclick="doLogin()">Masuk Dashboard →</button>
+    <p id="loginMsg" style="color:#FF0A2A;text-align:center;font-weight:700"></p>
+    <p style="text-align:center;background:#FFF5F6;padding:12px;border-radius:14px;font-size:13px;border:1px solid #FFE1E5">Default: <b style="color:#FF0A2A">admin</b> / <b style="color:#FF0A2A">kdmp123</b><br>Ganti di menu Pengaturan setelah login</p>
   </div>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashPage" class="wrap hidden">
-  <div style="background:#fff;border:1px solid #f0dddd;border-radius:12px;padding:14px 16px;margin-bottom:18px">👋 Halo Admin! Di sini lu bisa <b>input stok, ganti harga, nambah barang baru</b>, semua langsung muncul di website utama. Gak perlu ngoding lagi.</div>
+  <div class="welcome">👋 Halo Admin! Di sini lu bisa <b>input stok, ganti harga, nambah barang baru</b>, semua langsung muncul di website utama. Gak perlu ngoding lagi.</div>
   <div class="tabs">
     <button id="tabBerita" class="active" onclick="showTab('berita')">📰 Berita</button>
     <button id="tabStruktur" onclick="showTab('struktur')">👥 Struktur Organisasi</button>
     <button id="tabProduk" onclick="showTab('produk')">🛒 Produk Gerai</button>
     <button id="tabSetting" onclick="showTab('setting')">⚙️ Pengaturan</button>
-    <button onclick="doLogout()" style="margin-left:auto;background:#241a1b;color:#fff">Logout</button>
+    <button onclick="doLogout()" style="margin-left:auto;background:#0F0F0F;color:#fff">Logout</button>
   </div>
 
   <!-- BERITA -->
   <div id="panel-berita">
-    <div class="card"><h3>Tambah / Edit Berita</h3>
+    <div class="card"><h3>Tambah / Edit <span>Berita</span></h3>
       <label>Judul Berita</label><input id="bJudul" placeholder="Contoh: Rapat Anggota Tahunan KDMP">
       <label>Ringkasan</label><textarea id="bRingkasan" rows="3" placeholder="Ringkasan berita..."></textarea>
       <label>Kategori</label><input id="bKategori" placeholder="Informasi / Kegiatan">
@@ -63,24 +79,24 @@
       <button class="btn-red" onclick="saveBerita()">Simpan Berita</button>
       <button class="btn-white" onclick="resetBerita()">Batal Edit</button>
     </div>
-    <div class="card"><h3>Daftar Berita</h3><div id="listBerita"></div></div>
+    <div class="card"><h3>Daftar <span>Berita</span></h3><div id="listBerita"></div></div>
   </div>
 
   <!-- STRUKTUR -->
   <div id="panel-struktur" class="hidden">
-    <div class="card"><h3>Tambah / Edit Struktur Organisasi</h3>
+    <div class="card"><h3>Tambah / Edit <span>Struktur Organisasi</span></h3>
       <label>Nama</label><input id="sNama" placeholder="Contoh: Budi Santoso">
       <label>Jabatan</label><input id="sJabatan" placeholder="Contoh: Ketua / Bendahara / Sekretaris">
       <label>Deskripsi</label><textarea id="sDeskripsi" rows="2" placeholder="Deskripsi singkat..."></textarea>
       <button class="btn-red" onclick="saveStruktur()">Simpan Anggota</button>
       <button class="btn-white" onclick="resetStruktur()">Batal Edit</button>
     </div>
-    <div class="card"><h3>Daftar Struktur Organisasi</h3><div id="listStruktur"></div></div>
+    <div class="card"><h3>Daftar <span>Struktur Organisasi</span></h3><div id="listStruktur"></div></div>
   </div>
 
-  <!-- PRODUK - INI YANG PALING SERING LU PAKE BRE -->
+  <!-- PRODUK -->
   <div id="panel-produk" class="hidden">
-    <div class="card"><h3>Tambah / Edit Produk Gerai</h3>
+    <div class="card"><h3>Tambah / Edit <span>Produk Gerai</span></h3>
       <label>Nama Barang</label><input id="pNama" placeholder="Contoh: Beras 5 Kg / Minyak 1 Dus">
       <label>Masuk ke Kategori Mana?</label>
       <select id="pKategori">
@@ -93,10 +109,10 @@
       <label>Deskripsi</label><textarea id="pDeskripsi" rows="2" placeholder="Deskripsi produk..."></textarea>
       <button class="btn-red" onclick="saveProduk()">Simpan Produk</button>
       <button class="btn-white" onclick="resetProduk()">Batal Edit</button>
-      <p style="font-size:13px;color:#6b7280">Tips: Kalau mau ganti harga doang, klik tombol Edit di bawah, ganti harganya, terus klik Simpan Produk. Beres.</p>
+      <p style="font-size:13px;color:#777">Tips: Kalau mau ganti harga doang, klik tombol Edit di bawah, ganti harganya, terus klik Simpan Produk. Beres.</p>
     </div>
     <div class="card">
-      <h3>Daftar Produk Gerai</h3>
+      <h3>Daftar <span>Produk Gerai</span></h3>
       <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
         <button class="btn-white" onclick="filterProdukAdmin('semua')">Semua</button>
         <button class="btn-white" onclick="filterProdukAdmin('dapur')">🍳 Dapur</button>
@@ -108,13 +124,13 @@
 
   <!-- SETTING -->
   <div id="panel-setting" class="hidden">
-    <div class="card"><h3>Pengaturan Admin & WA Kasir</h3>
+    <div class="card"><h3>Pengaturan <span>Admin & WA Kasir</span></h3>
       <label>Username Baru</label><input id="setUser" value="admin">
       <label>Password Baru</label><input id="setPass" value="kdmp123">
       <label>Nomor WA Kasir (format 62...)</label><input id="setWA" value="6281234567890">
       <label>Nama Kasir</label><input id="setNamaKasir" value="Kasir KDMP Pendowo Asri">
       <button class="btn-green" onclick="saveSetting()">Simpan Pengaturan</button>
-      <p style="font-size:13px;color:#6b7280">Nomor WA ini yang dipakai untuk checkout belanja di website utama. Ganti di sini aja, gak perlu ngoding.</p>
+      <p style="font-size:13px;color:#777">Nomor WA ini yang dipakai untuk checkout belanja di website utama. Ganti di sini aja, gak perlu ngoding.</p>
     </div>
   </div>
 </div>
@@ -125,7 +141,6 @@
   function getSetting(){ try{ return JSON.parse(localStorage.getItem('kdmp_setting')) || {user:'admin',pass:'kdmp123',wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} }catch(e){ return {user:'admin',pass:'kdmp123',wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} } }
   let editIndex = -1, editType = '';
   let filterAdmin = 'semua';
-
   function doLogin(){
     const s = getSetting();
     const u = document.getElementById('userInput').value.trim();
