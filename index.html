@@ -2,71 +2,111 @@
 <html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KDMP Pendowo Asri</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f6f6f6;color:#222}
-header{background:#FFD500;padding:16px 12px;text-align:center;position:sticky;top:0;z-index:10}
-header h1{margin:0;font-size:22px;line-height:1.1}header p{margin:5px 0 0;font-size:12px}
-.hero{background:#111;color:#fff;padding:22px 16px;text-align:center}
-.hero h2{margin:0;font-size:22px}.hero p{font-size:13px;opacity:.8}
-.hero a{display:inline-block;background:#FFD500;color:#000;padding:11px 18px;border-radius:20px;text-decoration:none;font-weight:bold;margin-top:12px}
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#FFD500}
+.top{background:#fff;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;position:sticky;top:0;z-index:20;border-bottom:3px solid #E11D2E}
+.logo{display:flex;align-items:center;gap:6px}
+.logo .icon{font-size:32px}
+.logo b{font-size:20px;line-height:1}.logo span{color:#E11D2E;font-size:19px;font-weight:bold;line-height:1;display:block}
+.top-right{display:flex;align-items:center;gap:10px}
+.top-right a{color:#333;text-decoration:none;font-size:13px;text-align:center;line-height:1.2}
+.cart{background:#FF1E2D;color:#fff;border-radius:50%;width:56px;height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #b00}
 .wrap{padding:12px}
-.search input{width:100%;padding:13px;border-radius:12px;border:1px solid #ddd;font-size:16px}
-.tabs{display:flex;gap:8px;margin:12px 0}.tabs button{flex:1;padding:11px;border-radius:20px;border:1px solid #ddd;background:#fff}
-.tabs button.active{background:#000;color:#fff}
-.section{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px}
-.section h3{margin:0 0 10px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:#fff;border-radius:14px;padding:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.07)}
-.card .ic{font-size:44px}.card h4{font-size:14px;margin:8px 0 4px;min-height:36px}
-.card .stok{font-size:12px;color:#666}.card .harga{font-weight:bold;font-size:17px;margin:6px 0}
-.card a{display:block;background:#25D366;color:#fff;padding:10px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:14px}
-.berita-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
-.berita-item:last-child{border:0}.berita-item .tgl{background:#FFF3B0;border-radius:10px;padding:8px 10px;text-align:center;min-width:56px;font-weight:bold;font-size:12px}
-.struktur{display:flex;gap:10px;overflow:auto}.org{background:#FFFBCC;border-radius:12px;padding:12px;min-width:130px;text-align:center}
-.org b{display:block}.org span{font-size:12px;color:#666}
-footer{background:#111;color:#fff;padding:18px;text-align:center;font-size:13px;line-height:1.6}
-footer a{color:#FFD500}
+.hero h2{text-align:center;margin:6px 0 2px;font-size:28px}.hero h2 span{color:#E11D2E}
+.hero p{text-align:center;margin:0 0 12px;font-size:14px;color:#333}
+.toggle{background:#fff;border:2px solid #000;border-radius:30px;display:flex;padding:4px;overflow:hidden}
+.toggle button{flex:1;border:0;padding:12px;border-radius:24px;font-weight:bold;font-size:15px;background:transparent;cursor:pointer}
+.toggle button.active{background:#FF1E2D;color:#fff}
+.sub{text-align:center;font-size:13px;margin:12px 0;color:#333}
+.searchRow{display:flex;gap:8px}.searchRow input{flex:1;padding:13px;border-radius:30px;border:0;font-size:16px}
+.searchRow button{background:#FF1E2D;color:#fff;border:0;padding:0 22px;border-radius:30px;font-weight:bold;font-size:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.card{background:#fff;border:2px solid #E11D2E;border-radius:14px;padding:12px}
+.card .img{font-size:52px;text-align:center;height:80px;display:flex;align-items:center;justify-content:center}
+.card h4{margin:10px 0 6px;font-size:16px;min-height:36px}.card .harga{font-weight:bold;font-size:16px}.card .stok{font-size:13px;color:#999;margin:2px 0 8px}
+.card button{background:#FF1E2D;color:#fff;border:0;width:100%;padding:11px;border-radius:8px;font-weight:bold;font-size:15px}
+.cartBox{background:#fff;border:2px solid #000;border-radius:16px;padding:14px;margin-top:16px}
+.cartBox h3{margin:0;font-size:20px}.cartBox input{width:100%;padding:12px;border-radius:20px;border:1px solid #FFD1D1;background:#FFF5F5;margin:8px 0;font-size:15px}
+.cartBox .total{display:flex;justify-content:space-between;font-weight:bold;font-size:18px}
+.btnWA{background:#25D366;color:#fff;border:0;width:100%;padding:14px;border-radius:12px;font-weight:bold;font-size:16px;margin-top:8px}
+.section{background:#fff;border-radius:16px;padding:14px;margin-top:14px}
+.section h3{margin:0 0 8px}
+footer{background:#111;color:#fff;text-align:center;padding:14px;font-size:12px;margin-top:14px}
 </style></head><body>
-<header><h1>KDMP PENDOWO ASRI</h1><p>Koperasi Desa Merah Putih • Desa Pendowo Asri • Bandar Lampung</p></header>
-
-<div class="hero"><h2>Belanja Murah, Milik Warga Sendiri 🇮🇩</h2><p>Harga koperasi, bukan harga tengkulak. Stok update langsung dari pengurus.</p><a href="#produk">🛒 Lihat Produk</a></div>
-
-<div class="wrap">
-<div class="search"><input id="cari" placeholder="🔍 Cari produk... Beras, Minyak, Gula..." oninput="tampil()"></div>
-<div class="tabs"><button onclick="setKat('semua',this)" class="active">Semua</button><button onclick="setKat('dapur',this)">Dapur</button><button onclick="setKat('warung',this)">Warung</button><button onclick="setKat('lain',this)">Lainnya</button></div>
-
-<div class="section" id="produk"><h3>🛒 Produk Koperasi</h3><div id="list" class="grid"><p>Memuat produk...</p></div></div>
-
-<div class="section"><h3>📢 Berita & Pengumuman</h3><div id="beritaList"><p>Memuat berita...</p></div></div>
-
-<div class="section"><h3>👥 Struktur Pengurus</h3><div class="struktur" id="strukturList"></div><p style="font-size:12px;color:#666">Diambil dari tab Struktur di Sheets. Kalau mau ganti nama pengurus, ganti di Sheets aja.</p></div>
-
-<div class="section"><h3>📍 Lokasi & Jam Buka</h3><p>Balai Desa Pendowo Asri, Bandar Lampung<br>Senin - Sabtu: 08.00 - 17.00 WIB<br>Minggu: Tutup / Sesuai Pengumuman</p></div>
+<div class="top">
+<div class="logo"><div class="icon">🏪</div><div><b>KDMP</b></div><div><span>Pendowo<br>Asri</span></div></div>
+<div class="top-right"><a href="admin.html">Login<br>Admin</a><div class="cart" onclick="document.getElementById('keranjang').scrollIntoView({behavior:'smooth'})">🛒<span id="cartCount">0</span></div></div>
 </div>
 
-<footer>Koperasi Desa Merah Putih Pendowo Asri<br><a href="https://wa.me/6280000000000">Chat WhatsApp Pengurus</a> • <a href="admin.html">Login Admin</a><br>© 2026 KDMP Pendowo Asri</footer>
+<div class="wrap">
+<div class="hero"><h2>Penawaran <span>Terbaik</span></h2><p>Pilih mau belanja buat dapur atau buat stok warung kamu.</p></div>
+<div class="toggle"><button id="btnDapur" class="active" onclick="setKat('dapur',this)">🔍 Kebutuhan Dapur</button><button id="btnWarung" onclick="setKat('warung',this)">🏪 Stok Warung Kamu</button></div>
+<p class="sub" id="subText">Buat masak hari ini - harga ecer.</p>
+<div class="searchRow"><input id="cari" placeholder="Cari barang... contoh: Beras" oninput="tampil()"><button onclick="tampil()">Cari</button></div>
+
+<div id="list" class="grid"><p>Memuat produk...</p></div>
+
+<div class="cartBox" id="keranjang">
+<h3>🧺 Keranjang Kamu</h3>
+<div id="cartList"><p style="color:#999">Keranjang masih kosong.</p></div>
+<div class="total"><span>Total</span><span style="color:#E11D2E" id="cartTotal">Rp 0</span></div>
+<input id="namaPembeli" placeholder="Nama Kamu (Contoh: Ibu Ani)">
+<input id="alamatPembeli" placeholder="Alamat / Blok Rumah">
+<button class="btnWA" onclick="checkout()">Kirim Pesanan via WhatsApp</button>
+</div>
+
+<div class="section"><h3>📢 Berita & Pengumuman</h3><div id="beritaList">Memuat...</div></div>
+<div class="section"><h3>👥 Struktur Pengurus</h3><div id="strukturList">Memuat...</div></div>
+</div>
+<footer>KDMP Pendowo Asri • Koperasi Desa Merah Putih • Bandar Lampung<br><a href="admin.html" style="color:#FFD500">Login Admin</a></footer>
 
 <script>
-// === GANTI 3 LINK INI DENGAN LINK CSV SHEETS LU ===
-const CSV_PRODUK = "PASTE_LINK_CSV_TAB_PRODUK";
-const CSV_BERITA = "PASTE_LINK_CSV_TAB_BERITA";
-const CSV_STRUKTUR = "PASTE_LINK_CSV_TAB_STRUKTUR";
-let all=[]; let kat='semua';
-function icon(n){ n=n.toLowerCase(); if(n.includes('beras'))return '🍚'; if(n.includes('minyak'))return '🛢️'; if(n.includes('gula'))return '🍬'; if(n.includes('telur'))return '🥚'; if(n.includes('mie'))return '🍜'; if(n.includes('kopi'))return '☕'; if(n.includes('susu'))return '🥛'; return '🛒'; }
-async function getCSV(url){ try{ let r=await fetch(url); let t=await r.text(); return t.split('\n').slice(1).map(l=>l.split(',')); }catch(e){ return []; } }
-async function load(){
-  let p=await getCSV(CSV_PRODUK);
-  all=p.map(c=>({nama:c[0],harga:c[1],stok:c[2],kategori:(c[3]||'').toLowerCase()})).filter(x=>x.nama);
-  tampil();
-  let b=await getCSV(CSV_BERITA);
-  document.getElementById('beritaList').innerHTML=b.map(c=>`<div class="berita-item"><div class="tgl">${c[0]||'📌'}</div><div><b>${c[1]||''}</b><br><span style="font-size:13px;color:#555">${c[2]||''}</span></div></div>`).join('')||'<p>Belum ada berita.</p>';
-  let s=await getCSV(CSV_STRUKTUR);
-  document.getElementById('strukturList').innerHTML=s.map(c=>`<div class="org">👤<b>${c[0]||''}</b><span>${c[1]||''}</span><br><span>${c[2]||''}</span></div>`).join('')||'<p>Belum ada data.</p>';
+// === GANTI INI DOANG ===
+const SHEET_ID = "PASTE_ID_SHEETS_LU_DI_SINI";
+const WA_ADMIN = "6280000000000"; // ganti no WA lu
+
+let all=[]; let kat='dapur'; let cart={};
+function icon(n){ n=(n||'').toLowerCase(); if(n.includes('beras'))return '🍚'; if(n.includes('minyak'))return '🛢️'; if(n.includes('gula'))return '🍬'; if(n.includes('telur'))return '🥚'; if(n.includes('mie'))return '🍜'; if(n.includes('kopi'))return '☕'; if(n.includes('jam'))return '📦'; return '📦'; }
+async function bacaSheet(tab){
+  let url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${tab}`;
+  let r=await fetch(url); let t=await r.text();
+  let j=JSON.parse(t.substring(t.indexOf('{'), t.lastIndexOf('}')+1));
+  return j.table.rows.map(row=>row.c.map(c=>c?c.v:''));
 }
-function setKat(k,btn){ kat=k; document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active')); btn.classList.add('active'); tampil(); }
+async function load(){
+  try{
+    let p=await bacaSheet('Produk');
+    all=p.slice(1).map(c=>({nama:String(c[0]||''),harga:Number(String(c[1]||'0').replace(/[^0-9]/g,'')),stok:c[2],kategori:String(c[3]||'').toLowerCase()})).filter(x=>x.nama);
+    tampil();
+    let b=await bacaSheet('Berita');
+    document.getElementById('beritaList').innerHTML=b.slice(1).map(c=>`<div style="padding:8px 0;border-bottom:1px solid #eee"><b>${c[1]||''}</b><br><span style="font-size:13px;color:#555">${c[2]||''}</span></div>`).join('')||'Belum ada berita';
+    let s=await bacaSheet('Struktur');
+    document.getElementById('strukturList').innerHTML=s.slice(1).map(c=>`<div>👤 <b>${c[0]||''}</b> - ${c[1]||''}</div>`).join('')||'Belum ada data';
+  }catch(e){ document.getElementById('list').innerHTML='<p>Gagal load. Cek SHEET_ID & Share jadi Anyone with link - Viewer.</p>'; }
+}
+function setKat(k,btn){ kat=k; document.querySelectorAll('.toggle button').forEach(x=>x.classList.remove('active')); btn.classList.add('active'); document.getElementById('subText').innerText = k=='dapur' ? 'Buat masak hari ini - harga ecer.' : 'Buat jualan lagi - harga grosir.'; tampil(); }
 function tampil(){
   let q=document.getElementById('cari').value.toLowerCase();
-  let f=all.filter(x=>(kat=='semua'||x.kategori.includes(kat))&&x.nama.toLowerCase().includes(q));
-  document.getElementById('list').innerHTML=f.map(x=>`<div class="card"><div class="ic">${icon(x.nama)}</div><h4>${x.nama}</h4><div class="stok">Stok: ${x.stok}</div><div class="harga">Rp ${Number(x.harga).toLocaleString('id-ID')}</div><a href="https://wa.me/6280000000000?text=${encodeURIComponent('Halo saya mau pesan '+x.nama)}">Pesan via WhatsApp</a></div>`).join('')||'<p>Produk tidak ditemukan</p>';
+  let f=all.filter(x=>x.kategori.includes(kat) && x.nama.toLowerCase().includes(q));
+  if(all.length && !f.length && q=='') f=all.filter(x=>x.kategori.includes(kat));
+  document.getElementById('list').innerHTML=f.map(x=>`<div class="card"><div class="img">${icon(x.nama)}</div><h4>${x.nama}</h4><div class="harga">Rp ${x.harga.toLocaleString('id-ID')}</div><div class="stok">Stok: ${x.stok}</div><button onclick="addCart('${x.nama.replace(/'/g,'')} ',${x.harga})">+ Keranjang</button></div>`).join('')||'<p>Produk tidak ditemukan di kategori ini.</p>';
+}
+function addCart(nama,harga){ cart[nama]=cart[nama]||{harga,qty:0}; cart[nama].qty++; renderCart(); }
+function renderCart(){
+  let keys=Object.keys(cart); let total=0; let count=0;
+  document.getElementById('cartCount').innerText=count;
+  if(!keys.length){ document.getElementById('cartList').innerHTML='<p style="color:#999">Keranjang masih kosong.</p>'; }
+  else{
+    document.getElementById('cartList').innerHTML=keys.map(k=>{ let it=cart[k]; total+=it.harga*it.qty; count+=it.qty; return `<div style="display:flex;justify-content:space-between;padding:6px 0">${k} x ${it.qty} <b>Rp ${(it.harga*it.qty).toLocaleString('id-ID')}</b></div>` }).join('');
+  }
+  document.getElementById('cartCount').innerText=count;
+  document.getElementById('cartTotal').innerText='Rp '+total.toLocaleString('id-ID');
+}
+function checkout(){
+  let nama=document.getElementById('namaPembeli').value; let alamat=document.getElementById('alamatPembeli').value;
+  if(!Object.keys(cart).length) return alert('Keranjang masih kosong bre!');
+  if(!nama) return alert('Isi nama dulu!');
+  let pesan=`Halo KDMP, saya mau pesan:\n`+Object.keys(cart).map(k=>`- ${k} x ${cart[k].qty} = Rp ${(cart[k].harga*cart[k].qty).toLocaleString('id-ID')}`).join('\n')+`\nTotal: ${document.getElementById('cartTotal').innerText}\nNama: ${nama}\nAlamat: ${alamat}`;
+  window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(pesan)}`,'_blank');
 }
 load();
 </script></body></html>
