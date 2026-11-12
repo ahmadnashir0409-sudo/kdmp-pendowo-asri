@@ -20,6 +20,9 @@
   .hero h1{font-size:32px;line-height:1.1;margin:10px 0 8px;letter-spacing:-.8px;font-weight:900}
   .hero h1 span{background:linear-gradient(90deg,#FF0A2A,#FF7A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
   .hero p{color:#666;line-height:1.5;font-size:14px;margin:0}
+  .hero-gedung{position:relative;border-radius:20px;overflow:hidden;margin-top:16px;border:2px solid #FFE1E5}
+  .hero-gedung img{width:100%;display:block;height:300px;object-fit:cover}
+  .hero-gedung .overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));display:flex;align-items:flex-end;padding:16px;color:#fff;text-align:left}
   .section{max-width:1100px;margin:0 auto;padding:20px 14px}
   .section h2{font-size:22px;margin:0 0 4px;font-weight:900} .section h2 span{color:#FF0A2A}
   .section p.sub{color:#777;margin:0 0 14px;font-size:13px}
@@ -34,7 +37,6 @@
   .tabs button.active{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff}
   .search-row{display:flex;gap:8px;max-width:680px;margin:12px auto 16px}
   .search-row input{border-radius:999px;padding:12px 16px} .search-row button{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;border:0;border-radius:999px;padding:0 20px;font-weight:900;cursor:pointer}
-  /* PRODUK 3 SEJAJAR + FOTO */
   .produk-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
   .produk-card{background:#fff;border:1px solid #EEE;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
   .produk-img{background:linear-gradient(180deg,#FFF0F1,#FFFFFF);height:150px;display:flex;align-items:center;justify-content:center;font-size:62px;overflow:hidden}
@@ -51,18 +53,25 @@
   .cart-item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px dashed #FFE1E5;font-size:14px}
   footer{background:#0F0F0F;color:#D1D5DB;padding:28px 14px;margin-top:20px}
   .hidden{display:none}
+  .peta-box{background:#FEE2E2;border:2px solid #FECACA;border-radius:20px;padding:18px;text-align:center}
+  .peta-box img{width:100%;max-width:800px;border-radius:12px;border:3px dashed #DC2626;display:block;margin:12px auto}
   @media(max-width:820px){
     .menu{display:none} .grid-3{grid-template-columns:1fr} .hero h1{font-size:28px}
     .produk-grid{grid-template-columns:repeat(3,1fr);gap:8px}
     .produk-img{height:105px;font-size:44px}
     .produk-body{padding:8px} .produk-body h3{font-size:12px;min-height:32px} .produk-body .harga{font-size:13px}
     .btn-keranjang{padding:8px 4px;font-size:12px}
+    .hero-gedung img{height:200px}
   }
 </style>
 </head>
 <body>
-<header><div class="nav"><a href="#" class="logo">KDMP <span>Pendowo Asri</span></a><nav class="menu"><a href="#berita">Berita</a><a href="#struktur">Struktur</a><a href="#belanja">Belanja</a></nav><div style="display:flex;gap:8px;align-items:center"><a href="admin.html" style="font-size:12px;font-weight:700;color:#777">Login Admin</a><button class="btn-red" onclick="document.getElementById('belanja').scrollIntoView({behavior:'smooth'})">🛒 <span id="cartCount">0</span></button></div></div></header>
-<div class="hero"><span class="hero-badge">✦ KOPERASI DESA MERAH PUTIH • FUTURE READY</span><h1>Koperasi Milik Warga, <span>Untuk Warga.</span></h1><p>Belanja kebutuhan harian lebih mudah, harga transparan, keuntungan kembali ke warga.</p></div>
+<header><div class="nav"><a href="#" class="logo"><img src="logo%20kpdes%20png.png" alt="Logo">KDMP <span>Pendowo Asri</span></a><nav class="menu"><a href="#berita">Berita</a><a href="#struktur">Struktur</a><a href="#belanja">Belanja</a><a href="#peta">Peta</a></nav><div style="display:flex;gap:8px;align-items:center"><a href="admin.html" style="font-size:12px;font-weight:700;color:#777">Login Admin</a><button class="btn-red" onclick="document.getElementById('belanja').scrollIntoView({behavior:'smooth'})">🛒 <span id="cartCount">0</span></button></div></div></header>
+
+<div class="hero"><span class="hero-badge">✦ KOPERASI DESA MERAH PUTIH • PENDOWO ASRI</span><h1>Koperasi Milik Warga, <span>Untuk Warga.</span></h1><p>Belanja kebutuhan harian lebih mudah, harga transparan, keuntungan kembali ke warga.</p>
+<div class="hero-gedung"><img src="gedung%20kdmp.jpg" alt="Gedung KDMP Pendowo Asri"><div class="overlay"><div><b style="font-size:18px">Gerai Asli KDMP Pendowo Asri</b><br><span style="font-size:13px">Kampung Pendowo Asri, Kec. Dente Teladas, Kab. Tulang Bawang, Lampung</span></div></div></div>
+</div>
+
 <div class="section" id="berita"><h2>📰 Berita <span>& Informasi</span></h2><p class="sub">Update terbaru dari pengurus koperasi.</p><div id="beritaList" class="grid-3"></div></div>
 <div class="section" id="struktur"><h2>👥 Struktur <span>Organisasi</span></h2><p class="sub">Pengurus KDMP Pendowo Asri.</p><div id="strukturList" class="grid-3"></div></div>
 <div class="section" id="belanja">
@@ -74,7 +83,24 @@
   <p id="produkKosong" class="hidden" style="text-align:center;color:#777;padding:20px">Barang gak ketemu, coba kata lain bre!</p>
   <div class="cart-box"><h3 style="margin:0 0 8px">🧺 Keranjang Kamu</h3><div id="cartList"><p style="color:#777;font-size:14px">Keranjang masih kosong.</p></div><div style="display:flex;justify-content:space-between;font-weight:900;margin-top:12px"><span>Total</span><span id="cartTotal" style="color:#FF0A2A">Rp 0</span></div><input id="namaPembeli" placeholder="Nama Kamu (Contoh: Ibu Ani)" style="margin-top:12px"><input id="alamatPembeli" placeholder="Alamat / Blok Rumah" style="margin-top:8px"><button class="btn-red" style="width:100%;padding:14px;margin-top:12px;font-size:15px" onclick="checkoutWA()">Checkout via WhatsApp →</button></div>
 </div>
-<div class="section"><div class="card"><b>KDMP Pendowo Asri</b><p>Desa Pendowo Asri, Kec. Dente Teladas, Kab. Tulang Bawang, Lampung<br>Jam Buka: Senin - Sabtu, 08.00 - 17.00 WIB<br>WA Kasir: <span id="waDisplay">0812-3456-7890</span></p></div></div>
+
+<div class="section" id="peta">
+  <div class="peta-box">
+    <h2 style="margin:0">📍 Peta Wilayah Kampung Pendowo Asri</h2>
+    <p style="color:#555;font-size:13px">Peta wilayah administratif Kampung Pendowo Asri untuk memudahkan distribusi dan layanan kepada seluruh warga.</p>
+    <img src="peta.jpg" alt="Peta Kampung Pendowo Asri">
+    <div style="background:#fff;padding:12px;border-radius:12px;text-align:left;font-size:13px;line-height:1.6;color:#333">
+      <b>Kawasan ini merupakan wilayah layanan Koperasi Merah Putih Kampung Pendowo Asri.</b><br>
+      Semua pesanan akan diantar sesuai alamat di dalam area peta di atas.
+    </div>
+    <p style="font-size:13px;margin:12px 0 0">Kampung Pendowo Asri, Kec. Dente Teladas, Kab. Tulang Bawang, Lampung</p>
+  </div>
+  <div class="card" style="margin-top:12px;display:flex;gap:12px;align-items:center">
+    <img src="gedung%20kdmp%202.jpg" style="width:110px;height:80px;object-fit:cover;border-radius:10px" alt="Gerai KDMP">
+    <div><b>Gerai KDMP Pendowo Asri</b><p>Ini foto gerai kita yang asli, yang ada tulisan KOPERASI MERAH PUTIH nya.<br>Jam Buka: Senin - Sabtu, 08.00 - 17.00 WIB<br>WA Kasir: <span id="waDisplay">-</span></p></div>
+  </div>
+</div>
+
 <footer><div style="max-width:1100px;margin:0 auto"><b style="color:#fff">KDMP Pendowo Asri</b><p style="font-size:13px">Koperasi Desa Merah Putih - Dari Warga, Oleh Warga, Untuk Warga.</p><p style="font-size:12px;color:#888">© 2026 KDMP Pendowo Asri</p></div></footer>
 <script>
   let produkDefault = [
@@ -86,7 +112,7 @@
     {nama:'Minyak Goreng 1 Dus',kategori:'warung',harga:198000,stok:8,emoji:'🧴',deskripsi:'1 Dus 12 pcs',foto:''}
   ];
   function getData(k){ try{ return JSON.parse(localStorage.getItem(k))||[] }catch(e){ return [] } }
-  function getSetting(){ try{ return JSON.parse(localStorage.getItem('kdmp_setting'))||{wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} }catch(e){ return {wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} } }
+  function getSetting(){ try{ return JSON.parse(localStorage.getItem('kdmp_setting'))||{wa:'',kasir:'Kasir KDMP Pendowo Asri'} }catch(e){ return {wa:'',kasir:'Kasir KDMP Pendowo Asri'} } }
   let kategoriAktif='dapur'; let cart={};
   function getProduk(){ const d=getData('kdmp_produk'); return d.length?d:produkDefault; }
   function setKategori(k){ kategoriAktif=k; document.getElementById('btnDapur').classList.toggle('active',k==='dapur'); document.getElementById('btnWarung').classList.toggle('active',k==='warung'); document.getElementById('kategoriDesc').textContent=k==='dapur'?'Buat masak hari ini - harga ecer.':'Buat jualan lagi - harga grosir / dus.'; renderProduk(); }
@@ -107,10 +133,10 @@
   function ubahQty(idx,delta){ const p=getProduk()[idx]; let q=(cart[idx]||0)+delta; if(q<0)q=0; if(q>p.stok)q=p.stok; if(q===0)delete cart[idx]; else cart[idx]=q; renderProduk(); renderCart(); }
   function tambahKeranjang(idx){ const p=getProduk()[idx]; if((cart[idx]||0)>=p.stok) return alert('Stok habis bre!'); cart[idx]=(cart[idx]||0)+1; renderProduk(); renderCart(); }
   function renderCart(){ const list=getProduk(); let total=0,count=0,html=''; Object.keys(cart).forEach(k=>{ const p=list[k]; const q=cart[k]; const sub=p.harga*q; total+=sub; count+=q; html+=`<div class="cart-item"><span>${p.emoji} ${p.nama} x ${q}</span><b>${formatRp(sub)}</b></div>` }); document.getElementById('cartList').innerHTML=html||'<p style="color:#777;font-size:14px">Keranjang masih kosong.</p>'; document.getElementById('cartTotal').textContent=formatRp(total); document.getElementById('cartCount').textContent=count; }
-  function checkoutWA(){ if(Object.keys(cart).length===0) return alert('Keranjang masih kosong bre!'); const nama=document.getElementById('namaPembeli').value||'Warga'; const alamat=document.getElementById('alamatPembeli').value||'-'; const s=getSetting(); let pesan=`Halo ${s.kasir}! Saya mau pesan dari KDMP:%0A%0A`; let total=0; Object.keys(cart).forEach(k=>{ const p=getProduk()[k]; const q=cart[k]; total+=p.harga*q; pesan+=`- ${p.nama} x ${q} = ${formatRp(p.harga*q)}%0A` }); pesan+=`%0ATotal: ${formatRp(total)}%0ANama: ${nama}%0AAlamat: ${alamat}`; window.open(`https://wa.me/${s.wa}?text=${pesan}`,'_blank'); }
+  function checkoutWA(){ if(Object.keys(cart).length===0) return alert('Keranjang masih kosong bre!'); const nama=document.getElementById('namaPembeli').value||'Warga'; const alamat=document.getElementById('alamatPembeli').value||'-'; const s=getSetting(); if(!s.wa) return alert('WA kasir belum diatur di Admin, bre!'); let pesan=`Halo ${s.kasir}! Saya mau pesan dari KDMP:%0A%0A`; let total=0; Object.keys(cart).forEach(k=>{ const p=getProduk()[k]; const q=cart[k]; total+=p.harga*q; pesan+=`- ${p.nama} x ${q} = ${formatRp(p.harga*q)}%0A` }); pesan+=`%0ATotal: ${formatRp(total)}%0ANama: ${nama}%0AAlamat: ${alamat}`; window.open(`https://wa.me/${s.wa}?text=${pesan}`,'_blank'); }
   function renderBerita(){ const d=getData('kdmp_berita'); const el=document.getElementById('beritaList'); if(!d.length){ el.innerHTML=`<div class="card"><span class="badge">Informasi</span><b>Selamat Datang di KDMP</b><p>Koperasi Desa Merah Putih resmi hadir untuk warga.</p></div><div class="card"><span class="badge">Kegiatan</span><b>Gerai Sudah Buka</b><p>Gerai sudah buka setiap hari.</p></div><div class="card"><span class="badge">Pengumuman</span><b>Yuk Jadi Anggota</b><p>Daftar jadi anggota untuk dapat SHU.</p></div>`; return; } el.innerHTML=d.map(x=>`<div class="card"><span class="badge">${x.kategori||'Berita'}</span><b>${x.judul}</b><p>${x.ringkasan||''}</p></div>`).join(''); }
   function renderStruktur(){ const d=getData('kdmp_struktur'); const el=document.getElementById('strukturList'); if(!d.length){ el.innerHTML=`<div class="card"><b>Ketua</b><p>Ketua KDMP</p></div><div class="card"><b>Sekretaris</b><p>Sekretaris KDMP</p></div><div class="card"><b>Bendahara</b><p>Bendahara KDMP</p></div>`; return; } el.innerHTML=d.map(x=>`<div class="card"><b>${x.nama}</b><p>${x.jabatan}<br>${x.deskripsi||''}</p></div>`).join(''); }
-  renderBerita(); renderStruktur(); renderProduk(); renderCart(); document.getElementById('waDisplay').textContent=getSetting().wa;
+  renderBerita(); renderStruktur(); renderProduk(); renderCart(); document.getElementById('waDisplay').textContent=getSetting().wa || 'Belum diatur - atur di Admin';
 </script>
 </body>
 </html>
