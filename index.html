@@ -1,409 +1,240 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#b91c2c">
-  <meta name="description" content="Website resmi KDMP Pendowo Asri. Informasi koperasi, berita, kegiatan, dan pelayanan anggota.">
-  <title>KDMP Pendowo Asri | Koperasi Merah Putih</title>
-  <style>
-    :root { --red: #b91c2c; --dark: #781521; --light: #fff5f5; --ink: #252525; --muted: #6b7280; --white: #ffffff; }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); line-height: 1.65; background: #fff; }
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(1180px, calc(100% - 56px)); margin: 0 auto; }
-    header { background: white; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #eee; }
-    .navbar { display: flex; justify-content: space-between; align-items: center; min-height: 88px; gap: 32px; padding: 12px 0; }
-    .brand { display: flex; align-items: center; gap: 14px; }
-    .logo { width: 52px; height: 52px; border-radius: 14px; background: var(--red); color: white; display: grid; place-items: center; font-size: 23px; font-weight: 800; flex-shrink: 0; overflow: hidden; }
-    .brand-text strong { display: block; font-size: 17px; line-height: 1.2; }
-    .brand-text small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
-    nav { display: flex; gap: 24px; align-items: center; }
-    nav a { font-size: 14px; font-weight: 700; white-space: nowrap; }
-    nav a:hover { color: var(--red); }
-    .menu-btn { display: none; border: 0; background: var(--light); color: var(--red); padding: 9px 12px; border-radius: 8px; font-size: 20px; }
-    .hero { background: linear-gradient(rgba(255,255,255,0.82), rgba(255,255,255,0.82)), url('gedung%20kdmp.jpg') center/cover no-repeat; color: #8f1725; padding: 88px 0 96px; overflow: hidden; position: relative; }
-    .hero:after { content: ""; position: absolute; width: 340px; height: 340px; border: 55px solid #ffffff12; border-radius: 50%; right: -90px; top: -100px; }
-    .hero-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: 48px; align-items: center; position: relative; z-index: 1; }
-    .eyebrow { display: inline-block; background: #ffe3e5; color: var(--red); padding: 8px 16px; border-radius: 30px; font-size: 12px; font-weight: 800; letter-spacing: .5px; }
-    h1 { font-size: clamp(34px, 5vw, 55px); line-height: 1.15; margin: 22px 0 16px; color: #781521; }
-    .hero p { max-width: 600px; color: #4b1a1e; font-size: 16px; }
-    .buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
-    .btn { display: inline-block; padding: 13px 22px; border-radius: 10px; font-weight: 700; font-size: 14px; border: 1px solid transparent; }
-    .btn-white { background: var(--red); color: white; }
-    .btn-outline { border-color: var(--red); color: var(--red); background: white; }
-    .hero-card { background: white; color: var(--ink); border-radius: 22px; padding: 28px; box-shadow: 0 20px 50px #4a071c30; }
-    .hero-symbol { height: 125px; display: grid; place-items: center; border-radius: 16px; background: var(--light); font-size: 64px; margin-bottom: 20px; }
-    .hero-card h3 { margin: 0 0 6px; color: var(--dark); }
-    .hero-card p { color: var(--muted); font-size: 14px; margin: 0; }
-    .stats { background: white; margin-top: -1px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #f0dddd; border-radius: 16px; transform: translateY(-22px); background: white; box-shadow: 0 12px 30px rgba(103, 18, 26, 0.08); overflow: hidden; }
-    .stat { padding: 25px 18px; text-align: center; }
-    .stat:not(:last-child) { border-right: 1px solid #f0dddd; }
-    .stat strong { display: block; color: #b91c2c; font-size: 19px; margin-bottom: 7px; }
-    .stat span { display: block; color: #6b7280; font-size: 13px; }
-    section { padding: 66px 0; }
-    .soft { background: #fff8f8; }
-    .section-head { max-width: 680px; margin: 0 auto 32px; text-align: center; }
-    .section-head span { color: var(--red); text-transform: uppercase; font-weight: 800; font-size: 12px; letter-spacing: 1.4px; }
-    h2 { font-size: clamp(27px, 3vw, 36px); line-height: 1.2; margin: 8px 0 12px; }
-    .section-head p { color: var(--muted); margin: 0; }
-    .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; align-items: center; padding-top: 30px; padding-bottom: 30px; }
-    .about-panel { background: linear-gradient(135deg, #b91c2c, #781521); color: white; padding: 38px; border-radius: 22px; min-height: 280px; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 15px 35px rgba(120, 21, 33, 0.18); position: relative; overflow: hidden; }
-    .about-panel h3 { font-size: 24px; line-height: 1.4; margin-bottom: 12px; }
-    .about-panel p { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.9); }
-    .about-panel .big { font-size: 48px; margin-bottom: 15px; }
-    .feature-list { padding: 0; list-style: none; }
-    .feature-list li { padding: 10px 0; border-bottom: 1px solid #eee; }
-    .feature-list li:before { content: "✓"; color: var(--red); font-weight: 900; margin-right: 10px; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .card { border: 1px solid #f0e5e5; border-radius: 15px; overflow: hidden; background: white; box-shadow: 0 7px 22px #54101608; }
-    #newsList { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    #newsList .card { border-radius: 18px; box-shadow: 0 10px 28px rgba(84, 16, 22, 0.09); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    #newsList .card:hover { transform: translateY(-5px); box-shadow: 0 15px 32px rgba(84, 16, 22, 0.14); }
-    .card-image { height: 150px; display: grid; place-items: center; background: linear-gradient(135deg, #fff0f0, #fbd9dc); font-size: 43px; color: var(--red); }
-    .card-body { padding: 19px; }
-    .tag { display: inline-block; padding: 4px 9px; border-radius: 30px; background: #fff0f0; color: var(--red); font-size: 11px; font-weight: 800; }
-    .card h3 { font-size: 18px; line-height: 1.35; margin: 12px 0 8px; }
-    .card p { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
-    .meta { color: var(--muted); font-size: 12px; }
-    .empty { color: var(--muted); text-align: center; padding: 25px; grid-column: 1/-1; }
-    .team-card { text-align: center; padding: 25px 18px; }
-    .avatar { width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 15px; background: #ffe3e5; color: var(--red); font-size: 30px; }
-    .team-card h3 { margin: 5px 0; }
-    .team-card p { margin: 0; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-    .contact-box { padding: 26px; border-radius: 16px; background: white; border: 1px solid #f0e5e5; }
-    .contact-box h3 { margin-top: 0; }
-    .contact-line { padding: 9px 0; border-bottom: 1px solid #f1eeee; }
-    .contact-line strong { color: var(--red); display: block; font-size: 12px; }
-    footer { background: #241a1b; color: white; padding: 30px 0; }
-    .footer-row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-    footer p { margin: 4px 0; color: #d7c9ca; font-size: 13px; }
-    .notice { font-size: 12px; color: var(--muted); margin-top: 20px; text-align: center; }
-    /* BELANJA 2 TAB - KAYAK DI FOTO LU */
-    .shop-tabs { display: flex; gap: 0; max-width: 640px; margin: 0 auto 10px; background: #fff; border: 1px solid #f0dddd; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 16px rgba(84,16,22,.06); }
-    .shop-tabs button { flex: 1; padding: 15px 10px; border: 0; background: #fff; font-weight: 800; font-size: 14px; cursor: pointer; color: #252525; }
-    .shop-tabs button.active { background: #ffe3e5; color: #b91c2c; border-bottom: 3px solid #b91c2c; }
-    .qty-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid #ddd; background: #fff; font-size: 18px; cursor: pointer; }
-    .qty-btn.plus { border: 0; background: var(--red); color: #fff; }
-    .cart-box { background: #fff; border: 1px solid #f0dddd; border-radius: 18px; padding: 24px; margin-top: 28px; box-shadow: 0 10px 28px rgba(84,16,22,.08); }
-    .input-line { padding: 12px; border-radius: 10px; border: 1px solid #e5e7eb; width: 100%; font-size: 14px; }
-    @media (max-width: 900px) { nav { gap: 18px; } .brand-text small { display: none; } }
-    @media (max-width: 760px) {
-      .menu-btn { display: block; }
-      nav { display: none; position: absolute; left: 0; right: 0; top: 88px; background: white; padding: 18px 5%; border-bottom: 1px solid #eee; flex-direction: column; align-items: flex-start; gap: 16px; }
-      nav.open { display: flex; }
-      .hero { padding: 55px 0 60px; }
-      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
-      .hero-card { max-width: 430px; }
-      .cards { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .stat + .stat { border-top: 1px solid #f3e5e5; border-right: none; }
-      section { padding: 48px 0; }
-      .shop-tabs button { font-size: 12px; padding: 13px 6px; }
-    }
-    @media (max-width: 600px) { .stats-grid { grid-template-columns: 1fr; } .stat { padding: 18px; } .stat:not(:last-child) { border-right: none; border-bottom: 1px solid #f0dddd; } }
-    @media (max-width: 768px) { #newsList { grid-template-columns: repeat(2, 1fr); } .about-grid { grid-template-columns: 1fr; gap: 28px; } }
-    @media (max-width: 520px) { #newsList { grid-template-columns: 1fr; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - KDMP Pendowo Asri</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#FFFFFF;color:#0F0F0F;-webkit-font-smoothing:antialiased}
+  header{background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid #FFE1E5;color:#0F0F0F;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:20}
+  header a{color:#FF0A2A;text-decoration:none;font-weight:900}
+  header b{letter-spacing:-.3px}
+  header b span{color:#FF0A2A}
+  #adminName{font-size:13px;font-weight:800;background:#FFF0F1;color:#FF0A2A;padding:6px 12px;border-radius:999px;border:1px solid #FFD6DB}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+  .card{background:#fff;border:1.5px solid #FFE1E5;border-radius:22px;padding:22px;margin-bottom:18px;box-shadow:0 8px 24px rgba(255,10,42,.06)}
+  .card h3{margin:0 0 14px;font-size:18px;letter-spacing:-.3px;font-weight:900}
+  .card h3 span{color:#FF0A2A}
+  input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid #FFE1E5;border-radius:14px;margin:6px 0 12px;font-size:14px;font-family:inherit;background:#FFF5F6;outline:none;color:#0F0F0F}
+  input:focus,textarea:focus,select:focus{border-color:#FF0A2A;box-shadow:0 0 0 4px rgba(255,10,42,.12);background:#fff}
+  button{padding:11px 18px;border:0;border-radius:999px;font-weight:800;cursor:pointer;transition:.2s}
+  button:active{transform:scale(.97)}
+  .btn-red{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;box-shadow:0 8px 18px rgba(255,10,42,.32)}
+  .btn-white{background:#fff;border:1.5px solid #FFE1E5;color:#333}
+  .btn-green{background:linear-gradient(135deg,#00C853,#00E676);color:#fff;box-shadow:0 8px 18px rgba(0,200,83,.28)}
+  .btn-small{padding:8px 12px;font-size:12px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;background:#fff;border:1.5px solid #FFE1E5;border-radius:999px;padding:5px;box-shadow:0 6px 18px rgba(255,10,42,.06)}
+  .tabs button{background:transparent;border:0;color:#555}
+  .tabs button.active{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;box-shadow:0 6px 14px rgba(255,10,42,.32)}
+  .item{border:1px solid #FFE1E5;border-radius:16px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;background:#fff}
+  .item b{display:block} .item small{color:#777}
+  .hidden{display:none}
+  .login-box{max-width:420px;margin:50px auto;background:#fff;padding:28px;border-radius:24px;box-shadow:0 0 0 1px #FFE1E5,0 20px 50px rgba(255,10,42,.15);border:1px solid #FFE1E5}
+  .login-box h2{margin:0 0 6px;color:#FF0A2A;font-size:26px;letter-spacing:-.6px;font-weight:900}
+  .login-box p{color:#777;font-size:13px}
+  .login-badge{display:inline-block;background:#FFF0F1;color:#FF0A2A;padding:6px 11px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.8px;border:1px solid #FFD6DB;margin-bottom:12px}
+  .badge{display:inline-block;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:900;background:#FFF0F1;color:#FF0A2A;border:1px solid #FFD6DB}
+  .badge.warung{background:#FFF7ED;color:#EA580C;border-color:#FED7AA}
+  label{font-size:13px;font-weight:800;color:#333}
+  .welcome{background:linear-gradient(135deg,#FF0A2A,#FF7A00);color:#fff;border-radius:18px;padding:16px 18px;margin-bottom:18px;box-shadow:0 12px 28px rgba(255,10,42,.28);font-size:14px;line-height:1.5}
+  .welcome b{color:#fff}
+
+  /* === PRODUK ADMIN JADI 3 KOLOM SEJAJAR KAYAK ALFAGIFT - INI EDITAN BARUNYA BRE === */
+  .produk-admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .produk-admin-card{background:#fff;border:1px solid #EEE;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  .produk-admin-img{background:linear-gradient(180deg,#FFF0F1,#FFFFFF);height:110px;display:flex;align-items:center;justify-content:center;font-size:52px}
+  .produk-admin-body{padding:10px;display:flex;flex-direction:column;gap:5px;flex:1}
+  .produk-admin-body h4{margin:0;font-size:13px;line-height:1.35;min-height:34px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:700;color:#222}
+  .produk-admin-body .harga-admin{font-size:14px;font-weight:900;color:#FF0A2A}
+  .produk-admin-body small{font-size:11px;color:#888}
+  .produk-admin-btns{display:flex;gap:6px;margin-top:auto}
+  .produk-admin-btns button{flex:1;padding:8px 4px;font-size:12px}
+
+  @media(max-width:600px){
+    .tabs{border-radius:18px} .tabs button{flex:1 1 40%;font-size:12px} .item{flex-direction:column;align-items:flex-start}
+    .produk-admin-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+    .produk-admin-img{height:85px;font-size:38px}
+    .produk-admin-body{padding:8px}
+    .produk-admin-body h4{font-size:11px;min-height:30px}
+    .produk-admin-body .harga-admin{font-size:12px}
+    .produk-admin-btns{flex-direction:column}
+    .produk-admin-btns button{width:100%}
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="container navbar">
-      <a class="brand" href="#beranda">
-        <div class="logo"><img src="logo%20kpdes%20png.png" alt="Logo KDMP Pendowo Asri" style="width:100%;height:100%;object-fit:contain;border-radius:14px;"></div>
-        <span class="brand-text"><strong>KDMP Pendowo Asri</strong><small>Koperasi Desa Merah Putih</small></span>
-      </a>
-      <button class="menu-btn" id="menuBtn" aria-label="Buka menu">☰</button>
-      <nav id="nav">
-        <a href="#beranda">Beranda</a>
-        <a href="#profil">Profil</a>
-        <a href="#berita">Berita</a>
-        <a href="#kegiatan">Kegiatan</a>
-        <a href="#tim">Tim Kami</a>
-        <a href="#belanja">Belanja</a>
-        <a href="#kontak">Kontak</a>
-        <a href="admin.html">Login Admin</a>
-      </nav>
+<header><a href="index.html">← Balik ke Website</a><b>Dashboard Admin <span>KDMP</span></b><span id="adminName"></span></header>
+
+<!-- LOGIN -->
+<div id="loginPage" class="wrap">
+  <div class="login-box">
+    <span class="login-badge">✦ KDMP FUTURE READY</span>
+    <h2>Login Admin</h2>
+    <p>Login untuk update Berita, Struktur & Produk Gerai</p>
+    <label>Username</label><input id="userInput" placeholder="admin" value="admin">
+    <label>Password</label><input id="passInput" type="password" placeholder="kdmp123" value="kdmp123">
+    <button class="btn-red" style="width:100%;padding:14px;font-size:15px" onclick="doLogin()">Masuk Dashboard →</button>
+    <p id="loginMsg" style="color:#FF0A2A;text-align:center;font-weight:700"></p>
+    <p style="text-align:center;background:#FFF5F6;padding:12px;border-radius:14px;font-size:13px;border:1px solid #FFE1E5">Default: <b style="color:#FF0A2A">admin</b> / <b style="color:#FF0A2A">kdmp123</b><br>Ganti di menu Pengaturan setelah login</p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashPage" class="wrap hidden">
+  <div class="welcome">👋 Halo Admin! Di sini lu bisa <b>input stok, ganti harga, nambah barang baru</b>, semua langsung muncul di website utama. Gak perlu ngoding lagi.</div>
+  <div class="tabs">
+    <button id="tabBerita" class="active" onclick="showTab('berita')">📰 Berita</button>
+    <button id="tabStruktur" onclick="showTab('struktur')">👥 Struktur Organisasi</button>
+    <button id="tabProduk" onclick="showTab('produk')">🛒 Produk Gerai</button>
+    <button id="tabSetting" onclick="showTab('setting')">⚙️ Pengaturan</button>
+    <button onclick="doLogout()" style="margin-left:auto;background:#0F0F0F;color:#fff">Logout</button>
+  </div>
+
+  <!-- BERITA -->
+  <div id="panel-berita">
+    <div class="card"><h3>Tambah / Edit <span>Berita</span></h3>
+      <label>Judul Berita</label><input id="bJudul" placeholder="Contoh: Rapat Anggota Tahunan KDMP">
+      <label>Ringkasan</label><textarea id="bRingkasan" rows="3" placeholder="Ringkasan berita..."></textarea>
+      <label>Kategori</label><input id="bKategori" placeholder="Informasi / Kegiatan">
+      <label>Tanggal</label><input id="bTanggal" type="date">
+      <button class="btn-red" onclick="saveBerita()">Simpan Berita</button>
+      <button class="btn-white" onclick="resetBerita()">Batal Edit</button>
     </div>
-  </header>
+    <div class="card"><h3>Daftar <span>Berita</span></h3><div id="listBerita"></div></div>
+  </div>
 
-  <main>
-    <section class="hero" id="beranda">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">BERSAMA MEMBANGUN DESA</span>
-          <h1>Koperasi Kuat,<br>Desa Lebih Sejahtera.</h1>
-          <p>Selamat datang di website KDMP Pendowo Asri. Media informasi koperasi untuk mendukung pelayanan, transparansi, dan kemajuan ekonomi masyarakat desa.</p>
-          <div class="buttons">
-            <a class="btn btn-white" href="#profil">Kenali Koperasi Kami</a>
-            <a class="btn btn-outline" href="#belanja">Belanja di Gerai 🛒</a>
-          </div>
-        </div>
-        <div class="hero-card">
-          <div class="hero-symbol">🏘️</div>
-          <h3>KDMP Pendowo Asri</h3>
-          <p>Koperasi Desa Merah Putih yang amanah, aktif, dan bermanfaat untuk kesejahteraan bersama.</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="stats">
-      <div class="container stats-grid">
-        <div class="stat"><strong>Kebersamaan</strong><span>Bergerak bersama anggota</span></div>
-        <div class="stat"><strong>Transparansi</strong><span>Informasi yang mudah diakses</span></div>
-        <div class="stat"><strong>Pelayanan</strong><span>Mengutamakan kebutuhan anggota</span></div>
-      </div>
+  <!-- STRUKTUR -->
+  <div id="panel-struktur" class="hidden">
+    <div class="card"><h3>Tambah / Edit <span>Struktur Organisasi</span></h3>
+      <label>Nama</label><input id="sNama" placeholder="Contoh: Budi Santoso">
+      <label>Jabatan</label><input id="sJabatan" placeholder="Contoh: Ketua / Bendahara / Sekretaris">
+      <label>Deskripsi</label><textarea id="sDeskripsi" rows="2" placeholder="Deskripsi singkat..."></textarea>
+      <button class="btn-red" onclick="saveStruktur()">Simpan Anggota</button>
+      <button class="btn-white" onclick="resetStruktur()">Batal Edit</button>
     </div>
+    <div class="card"><h3>Daftar <span>Struktur Organisasi</span></h3><div id="listStruktur"></div></div>
+  </div>
 
-    <section id="profil">
-      <div class="container about-grid">
-        <div>
-          <span style="color:var(--red);font-weight:800;font-size:12px;letter-spacing:1px">TENTANG KAMI</span>
-          <h2>Mengenal KDMP Pendowo Asri</h2>
-          <p>KDMP Pendowo Asri merupakan koperasi desa yang dibangun untuk mendukung penguatan ekonomi masyarakat melalui pengelolaan usaha koperasi yang tertib, profesional, dan berorientasi pada manfaat bagi anggota.</p>
-          <ul class="feature-list">
-            <li>Mendorong kegiatan ekonomi masyarakat desa.</li>
-            <li>Mengembangkan usaha secara bertanggung jawab.</li>
-            <li>Meningkatkan kualitas pelayanan kepada anggota.</li>
-            <li>Menerapkan administrasi dan pengelolaan yang tertib.</li>
-          </ul>
-        </div>
-        <div class="about-panel">
-          <div class="big">🏘️</div>
-          <h3>Dari Desa, untuk Kesejahteraan Bersama</h3>
-          <p>Semangat Merah Putih dalam membangun koperasi yang amanah, aktif, dan bermanfaat.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="soft" id="berita">
-      <div class="container">
-        <div class="section-head"><span>Informasi Terbaru</span><h2>Berita Koperasi</h2><p>Informasi dan pembaruan seputar KDMP Pendowo Asri.</p></div>
-        <div class="cards" id="newsList"><div class="empty">Memuat berita koperasi...</div></div>
-      </div>
-    </section>
-
-    <section id="kegiatan">
-      <div class="container">
-        <div class="section-head"><span>Agenda dan Aktivitas</span><h2>Kegiatan Koperasi</h2><p>Lihat kegiatan dan agenda yang diinformasikan oleh koperasi.</p></div>
-        <div class="cards" id="activityList"><div class="empty">Memuat kegiatan...</div></div>
-      </div>
-    </section>
-
-    <section class="soft" id="tim">
-      <div class="container">
-        <div class="section-head"><span>Pengelola</span><h2>Tim KDMP Pendowo Asri</h2><p>Kenali tim yang mendukung kegiatan dan pelayanan koperasi.</p></div>
-        <div class="cards" id="teamList"><div class="empty">Memuat informasi tim...</div></div>
-      </div>
-    </section>
-
-    <!-- BELANJA GERAI - UDAH DIBEDAIN 2 TAB -->
-    <section id="belanja">
-      <div class="container">
-        <div class="section-head"><span>Gerai Koperasi</span><h2>Belanja di Gerai KDMP</h2><p>Pilih sesuai kebutuhanmu, checkout langsung ke WA Kasir.</p></div>
-
-        <div class="shop-tabs">
-          <button id="tabDapur" class="active" onclick="setShopTab('dapur')">🍳 Belanja Kebutuhan Dapur</button>
-          <button id="tabWarung" onclick="setShopTab('warung')">🏪 Untuk Stok Warung Kamu</button>
-        </div>
-        <p id="tabDesc" style="text-align:center;color:#6b7280;font-size:13px;margin:0 0 18px">Buat masak hari ini - harga ecer, ambil 1-2 pcs juga bisa.</p>
-
-        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:22px">
-          <input id="searchProduk" placeholder="Cari barang... contoh: Beras" style="max-width:360px;padding:12px 16px;border-radius:30px;border:1px solid #f0dddd;flex:1" oninput="renderProduk()">
-          <button onclick="renderProduk()" style="background:#b91c2c;color:#fff;border:0;padding:12px 22px;border-radius:30px;font-weight:700">Cari</button>
-        </div>
-        <div class="cards" id="produkList"><div class="empty">Memuat produk gerai...</div></div>
-        <div class="cart-box">
-          <h3 style="margin:0 0 14px">🛒 Keranjang Belanja</h3>
-          <div id="cartList"><p style="color:#6b7280">Keranjang masih kosong. Pilih barang di atas dulu bre.</p></div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
-            <input id="namaPembeli" class="input-line" placeholder="Nama Pembeli, contoh: Bu RT 02" style="flex:1;min-width:200px">
-            <input id="alamatPembeli" class="input-line" placeholder="Alamat / RT, contoh: Pendowo Asri RT 02" style="flex:1;min-width:200px">
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:18px">
-            <b id="cartTotal" style="font-size:19px;color:#b91c2c">Total: Rp 0</b>
-            <div style="display:flex;gap:10px">
-              <button onclick="clearCart()" style="background:#fff;border:1px solid #ddd;padding:12px 18px;border-radius:10px;font-weight:700">Kosongkan</button>
-              <button onclick="checkoutWA()" style="background:#16a34a;color:#fff;border:0;padding:12px 22px;border-radius:10px;font-weight:700">Checkout ke WA Kasir ↗</button>
-            </div>
-          </div>
-          <p style="font-size:12px;color:#6b7280;margin:10px 0 0">Setelah klik checkout, WhatsApp akan terbuka otomatis dengan rincian pesanan. Tinggal kirim aja.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="kontak" class="soft">
-      <div class="container">
-        <div class="section-head"><span>Hubungi Kami</span><h2>Kontak KDMP Pendowo Asri</h2><p>Silakan hubungi pengelola koperasi untuk informasi lebih lanjut.</p></div>
-        <div class="contact-grid">
-          <div class="contact-box">
-            <h3>📍 Informasi Koperasi</h3>
-            <div class="contact-line"><strong>Nama</strong>KDMP Pendowo Asri</div>
-            <div class="contact-line"><strong>Alamat</strong>Desa Pendowo Asri, Lampung, Indonesia</div>
-            <div class="contact-line"><strong>Jam pelayanan</strong>Silakan konfirmasi kepada pengelola koperasi.</div>
-          </div>
-          <div class="contact-box">
-            <h3>💬 Layanan Informasi</h3>
-            <p>Untuk pertanyaan mengenai keanggotaan, kegiatan, dan layanan koperasi, hubungi pengelola secara langsung.</p>
-            <p style="color:var(--muted);font-size:13px">Nomor telepon, alamat lengkap, dan tautan media sosial dapat ditambahkan setelah datanya dikonfirmasi.</p>
-          </div>
-        </div>
-        <p class="notice">Informasi pada website ini akan diperbarui sesuai data resmi yang tersedia.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-row">
-      <div><strong>KDMP Pendowo Asri</strong><p>Koperasi Desa/Kelurahan Merah Putih</p></div>
-      <p>© <span id="year"></span> KDMP Pendowo Asri. Hak cipta dilindungi.</p>
+  <!-- PRODUK -->
+  <div id="panel-produk" class="hidden">
+    <div class="card"><h3>Tambah / Edit <span>Produk Gerai</span></h3>
+      <label>Nama Barang</label><input id="pNama" placeholder="Contoh: Beras 5 Kg / Minyak 1 Dus">
+      <label>Masuk ke Kategori Mana?</label>
+      <select id="pKategori">
+        <option value="dapur">🍳 Belanja Kebutuhan Dapur - Eceran buat masak</option>
+        <option value="warung">🏪 Untuk Stok Warung Kamu - Grosir / Dus</option>
+      </select>
+      <label>Harga (Rp)</label><input id="pHarga" type="number" placeholder="Contoh: 65000">
+      <label>Stok</label><input id="pStok" type="number" placeholder="Contoh: 20">
+      <label>Emoji</label><input id="pEmoji" placeholder="Contoh: 🍚 / 🧴 / 🥚">
+      <label>Deskripsi</label><textarea id="pDeskripsi" rows="2" placeholder="Deskripsi produk..."></textarea>
+      <button class="btn-red" onclick="saveProduk()">Simpan Produk</button>
+      <button class="btn-white" onclick="resetProduk()">Batal Edit</button>
+      <p style="font-size:13px;color:#777">Tips: Kalau mau ganti harga doang, klik tombol Edit di bawah, ganti harganya, terus klik Simpan Produk. Beres.</p>
     </div>
-  </footer>
+    <div class="card">
+      <h3>Daftar <span>Produk Gerai</span> - 3 Sejajar Kayak Alfagift</h3>
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+        <button class="btn-white" onclick="filterProdukAdmin('semua')">Semua</button>
+        <button class="btn-white" onclick="filterProdukAdmin('dapur')">🍳 Dapur</button>
+        <button class="btn-white" onclick="filterProdukAdmin('warung')">🏪 Warung</button>
+      </div>
+      <div id="listProduk"></div>
+    </div>
+  </div>
 
-  <script>
-    const WA_KASIR = "6281234567890";
-    const SUPABASE_URL = "https://ntelnblacqrwunjctxwd.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_0sk7S7bpzuW9MnqDwDYW1g_4ccOYlTK";
-    document.getElementById("year").textContent = new Date().getFullYear();
-    document.getElementById("menuBtn").addEventListener("click", () => { document.getElementById("nav").classList.toggle("open"); });
-    document.querySelectorAll("#nav a").forEach(link => { link.addEventListener("click", () => { document.getElementById("nav").classList.remove("open"); }); });
-    function escapeHTML(value) { return String(value ?? "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]); }
-    function formatDate(value) { if (!value) return "Informasi KDMP"; const date = new Date(value); if (Number.isNaN(date.getTime())) return escapeHTML(value); return date.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }); }
-    function getLocal(key){ try{ return JSON.parse(localStorage.getItem(key))||[] }catch(e){ return [] } }
-    function getWA(){ try{ const s = JSON.parse(localStorage.getItem('kdmp_setting')); if(s && s.wa) return s.wa; }catch(e){} return WA_KASIR; }
-    async function getTable(table, query) {
-      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return null;
-      const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } });
-      if (!response.ok) throw new Error(`Gagal memuat ${table}`);
-      return response.json();
-    }
-    async function loadNews() {
-      const element = document.getElementById("newsList");
-      const local = getLocal('kdmp_berita');
-      if(local.length){
-        element.innerHTML = local.map(item => `<article class="card"><div class="card-image">📰</div><div class="card-body"><span class="tag">${escapeHTML(item.kategori||"Berita")}</span><h3>${escapeHTML(item.judul)}</h3><p>${escapeHTML(item.ringkasan||"")}</p><div class="meta">${formatDate(item.tanggal||item.created_at)}</div></div></article>`).join("");
-        return;
-      }
-      try {
-        const rows = await getTable("berita", "select=judul,ringkasan,kategori,tanggal_sumber,created_at,url_sumber&status=eq.terbit&order=created_at.desc&limit=6");
-        if (!rows || !rows.length) { element.innerHTML = '<div class="empty">Belum ada berita yang diterbitkan. Login admin untuk nambah berita.</div>'; return; }
-        element.innerHTML = rows.map(item => `<article class="card"><div class="card-image">📰</div><div class="card-body"><span class="tag">${escapeHTML(item.kategori || "Berita")}</span><h3>${escapeHTML(item.judul)}</h3><p>${escapeHTML(item.ringkasan || "")}</p><div class="meta">${formatDate(item.tanggal_sumber || item.created_at)}</div></div></article>`).join("");
-      } catch (error) { element.innerHTML = '<div class="empty">Belum ada berita. Login admin untuk nambah berita.</div>'; }
-    }
-    async function loadActivities() {
-      const element = document.getElementById("activityList");
-      try {
-        const rows = await getTable("kegiatan", "select=judul,deskripsi,tanggal,lokasi&order=tanggal.desc&limit=6");
-        if (!rows || !rows.length) { element.innerHTML = '<div class="empty">Belum ada kegiatan yang ditambahkan.</div>'; return; }
-        element.innerHTML = rows.map(item => `<article class="card"><div class="card-image">📅</div><div class="card-body"><span class="tag">Kegiatan</span><h3>${escapeHTML(item.judul)}</h3><p>${escapeHTML(item.deskripsi || "")}</p><div class="meta">${formatDate(item.tanggal)}${item.lokasi ? " · " + escapeHTML(item.lokasi) : ""}</div></div></article>`).join("");
-      } catch (error) { element.innerHTML = '<div class="empty">Kegiatan belum dapat dimuat saat ini.</div>'; }
-    }
-    async function loadTeam() {
-      const element = document.getElementById("teamList");
-      const local = getLocal('kdmp_struktur');
-      if(local.length){
-        element.innerHTML = local.map(item => `<article class="card team-card"><div class="avatar">👤</div><h3>${escapeHTML(item.nama)}</h3><p style="color:var(--red);font-weight:bold;font-size:13px">${escapeHTML(item.jabatan||"Tim Koperasi")}</p><p>${escapeHTML(item.deskripsi||"")}</p></article>`).join("");
-        return;
-      }
-      try {
-        const rows = await getTable("profil_pekerja", "select=nama,jabatan,deskripsi&aktif=eq.true&order=nama.asc&limit=12");
-        if (!rows || !rows.length) { element.innerHTML = '<div class="empty">Profil tim belum ditambahkan. Login admin untuk nambah struktur organisasi.</div>'; return; }
-        element.innerHTML = rows.map(item => `<article class="card team-card"><div class="avatar">👤</div><h3>${escapeHTML(item.nama)}</h3><p style="color:var(--red);font-weight:bold;font-size:13px">${escapeHTML(item.jabatan || "Tim Koperasi")}</p><p>${escapeHTML(item.deskripsi || "")}</p></article>`).join("");
-      } catch (error) { element.innerHTML = '<div class="empty">Profil tim belum dapat dimuat saat ini.</div>'; }
-    }
+  <!-- SETTING -->
+  <div id="panel-setting" class="hidden">
+    <div class="card"><h3>Pengaturan <span>Admin & WA Kasir</span></h3>
+      <label>Username Baru</label><input id="setUser" value="admin">
+      <label>Password Baru</label><input id="setPass" value="kdmp123">
+      <label>Nomor WA Kasir (format 62...)</label><input id="setWA" value="6281234567890">
+      <label>Nama Kasir</label><input id="setNamaKasir" value="Kasir KDMP Pendowo Asri">
+      <button class="btn-green" onclick="saveSetting()">Simpan Pengaturan</button>
+      <p style="font-size:13px;color:#777">Nomor WA ini yang dipakai untuk checkout belanja di website utama. Ganti di sini aja, gak perlu ngoding.</p>
+    </div>
+  </div>
+</div>
 
-    // ===== BELANJA 2 TAB =====
-    let cart = {};
-    let allProduk = [];
-    let activeShopTab = 'dapur';
-    function setShopTab(tab){
-      activeShopTab = tab;
-      document.getElementById('tabDapur').classList.toggle('active', tab==='dapur');
-      document.getElementById('tabWarung').classList.toggle('active', tab==='warung');
-      document.getElementById('tabDesc').textContent = tab==='dapur'
-        ? 'Buat masak hari ini - harga ecer, ambil 1-2 pcs juga bisa.'
-        : 'Buat jualan lagi - harga grosir / dus, stok warung lebih hemat.';
-      renderProduk();
-    }
-    function getDefaultProduk(){
-      return [
-        {nama:'Beras Premium 5 Kg', harga:65000, stok:20, emoji:'🍚', deskripsi:'Beras pulen kualitas gerai KDMP', kategori:'dapur'},
-        {nama:'Minyak Goreng 1 Liter', harga:18000, stok:30, emoji:'🧴', deskripsi:'Minyak goreng kemasan 1 liter', kategori:'dapur'},
-        {nama:'Gula Pasir 1 Kg', harga:16500, stok:25, emoji:'🧂', deskripsi:'Gula pasir bersih', kategori:'dapur'},
-        {nama:'Telur Ayam 1 Kg', harga:28000, stok:15, emoji:'🥚', deskripsi:'Telur ayam segar', kategori:'dapur'},
-        {nama:'Kopi Bubuk Pendowo 250gr', harga:25000, stok:12, emoji:'☕', deskripsi:'Kopi khas desa', kategori:'dapur'},
-        {nama:'Sembako Paket Hemat', harga:95000, stok:10, emoji:'🛍️', deskripsi:'Paket beras + minyak + gula', kategori:'dapur'},
-        {nama:'Minyak Goreng 1 Dus (12 x 1L)', harga:198000, stok:8, emoji:'🧴', deskripsi:'Harga grosir untuk stok warung, lebih hemat', kategori:'warung'},
-        {nama:'Mie Instan 1 Dus (40 pcs)', harga:108000, stok:10, emoji:'🍜', deskripsi:'Mie instan campur rasa, siap jual lagi', kategori:'warung'},
-        {nama:'Beras 1 Karung 25 Kg', harga:305000, stok:6, emoji:'🍚', deskripsi:'Beras karungan untuk stok warung', kategori:'warung'},
-        {nama:'Gula Pasir 1 Dus (20 Kg)', harga:315000, stok:5, emoji:'🧂', deskripsi:'Gula dus untuk warung', kategori:'warung'},
-        {nama:'Kopi Renteng 1 Lusin', harga:45000, stok:20, emoji:'☕', deskripsi:'Kopi sachet renteng, laris di warung', kategori:'warung'},
-        {nama:'Sabun Cuci 1 Dus', harga:125000, stok:7, emoji:'🧼', deskripsi:'Sabun cuci piring / baju grosir', kategori:'warung'},
-      ];
-    }
-    function renderProduk(){
-      const el = document.getElementById('produkList');
-      const q = (document.getElementById('searchProduk')?.value||'').toLowerCase();
-      let list = getLocal('kdmp_produk');
-      if(!list.length) list = getDefaultProduk();
-      list = list.map(p => ({...p, kategori: p.kategori || 'dapur'}));
-      allProduk = list;
-      const filtered = list.filter(p => p.kategori === activeShopTab && p.nama.toLowerCase().includes(q));
-      if(!filtered.length){
-        el.innerHTML = `<div class="empty">${activeShopTab==='dapur' ? 'Barang dapur tidak ditemukan.' : 'Barang warung tidak ditemukan.'} Coba kata lain bre.</div>`;
-        return;
-      }
-      el.innerHTML = filtered.map((p)=>{
-        const idx = list.indexOf(p);
-        const qty = cart[idx]?.qty||0;
-        const label = p.kategori==='warung' ? 'Grosir / Dus' : 'Ecer / Dapur';
-        return `<article class="card"><div class="card-image" style="font-size:56px">${p.emoji||'🛒'}</div><div class="card-body"><span class="tag">${label} - Stok: ${p.stok}</span><h3>${escapeHTML(p.nama)}</h3><p>${escapeHTML(p.deskripsi||'')}</p><b style="color:#b91c2c;font-size:17px">Rp ${p.harga.toLocaleString('id-ID')}</b><div style="display:flex;align-items:center;gap:10px;margin-top:14px"><button class="qty-btn" onclick="changeQty(${idx},-1)">-</button><b>${qty}</b><button class="qty-btn plus" onclick="changeQty(${idx},1)">+</button><button onclick="addToCart(${idx})" style="margin-left:auto;background:#b91c2c;color:#fff;border:0;padding:9px 14px;border-radius:8px;font-weight:700">+ Keranjang</button></div></div></article>`;
-      }).join('');
-      renderCart();
-    }
-    function changeQty(idx,delta){
-      const p = allProduk[idx]; if(!p) return;
-      cart[idx] = cart[idx]||{...p, qty:0};
-      cart[idx].qty = Math.max(0, Math.min(p.stok, cart[idx].qty+delta));
-      if(cart[idx].qty===0) delete cart[idx];
-      renderProduk();
-    }
-    function addToCart(idx){
-      const p = allProduk[idx];
-      cart[idx] = cart[idx]||{...p, qty:0};
-      cart[idx].qty = Math.min(p.stok, cart[idx].qty+1);
-      renderProduk();
-    }
-    function renderCart(){
-      const el = document.getElementById('cartList');
-      const items = Object.values(cart);
-      if(!items.length){ el.innerHTML='<p style="color:#6b7280">Keranjang masih kosong. Pilih barang di atas dulu bre.</p>'; document.getElementById('cartTotal').textContent='Total: Rp 0'; return; }
-      let total = 0;
-      el.innerHTML = items.map((it)=>{
-        const sub = it.harga*it.qty; total+=sub;
-        const tag = it.kategori==='warung' ? '[Stok Warung]' : '[Dapur]';
-        return `<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #f1eeee;align-items:center"><div><b>${it.emoji} ${escapeHTML(it.nama)}</b><br><small style="color:#6b7280">${tag} - Rp ${it.harga.toLocaleString('id-ID')} x ${it.qty}</small></div><b>Rp ${sub.toLocaleString('id-ID')}</b></div>`;
-      }).join('');
-      document.getElementById('cartTotal').textContent = 'Total: Rp ' + total.toLocaleString('id-ID');
-    }
-    function clearCart(){ cart={}; renderProduk(); }
-    function checkoutWA(){
-      const items = Object.values(cart);
-      if(!items.length) return alert('Keranjang masih kosong bre! Pilih barang dulu.');
-      const nama = document.getElementById('namaPembeli').value.trim()||'-';
-      const alamat = document.getElementById('alamatPembeli').value.trim()||'-';
-      let total = 0; let lines = [];
-      items.forEach((it,i)=>{ const sub=it.harga*it.qty; total+=sub; const tag = it.kategori==='warung' ? 'Stok Warung' : 'Dapur'; lines.push(`${i+1}. [${tag}] ${it.nama} - ${it.qty} x Rp ${it.harga.toLocaleString('id-ID')} = Rp ${sub.toLocaleString('id-ID')}`); });
-      const pesan = `Halo Kasir KDMP Pendowo Asri! Saya mau pesan:\n\n${lines.join('\n')}\n\nTotal: Rp ${total.toLocaleString('id-ID')}\n\nNama: ${nama}\nAlamat: ${alamat}\n\nMohon konfirmasi pesanan saya ya, terima kasih!`;
-      window.open(`https://wa.me/${getWA()}?text=${encodeURIComponent(pesan)}`, '_blank');
-    }
-    loadNews();
-    loadActivities();
-    loadTeam();
-    renderProduk();
-  </script>
+<script>
+  function getData(key){ try{ return JSON.parse(localStorage.getItem(key)) || [] }catch(e){ return [] } }
+  function setData(key,val){ localStorage.setItem(key, JSON.stringify(val)) }
+  function getSetting(){ try{ return JSON.parse(localStorage.getItem('kdmp_setting')) || {user:'admin',pass:'kdmp123',wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} }catch(e){ return {user:'admin',pass:'kdmp123',wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} } }
+  let editIndex = -1, editType = '';
+  let filterAdmin = 'semua';
+  function doLogin(){
+    const s = getSetting();
+    const u = document.getElementById('userInput').value.trim();
+    const p = document.getElementById('passInput').value.trim();
+    if(u===s.user && p===s.pass){ localStorage.setItem('kdmp_login','1'); showDash(); }
+    else { document.getElementById('loginMsg').textContent = 'Username / Password salah bre!'; }
+  }
+  function doLogout(){ localStorage.removeItem('kdmp_login'); location.reload(); }
+  function showDash(){
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('dashPage').classList.remove('hidden');
+    document.getElementById('adminName').textContent = 'Halo, ' + getSetting().user;
+    const s = getSetting();
+    document.getElementById('setUser').value = s.user;
+    document.getElementById('setPass').value = s.pass;
+    document.getElementById('setWA').value = s.wa;
+    document.getElementById('setNamaKasir').value = s.kasir;
+    renderAll();
+  }
+  if(localStorage.getItem('kdmp_login')==='1') showDash();
+  function showTab(t){
+    ['berita','struktur','produk','setting'].forEach(x=>{
+      document.getElementById('panel-'+x).classList.toggle('hidden', x!==t);
+      const btn = document.getElementById('tab'+x.charAt(0).toUpperCase()+x.slice(1));
+      if(btn) btn.classList.toggle('active', x===t);
+    });
+  }
+  function saveBerita(){
+    const list = getData('kdmp_berita');
+    const data = {judul:document.getElementById('bJudul').value, ringkasan:document.getElementById('bRingkasan').value, kategori:document.getElementById('bKategori').value||'Berita', tanggal:document.getElementById('bTanggal').value||new Date().toISOString().slice(0,10)};
+    if(!data.judul) return alert('Judul berita wajib diisi!');
+    if(editType==='berita' && editIndex>=0) list[editIndex]=data; else list.unshift(data);
+    setData('kdmp_berita', list); resetBerita(); renderAll(); alert('Berita tersimpan! Cek di website utama.');
+  }
+  function resetBerita(){ editIndex=-1; editType=''; ['bJudul','bRingkasan','bKategori','bTanggal'].forEach(id=>document.getElementById(id).value=''); }
+  function saveStruktur(){
+    const list = getData('kdmp_struktur');
+    const data = {nama:document.getElementById('sNama').value, jabatan:document.getElementById('sJabatan').value, deskripsi:document.getElementById('sDeskripsi').value};
+    if(!data.nama) return alert('Nama wajib diisi!');
+    if(editType==='struktur' && editIndex>=0) list[editIndex]=data; else list.push(data);
+    setData('kdmp_struktur', list); resetStruktur(); renderAll(); alert('Struktur tersimpan!');
+  }
+  function resetStruktur(){ editIndex=-1; editType=''; ['sNama','sJabatan','sDeskripsi'].forEach(id=>document.getElementById(id).value=''); }
+  function saveProduk(){
+    const list = getData('kdmp_produk');
+    const data = {nama:document.getElementById('pNama').value, kategori:document.getElementById('pKategori').value, harga:parseInt(document.getElementById('pHarga').value||0), stok:parseInt(document.getElementById('pStok').value||0), emoji:document.getElementById('pEmoji').value||'🛒', deskripsi:document.getElementById('pDeskripsi').value};
+    if(!data.nama || !data.harga) return alert('Nama & Harga wajib diisi!');
+    if(editType==='produk' && editIndex>=0) list[editIndex]=data; else list.push(data);
+    setData('kdmp_produk', list); resetProduk(); renderAll(); alert('Produk tersimpan! Cek di website utama, tab ' + (data.kategori==='warung' ? 'Stok Warung' : 'Dapur'));
+  }
+  function resetProduk(){ editIndex=-1; editType=''; ['pNama','pHarga','pStok','pEmoji','pDeskripsi'].forEach(id=>document.getElementById(id).value=''); document.getElementById('pKategori').value='dapur'; }
+  function saveSetting(){
+    const s = {user:document.getElementById('setUser').value, pass:document.getElementById('setPass').value, wa:document.getElementById('setWA').value, kasir:document.getElementById('setNamaKasir').value};
+    localStorage.setItem('kdmp_setting', JSON.stringify(s));
+    alert('Pengaturan tersimpan! Nomor WA kasir: '+s.wa);
+  }
+  function filterProdukAdmin(f){ filterAdmin=f; renderAll(); }
+  function renderAll(){
+    const b = getData('kdmp_berita');
+    document.getElementById('listBerita').innerHTML = b.length ? b.map((x,i)=>`<div class="item"><div><b>${x.judul}</b><small>${x.kategori} - ${x.tanggal}</small></div><div><button class="btn-white" onclick="editBerita(${i})">Edit</button> <button class="btn-red" onclick="delItem('kdmp_berita',${i})">Hapus</button></div></div>`).join('') : '<p>Belum ada berita</p>';
+    const s = getData('kdmp_struktur');
+    document.getElementById('listStruktur').innerHTML = s.length ? s.map((x,i)=>`<div class="item"><div><b>${x.nama}</b><small>${x.jabatan}</small></div><div><button class="btn-white" onclick="editStruktur(${i})">Edit</button> <button class="btn-red" onclick="delItem('kdmp_struktur',${i})">Hapus</button></div></div>`).join('') : '<p>Belum ada struktur</p>';
+    let p = getData('kdmp_produk');
+    if(filterAdmin!=='semua') p = p.map((x,idx)=>({...x, _idx:idx})).filter(x=> (x.kategori||'dapur')===filterAdmin);
+    else p = p.map((x,idx)=>({...x, _idx:idx}));
+    // INI YANG DIEDIT: DARI LIST KEBAWAH JADI GRID 3 SEJAJAR
+    document.getElementById('listProduk').innerHTML = p.length ? `<div class="produk-admin-grid">` + p.map((x)=>`<div class="produk-admin-card"><div class="produk-admin-img">${x.emoji}</div><div class="produk-admin-body"><span class="badge ${x.kategori==='warung'?'warung':''}">${x.kategori==='warung'?'🏪 Warung':'🍳 Dapur'}</span><h4>${x.nama}</h4><div class="harga-admin">Rp ${x.harga.toLocaleString('id-ID')}</div><small>Stok: ${x.stok} • ${x.deskripsi||''}</small><div class="produk-admin-btns"><button class="btn-white" onclick="editProduk(${x._idx})">Edit</button><button class="btn-red" onclick="delItem('kdmp_produk',${x._idx})">Hapus</button></div></div></div>`).join('') + `</div>` : '<p>Belum ada produk. Tambah dulu ya bre! Nanti produk default di website akan keganti sama produk lu.</p>';
+  }
+  function editBerita(i){ const x=getData('kdmp_berita')[i]; document.getElementById('bJudul').value=x.judul; document.getElementById('bRingkasan').value=x.ringkasan; document.getElementById('bKategori').value=x.kategori; document.getElementById('bTanggal').value=x.tanggal; editIndex=i; editType='berita'; window.scrollTo({top:0,behavior:'smooth'}); }
+  function editStruktur(i){ const x=getData('kdmp_struktur')[i]; document.getElementById('sNama').value=x.nama; document.getElementById('sJabatan').value=x.jabatan; document.getElementById('sDeskripsi').value=x.deskripsi; editIndex=i; editType='struktur'; showTab('struktur'); }
+  function editProduk(i){ const x=getData('kdmp_produk')[i]; document.getElementById('pNama').value=x.nama; document.getElementById('pKategori').value=x.kategori||'dapur'; document.getElementById('pHarga').value=x.harga; document.getElementById('pStok').value=x.stok; document.getElementById('pEmoji').value=x.emoji; document.getElementById('pDeskripsi').value=x.deskripsi; editIndex=i; editType='produk'; showTab('produk'); window.scrollTo({top:0,behavior:'smooth'}); }
+  function delItem(key,i){ if(!confirm('Yakin hapus?')) return; const l=getData(key); l.splice(i,1); setData(key,l); renderAll(); }
+</script>
 </body>
 </html>
