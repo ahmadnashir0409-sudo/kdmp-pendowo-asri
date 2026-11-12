@@ -1,30 +1,120 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin KDMP</title>
-<style>body{font-family:Arial;background:#fff8e1;margin:0;padding:16px}h1{text-align:center}input,select{width:100%;padding:14px;margin:8px 0;border-radius:10px;border:1px solid #ccc;font-size:16px;box-sizing:border-box}button{width:100%;padding:14px;background:#FFD500;border:0;border-radius:10px;font-weight:bold;font-size:17px} .card{background:#fff;padding:14px;border-radius:12px;margin-top:14px}</style></head><body>
-<div id="login"><h1>🔒 Admin KDMP</h1><p style="text-align:center">Khusus HP Bos (Lu & Admin)</p><input id="pass" type="password" placeholder="Password admin"><button onclick="cek()">MASUK</button></div>
-
-<div id="panel" style="display:none">
-<h1>Tambah / Edit Stok</h1>
-<div class="card"><label>Nama Produk</label><input id="nama" placeholder="Contoh: Beras 10 Kg">
-<label>Harga</label><input id="harga" type="number" placeholder="150000">
-<label>Stok</label><input id="stok" type="number" placeholder="20">
-<label>Kategori</label><select id="kat"><option value="dapur">Dapur</option><option value="warung">Warung</option></select>
-<button onclick="simpan()">💾 SIMPAN KE SHEETS</button><p id="status"></p></div>
-<p style="text-align:center;font-size:13px">Data langsung masuk ke Google Sheets & web warga auto berubah.<br><a href="index.html">Lihat Web Warga</a></p>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin KDMP Pendowo Asri</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#FFF5F6;padding:14px}
+  h1{font-size:22px} h2{font-size:18px;margin-top:0}
+  .card{background:#fff;border:1.5px solid #FFE1E5;border-radius:16px;padding:14px;margin-bottom:12px}
+  input,textarea,select{width:100%;padding:11px;border:1.5px solid #FFE1E5;border-radius:12px;margin-bottom:8px;font-family:inherit}
+  button{padding:11px 16px;border-radius:999px;border:0;font-weight:800;cursor:pointer}
+  .btn-red{background:#FF0A2A;color:#fff} .btn-ghost{background:#fff;border:1.5px solid #FFD6DB;color:#FF0A2A}
+  .row{display:flex;gap:10px;align-items:center} .row img{width:70px;height:70px;object-fit:cover;border-radius:12px;border:2px solid #FFE1E5}
+  .row img.bulat{border-radius:50%}
+  .item{display:flex;gap:10px;align-items:center;justify-content:space-between;background:#fff;border:1px solid #FFE1E5;border-radius:12px;padding:10px;margin-bottom:8px}
+  .item img{width:55px;height:55px;object-fit:cover;border-radius:10px} .item img.bulat{border-radius:50%}
+  .tabs{display:flex;gap:8px;margin:14px 0} .tabs button{flex:1;background:#fff;border:1.5px solid #FFE1E5}
+  .tabs button.active{background:#FF0A2A;color:#fff}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div id="loginBox" class="card" style="max-width:400px;margin:60px auto;text-align:center">
+  <h1>🔐 Login Admin</h1><p style="color:#777;font-size:13px">KDMP Pendowo Asri</p>
+  <input id="loginUser" placeholder="Username">
+  <input id="loginPass" type="password" placeholder="Password">
+  <button class="btn-red" style="width:100%" onclick="doLogin()">Masuk</button>
+  <p style="font-size:12px;color:#888">Default awal: admin / admin123<br>Setelah login bisa diganti di menu Setting</p>
 </div>
-
+<div id="adminBox" class="hidden">
+<h1>🛠️ Admin KDMP Pendowo Asri</h1>
+<div style="display:flex;gap:10px;align-items:center"><a href="index.html">← Lihat Website</a><button class="btn-ghost" onclick="doLogout()">Logout</button></div>
+<div class="tabs">
+  <button id="tProduk" class="active" onclick="showTab('produk')">Produk</button>
+  <button id="tBerita" onclick="showTab('berita')">Berita</button>
+  <button id="tStruktur" onclick="showTab('struktur')">Struktur</button>
+  <button id="tSetting" onclick="showTab('setting')">Setting</button>
+</div>
+<div id="tab-produk">
+  <div class="card"><h2>+ Tambah Produk + Foto</h2>
+    <input id="pNama" placeholder="Nama Produk - Contoh: Beras Premium 5 Kg">
+    <div class="row"><input id="pHarga" type="number" placeholder="Harga"><input id="pStok" type="number" placeholder="Stok"></div>
+    <select id="pKategori"><option value="dapur">Kebutuhan Dapur</option><option value="warung">Stok Warung</option></select>
+    <label style="font-size:13px;font-weight:700">Foto Produk:</label>
+    <div class="row" style="margin:8px 0"><img id="pPreview" style="display:none"><input type="file" accept="image/*" onchange="previewFoto(event,'produk')" style="border:0;padding:0"></div>
+    <button class="btn-red" onclick="tambahProduk()">Simpan Produk</button>
+  </div><div id="listProduk"></div>
+</div>
+<div id="tab-berita" class="hidden">
+  <div class="card"><h2>+ Tambah Berita + Foto</h2>
+    <input id="bJudul" placeholder="Judul Berita">
+    <label style="font-size:13px;font-weight:700">Jenis Berita:</label>
+    <select id="bKategori">
+      <option value="Berita Harian">📰 Berita Harian</option>
+      <option value="Pengumuman">📢 Pengumuman</option>
+      <option value="Informasi">ℹ️ Informasi</option>
+      <option value="Kegiatan">🎉 Kegiatan</option>
+    </select>
+    <textarea id="bRingkasan" placeholder="Isi berita / pengumuman..."></textarea>
+    <label style="font-size:13px;font-weight:700">Foto Berita:</label>
+    <div class="row" style="margin:8px 0"><img id="bPreview" style="display:none"><input type="file" accept="image/*" onchange="previewFoto(event,'berita')" style="border:0;padding:0"></div>
+    <button class="btn-red" onclick="tambahBerita()">Simpan Berita</button>
+  </div><div id="listBerita"></div>
+</div>
+<div id="tab-struktur">
+  <div class="card"><h2>+ Tambah Pengurus + Foto</h2>
+    <input id="sNama" placeholder="Nama Lengkap"><input id="sJabatan" placeholder="Jabatan - Contoh: Ketua"><input id="sDeskripsi" placeholder="Deskripsi singkat">
+    <label style="font-size:13px;font-weight:700">Foto Pengurus:</label>
+    <div class="row" style="margin:8px 0"><img id="sPreview" class="bulat" style="display:none"><input type="file" accept="image/*" onchange="previewFoto(event,'struktur')" style="border:0;padding:0"></div>
+    <button class="btn-red" onclick="tambahStruktur()">Simpan Pengurus</button>
+  </div><div id="listStruktur"></div>
+</div>
+<div id="tab-setting" class="hidden">
+  <div class="card"><h2>⚙️ Setting WA & Akun Admin</h2>
+    <label style="font-size:13px;font-weight:700">WA Kasir (pakai 62, jangan 0):</label><input id="setWa" placeholder="6281234567890">
+    <label style="font-size:13px;font-weight:700">Nama Kasir:</label><input id="setKasir" placeholder="Nama Kasir">
+    <hr>
+    <label style="font-size:13px;font-weight:700">Username Admin Baru:</label><input id="setUser" placeholder="Username baru">
+    <label style="font-size:13px;font-weight:700">Password Admin Baru:</label><input id="setPass" type="text" placeholder="Password baru">
+    <button class="btn-red" onclick="simpanSetting()">Simpan Semua Setting</button>
+    <p style="font-size:12px;color:#888">Kalau username/password dikosongin, yang lama tetap dipakai.</p>
+  </div>
+</div>
+</div>
 <script>
-function cek(){
-  if(document.getElementById('pass').value==='admin123'){
-    document.getElementById('login').style.display='none';
-    document.getElementById('panel').style.display='block';
-  } else alert('Password salah bre!');
-}
-async function simpan(){
-  let data={nama:document.getElementById('nama').value,harga:document.getElementById('harga').value,stok:document.getElementById('stok').value,kategori:document.getElementById('kat').value,deskripsi:""};
-  if(!data.nama||!data.harga) return alert('Isi nama & harga dulu!');
-  document.getElementById('status').innerText='Menyimpan...';
-  // GANTI LINK INI DENGAN LINK APPS SCRIPT LU
-  const SCRIPT_URL="PASTE_LINK_APPS_SCRIPT_DI_SINI";
-  try{ await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(data)}); document.getElementById('status').innerText='✅ Berhasil! Cek Sheets & web.'; document.getElementById('nama').value=''; }catch(e){ document.getElementById('status').innerText='Gagal, cek link Apps Script.'; }
-}
-</script></body></html>
+  function getData(k){ try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return []} }
+  function setData(k,v){ localStorage.setItem(k,JSON.stringify(v)); renderAll(); }
+  function getAkun(){ try{return JSON.parse(localStorage.getItem('kdmp_akun'))||{user:'admin',pass:'admin123'}}catch(e){return {user:'admin',pass:'admin123'}} }
+  function cekLogin(){ if(localStorage.getItem('kdmp_login')==='1'){ document.getElementById('loginBox').classList.add('hidden'); document.getElementById('adminBox').classList.remove('hidden'); } }
+  function doLogin(){ const a=getAkun(); if(document.getElementById('loginUser').value===a.user && document.getElementById('loginPass').value===a.pass){ localStorage.setItem('kdmp_login','1'); cekLogin(); renderAll(); } else alert('Username / Password salah bre!'); }
+  function doLogout(){ localStorage.removeItem('kdmp_login'); location.reload(); }
+  function showTab(t){ ['produk','berita','struktur','setting'].forEach(x=>{ document.getElementById('tab-'+x).classList.toggle('hidden',x!==t); document.getElementById('t'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active',x===t); }); }
+  let fotoProduk='', fotoBerita='', fotoStruktur='';
+  function previewFoto(e,tipe){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=function(ev){ const img=document.getElementById(tipe==='produk'?'pPreview':tipe==='berita'?'bPreview':'sPreview'); img.src=ev.target.result; img.style.display='block'; if(tipe==='produk') fotoProduk=ev.target.result; if(tipe==='berita') fotoBerita=ev.target.result; if(tipe==='struktur') fotoStruktur=ev.target.result; }; r.readAsDataURL(f); }
+  function tambahProduk(){ const nama=document.getElementById('pNama').value.trim(); if(!nama) return alert('Nama produk wajib!'); const d=getData('kdmp_produk'); d.push({nama,kategori:document.getElementById('pKategori').value,harga:Number(document.getElementById('pHarga').value)||0,stok:Number(document.getElementById('pStok').value)||0,emoji:'📦',deskripsi:'',foto:fotoProduk}); setData('kdmp_produk',d); fotoProduk=''; document.getElementById('pPreview').style.display='none'; document.getElementById('pNama').value=''; alert('Produk tersimpan!'); }
+  function hapusProduk(i){ if(!confirm('Hapus produk?')) return; const d=getData('kdmp_produk'); d.splice(i,1); setData('kdmp_produk',d); }
+  function tambahBerita(){ const judul=document.getElementById('bJudul').value.trim(); if(!judul) return alert('Judul wajib!'); const d=getData('kdmp_berita'); d.push({judul,ringkasan:document.getElementById('bRingkasan').value,kategori:document.getElementById('bKategori').value||'Berita Harian',foto:fotoBerita}); setData('kdmp_berita',d); fotoBerita=''; document.getElementById('bPreview').style.display='none'; document.getElementById('bJudul').value=''; document.getElementById('bRingkasan').value=''; alert('Berita tersimpan!'); }
+  function hapusBerita(i){ if(!confirm('Hapus berita?')) return; const d=getData('kdmp_berita'); d.splice(i,1); setData('kdmp_berita',d); }
+  function tambahStruktur(){ const nama=document.getElementById('sNama').value.trim(); const jabatan=document.getElementById('sJabatan').value.trim(); if(!nama||!jabatan) return alert('Nama & Jabatan wajib!'); const d=getData('kdmp_struktur'); d.push({nama,jabatan,deskripsi:document.getElementById('sDeskripsi').value,foto:fotoStruktur}); setData('kdmp_struktur',d); fotoStruktur=''; document.getElementById('sPreview').style.display='none'; alert('Pengurus tersimpan!'); }
+  function hapusStruktur(i){ if(!confirm('Hapus pengurus?')) return; const d=getData('kdmp_struktur'); d.splice(i,1); setData('kdmp_struktur',d); }
+  function simpanSetting(){
+    const akun=getAkun();
+    const userBaru=document.getElementById('setUser').value.trim();
+    const passBaru=document.getElementById('setPass').value.trim();
+    if(userBaru) akun.user=userBaru; if(passBaru) akun.pass=passBaru;
+    localStorage.setItem('kdmp_akun',JSON.stringify(akun));
+    localStorage.setItem('kdmp_setting',JSON.stringify({wa:document.getElementById('setWa').value, kasir:document.getElementById('setKasir').value}));
+    alert('Setting tersimpan! Username baru: '+akun.user);
+  }
+  function renderAll(){
+    document.getElementById('listProduk').innerHTML=getData('kdmp_produk').map((x,i)=>`<div class="item"><div style="display:flex;gap:10px;align-items:center">${x.foto?`<img src="${x.foto}">`:`<div>📦</div>`}<span><b>${x.nama}</b><br>Rp ${x.harga}</span></div><button class="btn-ghost" onclick="hapusProduk(${i})">Hapus</button></div>`).join('');
+    document.getElementById('listBerita').innerHTML=getData('kdmp_berita').map((x,i)=>`<div class="item"><div style="display:flex;gap:10px;align-items:center">${x.foto?`<img src="${x.foto}">`:`<div>📰</div>`}<span><b>[${x.kategori||''}] ${x.judul}</b><br>${x.ringkasan||''}</span></div><button class="btn-ghost" onclick="hapusBerita(${i})">Hapus</button></div>`).join('');
+    document.getElementById('listStruktur').innerHTML=getData('kdmp_struktur').map((x,i)=>`<div class="item"><div style="display:flex;gap:10px;align-items:center">${x.foto?`<img class="bulat" src="${x.foto}">`:`<div>👤</div>`}<span><b>${x.nama}</b><br>${x.jabatan}</span></div><button class="btn-ghost" onclick="hapusStruktur(${i})">Hapus</button></div>`).join('');
+    try{ const s=JSON.parse(localStorage.getItem('kdmp_setting'))||{}; document.getElementById('setWa').value=s.wa||''; document.getElementById('setKasir').value=s.kasir||''; const a=getAkun(); document.getElementById('setUser').value=a.user; }catch(e){}
+  }
+  cekLogin(); renderAll();
+</script>
+</body>
+</html>
