@@ -1,112 +1,168 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KDMP Pendowo Asri</title>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KDMP Pendowo Asri - Belanja Warga</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#FFD500}
-.top{background:#fff;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;position:sticky;top:0;z-index:20;border-bottom:3px solid #E11D2E}
-.logo{display:flex;align-items:center;gap:6px}
-.logo .icon{font-size:32px}
-.logo b{font-size:20px;line-height:1}.logo span{color:#E11D2E;font-size:19px;font-weight:bold;line-height:1;display:block}
-.top-right{display:flex;align-items:center;gap:10px}
-.top-right a{color:#333;text-decoration:none;font-size:13px;text-align:center;line-height:1.2}
-.cart{background:#FF1E2D;color:#fff;border-radius:50%;width:56px;height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:bold;cursor:pointer;box-shadow:0 3px 0 #b00}
-.wrap{padding:12px}
-.hero h2{text-align:center;margin:6px 0 2px;font-size:28px}.hero h2 span{color:#E11D2E}
-.hero p{text-align:center;margin:0 0 12px;font-size:14px;color:#333}
-.toggle{background:#fff;border:2px solid #000;border-radius:30px;display:flex;padding:4px;overflow:hidden}
-.toggle button{flex:1;border:0;padding:12px;border-radius:24px;font-weight:bold;font-size:15px;background:transparent;cursor:pointer}
-.toggle button.active{background:#FF1E2D;color:#fff}
-.sub{text-align:center;font-size:13px;margin:12px 0;color:#333}
-.searchRow{display:flex;gap:8px}.searchRow input{flex:1;padding:13px;border-radius:30px;border:0;font-size:16px}
-.searchRow button{background:#FF1E2D;color:#fff;border:0;padding:0 22px;border-radius:30px;font-weight:bold;font-size:16px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.card{background:#fff;border:2px solid #E11D2E;border-radius:14px;padding:12px}
-.card .img{font-size:52px;text-align:center;height:80px;display:flex;align-items:center;justify-content:center}
-.card h4{margin:10px 0 6px;font-size:16px;min-height:36px}.card .harga{font-weight:bold;font-size:16px}.card .stok{font-size:13px;color:#999;margin:2px 0 8px}
-.card button{background:#FF1E2D;color:#fff;border:0;width:100%;padding:11px;border-radius:8px;font-weight:bold;font-size:15px}
-.cartBox{background:#fff;border:2px solid #000;border-radius:16px;padding:14px;margin-top:16px}
-.cartBox h3{margin:0;font-size:20px}.cartBox input{width:100%;padding:12px;border-radius:20px;border:1px solid #FFD1D1;background:#FFF5F5;margin:8px 0;font-size:15px}
-.cartBox .total{display:flex;justify-content:space-between;font-weight:bold;font-size:18px}
-.btnWA{background:#25D366;color:#fff;border:0;width:100%;padding:14px;border-radius:12px;font-weight:bold;font-size:16px;margin-top:8px}
-.section{background:#fff;border-radius:16px;padding:14px;margin-top:14px}
-.section h3{margin:0 0 8px}
-footer{background:#111;color:#fff;text-align:center;padding:14px;font-size:12px;margin-top:14px}
-</style></head><body>
-<div class="top">
-<div class="logo"><div class="icon">🏪</div><div><b>KDMP</b></div><div><span>Pendowo<br>Asri</span></div></div>
-<div class="top-right"><a href="admin.html">Login<br>Admin</a><div class="cart" onclick="document.getElementById('keranjang').scrollIntoView({behavior:'smooth'})">🛒<span id="cartCount">0</span></div></div>
-</div>
-
-<div class="wrap">
-<div class="hero"><h2>Penawaran <span>Terbaik</span></h2><p>Pilih mau belanja buat dapur atau buat stok warung kamu.</p></div>
-<div class="toggle"><button id="btnDapur" class="active" onclick="setKat('dapur',this)">🔍 Kebutuhan Dapur</button><button id="btnWarung" onclick="setKat('warung',this)">🏪 Stok Warung Kamu</button></div>
-<p class="sub" id="subText">Buat masak hari ini - harga ecer.</p>
-<div class="searchRow"><input id="cari" placeholder="Cari barang... contoh: Beras" oninput="tampil()"><button onclick="tampil()">Cari</button></div>
-
-<div id="list" class="grid"><p>Memuat produk...</p></div>
-
-<div class="cartBox" id="keranjang">
-<h3>🧺 Keranjang Kamu</h3>
-<div id="cartList"><p style="color:#999">Keranjang masih kosong.</p></div>
-<div class="total"><span>Total</span><span style="color:#E11D2E" id="cartTotal">Rp 0</span></div>
-<input id="namaPembeli" placeholder="Nama Kamu (Contoh: Ibu Ani)">
-<input id="alamatPembeli" placeholder="Alamat / Blok Rumah">
-<button class="btnWA" onclick="checkout()">Kirim Pesanan via WhatsApp</button>
-</div>
-
-<div class="section"><h3>📢 Berita & Pengumuman</h3><div id="beritaList">Memuat...</div></div>
-<div class="section"><h3>👥 Struktur Pengurus</h3><div id="strukturList">Memuat...</div></div>
-</div>
-<footer>KDMP Pendowo Asri • Koperasi Desa Merah Putih • Bandar Lampung<br><a href="admin.html" style="color:#FFD500">Login Admin</a></footer>
-
-<script>
-// === GANTI INI DOANG ===
-const SHEET_ID = "PASTE_ID_SHEETS_LU_DI_SINI";
-const WA_ADMIN = "6280000000000"; // ganti no WA lu
-
-let all=[]; let kat='dapur'; let cart={};
-function icon(n){ n=(n||'').toLowerCase(); if(n.includes('beras'))return '🍚'; if(n.includes('minyak'))return '🛢️'; if(n.includes('gula'))return '🍬'; if(n.includes('telur'))return '🥚'; if(n.includes('mie'))return '🍜'; if(n.includes('kopi'))return '☕'; if(n.includes('jam'))return '📦'; return '📦'; }
-async function bacaSheet(tab){
-  let url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${tab}`;
-  let r=await fetch(url); let t=await r.text();
-  let j=JSON.parse(t.substring(t.indexOf('{'), t.lastIndexOf('}')+1));
-  return j.table.rows.map(row=>row.c.map(c=>c?c.v:''));
-}
-async function load(){
-  try{
-    let p=await bacaSheet('Produk');
-    all=p.slice(1).map(c=>({nama:String(c[0]||''),harga:Number(String(c[1]||'0').replace(/[^0-9]/g,'')),stok:c[2],kategori:String(c[3]||'').toLowerCase()})).filter(x=>x.nama);
-    tampil();
-    let b=await bacaSheet('Berita');
-    document.getElementById('beritaList').innerHTML=b.slice(1).map(c=>`<div style="padding:8px 0;border-bottom:1px solid #eee"><b>${c[1]||''}</b><br><span style="font-size:13px;color:#555">${c[2]||''}</span></div>`).join('')||'Belum ada berita';
-    let s=await bacaSheet('Struktur');
-    document.getElementById('strukturList').innerHTML=s.slice(1).map(c=>`<div>👤 <b>${c[0]||''}</b> - ${c[1]||''}</div>`).join('')||'Belum ada data';
-  }catch(e){ document.getElementById('list').innerHTML='<p>Gagal load. Cek SHEET_ID & Share jadi Anyone with link - Viewer.</p>'; }
-}
-function setKat(k,btn){ kat=k; document.querySelectorAll('.toggle button').forEach(x=>x.classList.remove('active')); btn.classList.add('active'); document.getElementById('subText').innerText = k=='dapur' ? 'Buat masak hari ini - harga ecer.' : 'Buat jualan lagi - harga grosir.'; tampil(); }
-function tampil(){
-  let q=document.getElementById('cari').value.toLowerCase();
-  let f=all.filter(x=>x.kategori.includes(kat) && x.nama.toLowerCase().includes(q));
-  if(all.length && !f.length && q=='') f=all.filter(x=>x.kategori.includes(kat));
-  document.getElementById('list').innerHTML=f.map(x=>`<div class="card"><div class="img">${icon(x.nama)}</div><h4>${x.nama}</h4><div class="harga">Rp ${x.harga.toLocaleString('id-ID')}</div><div class="stok">Stok: ${x.stok}</div><button onclick="addCart('${x.nama.replace(/'/g,'')} ',${x.harga})">+ Keranjang</button></div>`).join('')||'<p>Produk tidak ditemukan di kategori ini.</p>';
-}
-function addCart(nama,harga){ cart[nama]=cart[nama]||{harga,qty:0}; cart[nama].qty++; renderCart(); }
-function renderCart(){
-  let keys=Object.keys(cart); let total=0; let count=0;
-  document.getElementById('cartCount').innerText=count;
-  if(!keys.length){ document.getElementById('cartList').innerHTML='<p style="color:#999">Keranjang masih kosong.</p>'; }
-  else{
-    document.getElementById('cartList').innerHTML=keys.map(k=>{ let it=cart[k]; total+=it.harga*it.qty; count+=it.qty; return `<div style="display:flex;justify-content:space-between;padding:6px 0">${k} x ${it.qty} <b>Rp ${(it.harga*it.qty).toLocaleString('id-ID')}</b></div>` }).join('');
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#FFF8E1;color:#111;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  header{background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-bottom:3px solid #FF0A2A;position:sticky;top:0;z-index:30}
+  .nav{max-width:1100px;margin:0 auto;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:900;font-size:17px}
+  .logo span{color:#FF0A2A}
+  .logo img{width:40px;height:40px;border-radius:12px;object-fit:cover}
+  .menu{display:flex;gap:16px;font-size:14px;font-weight:700;color:#333}
+  .btn-red{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;padding:13px 20px;border-radius:999px;font-weight:800;font-size:15px;border:0;cursor:pointer;box-shadow:0 8px 18px rgba(255,10,42,.32)}
+  .hero{max-width:1100px;margin:0 auto;padding:20px 14px 6px;text-align:center}
+  .hero-badge{display:inline-block;background:#FFF0F1;color:#FF0A2A;padding:6px 11px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.6px;border:1px solid #FFD6DB}
+  .hero h1{font-size:32px;line-height:1.1;margin:10px 0 8px;letter-spacing:-.8px;font-weight:900}
+  .hero h1 span{background:linear-gradient(90deg,#FF0A2A,#FF7A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .hero p{color:#666;line-height:1.5;font-size:14px;margin:0}
+  .hero-gedung{position:relative;border-radius:20px;overflow:hidden;margin-top:16px;border:3px solid #FF0A2A}
+  .hero-gedung img{width:100%;display:block;height:420px;object-fit:cover}
+  .hero-gedung .overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));display:flex;align-items:flex-end;padding:16px;color:#fff;text-align:left}
+  .section{max-width:1100px;margin:0 auto;padding:20px 14px}
+  .section h2{font-size:22px;margin:0 0 4px;font-weight:900} .section h2 span{color:#FF0A2A}
+  .section p.sub{color:#777;margin:0 0 14px;font-size:13px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .card{background:#fff;border:1.5px solid #FFE1E5;border-radius:18px;padding:16px;box-shadow:0 6px 16px rgba(255,10,42,.05);overflow:hidden}
+  .card b{display:block;margin-bottom:6px} .card p{color:#666;font-size:13px;line-height:1.5;margin:0}
+  .card .berita-img{width:calc(100% + 32px);height:170px;object-fit:cover;display:block;margin:-16px -16px 12px;border-radius:18px 18px 0 0}
+  .badge{display:inline-block;background:#FFF0F1;color:#FF0A2A;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:900;margin-bottom:8px;border:1px solid #FFD6DB}
+  input,textarea,select{width:100%;padding:11px 13px;border:1.5px solid #FFE1E5;border-radius:14px;font-size:14px;font-family:inherit;background:#FFF5F6;outline:none}
+  input:focus{border-color:#FF0A2A;box-shadow:0 0 0 4px rgba(255,10,42,.12);background:#fff}
+  .tabs{display:flex;background:#fff;border:2px solid #000;border-radius:999px;overflow:hidden;max-width:680px;margin:0 auto 10px;padding:4px;gap:4px}
+  .tabs button{flex:1;padding:13px 6px;border:0;background:transparent;font-weight:900;font-size:14px;color:#555;border-radius:999px;cursor:pointer}
+  .tabs button.active{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff}
+  .search-row{display:flex;gap:8px;max-width:680px;margin:12px auto 16px}
+  .search-row input{border-radius:999px;padding:12px 16px;background:#fff} .search-row button{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;border:0;border-radius:999px;padding:0 20px;font-weight:900;cursor:pointer}
+  .produk-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .produk-card{background:#fff;border:3px solid #FF0A2A;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 5px 0 #FF0A2A}
+  .produk-img{background:linear-gradient(180deg,#FFF0F1,#FFFFFF);height:150px;display:flex;align-items:center;justify-content:center;font-size:62px;overflow:hidden}
+  .produk-img img{width:100%;height:100%;object-fit:cover}
+  .produk-body{padding:10px 10px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+  .produk-body h3{margin:0;font-size:13px;line-height:1.35;min-height:36px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:600;color:#222}
+  .produk-body .harga{font-size:15px;font-weight:900}
+  .produk-body .diskon{font-size:11px;color:#999}
+  .btn-keranjang{margin-top:auto;background:#FF0A2A;color:#fff;border:0;border-radius:10px;padding:12px;font-size:14px;font-weight:800;width:100%;cursor:pointer}
+  .qty-mini{display:flex;align-items:center;justify-content:center;gap:10px;background:#FFF5F6;border-radius:10px;padding:6px;margin-top:auto}
+  .qty-mini button{width:26px;height:26px;border-radius:50%;border:0;background:#fff;font-weight:900;cursor:pointer}
+  .qty-mini button.plus{background:#FF0A2A;color:#fff}
+  .cart-box{background:#fff;border:3px solid #000;border-radius:20px;padding:18px;margin-top:18px;box-shadow:0 6px 0 #000}
+  .cart-item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px dashed #FFE1E5;font-size:14px}
+  footer{background:#0F0F0F;color:#D1D5DB;padding:28px 14px;margin-top:20px}
+  .hidden{display:none}
+  .peta-box{background:#FEE2E2;border:2px solid #FECACA;border-radius:20px;padding:18px;text-align:center}
+  .peta-box img{width:100%;max-width:900px;height:420px;object-fit:cover;object-position:top;border-radius:16px;border:3px solid #DC2626;display:block;margin:12px auto;background:#fff}
+  .filter-btn{padding:13px 16px;border-radius:999px;border:2px solid #000;background:#fff;color:#333;font-weight:800;cursor:pointer;font-size:14px}
+  .filter-btn.active{background:#FFD700;color:#000;border-color:#000}
+  .section#berita{background:#FF0A2A;border-radius:24px;padding:22px 16px;margin-top:18px;box-shadow:0 10px 25px rgba(255,10,42,.35)}
+  .section#berita h2, .section#berita p.sub{color:#fff}
+  .section#berita h2 span{color:#FFD700}
+  .section#berita .card{border:3px solid #FFD700;box-shadow:0 6px 0 #B8001A}
+  .section#struktur{background:#00A651;border-radius:24px;padding:22px 16px;margin-top:18px;box-shadow:0 10px 25px rgba(0,166,81,.35)}
+  .section#struktur h2, .section#struktur p.sub{color:#fff}
+  .section#struktur h2 span{color:#FFD700}
+  .section#struktur .card{border:3px solid #FFD700;box-shadow:0 6px 0 #006B33}
+  .section#belanja{background:#FFD700;border-radius:24px;padding:22px 16px;margin-top:18px;box-shadow:0 10px 25px rgba(255,180,0,.4)}
+  .section#belanja h2{color:#000} .section#belanja h2 span{color:#FF0A2A}
+  .section#belanja p.sub{color:#333}
+  @media(max-width:820px){
+    .menu{display:none} .grid-3{grid-template-columns:1fr} .hero h1{font-size:28px}
+    .produk-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+    .produk-img{height:105px;font-size:44px}
+    .produk-body{padding:8px} .produk-body h3{font-size:12px;min-height:32px} .produk-body .harga{font-size:13px}
+    .btn-keranjang{padding:12px 4px;font-size:13px}
+    .hero-gedung img{height:280px}
+    .peta-box img{height:280px}
   }
-  document.getElementById('cartCount').innerText=count;
-  document.getElementById('cartTotal').innerText='Rp '+total.toLocaleString('id-ID');
-}
-function checkout(){
-  let nama=document.getElementById('namaPembeli').value; let alamat=document.getElementById('alamatPembeli').value;
-  if(!Object.keys(cart).length) return alert('Keranjang masih kosong bre!');
-  if(!nama) return alert('Isi nama dulu!');
-  let pesan=`Halo KDMP, saya mau pesan:\n`+Object.keys(cart).map(k=>`- ${k} x ${cart[k].qty} = Rp ${(cart[k].harga*cart[k].qty).toLocaleString('id-ID')}`).join('\n')+`\nTotal: ${document.getElementById('cartTotal').innerText}\nNama: ${nama}\nAlamat: ${alamat}`;
-  window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(pesan)}`,'_blank');
-}
-load();
-</script></body></html>
+</style>
+</head>
+<body>
+<header><div class="nav"><a href="#" class="logo"><img src="logo%20kpdes%20png.png" alt="Logo">KDMP <span>Pendowo Asri</span></a><nav class="menu"><a href="#berita">Berita</a><a href="#struktur">Struktur</a><a href="#belanja">Belanja</a><a href="#peta">Peta</a></nav><div style="display:flex;gap:8px;align-items:center"><a href="admin.html" style="font-size:12px;font-weight:700;color:#777">Login Admin</a><button class="btn-red" onclick="document.getElementById('belanja').scrollIntoView({behavior:'smooth'})">🛒 <span id="cartCount">0</span></button></div></div></header>
+<div class="hero"><span class="hero-badge">✦ KOPERASI DESA MERAH PUTIH • PENDOWO ASRI</span><h1>Koperasi Milik Warga, <span>Untuk Warga.</span></h1><p>Belanja kebutuhan harian lebih mudah, harga transparan, keuntungan kembali ke warga.</p>
+<div class="hero-gedung"><img src="gedung%20kdmp.jpg" alt="Gedung KDMP Pendowo Asri"><div class="overlay"><div><b style="font-size:18px">Gerai Asli KDMP Pendowo Asri</b><br><span style="font-size:13px">Kampung Pendowo Asri, Kec. Dente Teladas, Kab. Tulang Bawang, Lampung</span></div></div></div>
+</div>
+<div class="section" id="berita"><h2>📰 Berita <span>& Informasi</span></h2><p class="sub">Update terbaru dari pengurus koperasi.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+  <button onclick="filterBerita('Semua')" id="fbSemua" class="filter-btn active">Semua</button>
+  <button onclick="filterBerita('Berita Harian')" id="fbBerita" class="filter-btn">📰 Berita Harian</button>
+  <button onclick="filterBerita('Pengumuman')" id="fbPengumuman" class="filter-btn">📢 Pengumuman</button>
+  <button onclick="filterBerita('Informasi')" id="fbInformasi" class="filter-btn">ℹ️ Informasi</button>
+  <button onclick="filterBerita('Kegiatan')" id="fbKegiatan" class="filter-btn">🎉 Kegiatan</button>
+</div>
+<div id="beritaList" class="grid-3"></div></div>
+<div class="section" id="struktur"><h2>👥 Struktur <span>Organisasi</span></h2><p class="sub">Pengurus KDMP Pendowo Asri.</p><div id="strukturList" class="grid-3"></div></div>
+<div class="section" id="belanja">
+  <h2 style="text-align:center">Penawaran <span>Terbaik</span></h2><p class="sub" style="text-align:center">Pilih mau belanja buat dapur atau buat stok warung kamu.</p>
+  <div class="tabs"><button id="btnDapur" class="active" onclick="setKategori('dapur')">🍳 Kebutuhan Dapur</button><button id="btnWarung" onclick="setKategori('warung')">🏪 Stok Warung Kamu</button></div>
+  <p id="kategoriDesc" style="text-align:center;color:#333;font-size:13px">Buat masak hari ini - harga ecer.</p>
+  <div class="search-row"><input id="searchInput" placeholder="Cari barang... contoh: Beras" oninput="renderProduk()"><button onclick="renderProduk()">Cari</button></div>
+  <div class="produk-grid" id="produkList"></div>
+  <p id="produkKosong" class="hidden" style="text-align:center;color:#333;padding:20px">Barang gak ketemu, coba kata lain bre!</p>
+  <div class="cart-box"><h3 style="margin:0 0 8px">🧺 Keranjang Kamu</h3><div id="cartList"><p style="color:#777;font-size:14px">Keranjang masih kosong.</p></div><div style="display:flex;justify-content:space-between;font-weight:900;margin-top:12px"><span>Total</span><span id="cartTotal" style="color:#FF0A2A">Rp 0</span></div><input id="namaPembeli" placeholder="Nama Kamu (Contoh: Ibu Ani)" style="margin-top:12px"><input id="alamatPembeli" placeholder="Alamat / Blok Rumah" style="margin-top:8px"><button class="btn-red" style="width:100%;padding:14px;margin-top:12px;font-size:15px" onclick="checkoutWA()">Checkout via WhatsApp →</button></div>
+</div>
+<div class="section" id="peta">
+  <div class="peta-box">
+    <h2 style="margin:0">📍 Peta Wilayah Kampung Pendowo Asri</h2>
+    <p style="color:#555;font-size:13px">Peta wilayah administratif Kampung Pendowo Asri untuk memudahkan distribusi dan layanan kepada seluruh warga.</p>
+    <img id="petaImg" src="peta%20pendowo%20asri.jpeg" onerror="cobaPetaBerikutnya(this)" alt="Peta Kampung Pendowo Asri">
+    <p id="petaError" class="hidden" style="font-size:13px;color:#DC2626;font-weight:700">Peta belum ketemu. Cek nama file di Github harus persis: peta pendowo asri.jpeg</p>
+    <div style="background:#fff;padding:12px;border-radius:12px;text-align:left;font-size:13px;line-height:1.6;color:#333">
+      <b>Kawasan ini merupakan wilayah layanan Koperasi Merah Putih Kampung Pendowo Asri.</b><br>
+      Semua pesanan akan diantar sesuai alamat di dalam area peta di atas.
+    </div>
+    <p style="font-size:13px;margin:12px 0 0">Kampung Pendowo Asri, Kec. Dente Teladas, Kab. Tulang Bawang, Lampung</p>
+  </div>
+  <div class="card" style="margin-top:12px;display:flex;gap:12px;align-items:center">
+    <img src="gedung%20kdmp%202.jpg" style="width:110px;height:80px;object-fit:cover;border-radius:10px" alt="Gerai KDMP">
+    <div><b>Gerai KDMP Pendowo Asri</b><p>Ini foto gerai kita yang asli, yang ada tulisan KOPERASI MERAH PUTIH nya.<br>Jam Buka: Senin - Sabtu, 08.00 - 17.00 WIB<br>WA Kasir: <span id="waDisplay">-</span></p></div>
+  </div>
+</div>
+<footer><div style="max-width:1100px;margin:0 auto"><b style="color:#fff">KDMP Pendowo Asri</b><p style="font-size:13px">Koperasi Desa Merah Putih - Dari Warga, Oleh Warga, Untuk Warga.</p><p style="font-size:12px;color:#888">© 2026 KDMP Pendowo Asri</p></div></footer>
+<script>
+  let petaList = ['peta%20pendowo%20asri.jpeg','peta%20pendowo%20asri.jpg','peta.jpg','peta.jpeg','Peta%20pendowo%20asri.jpeg','peta%20pendowo%20asri.JPG'];
+  let petaIdx = 0;
+  function cobaPetaBerikutnya(img){ petaIdx++; if(petaIdx < petaList.length){ img.src = petaList[petaIdx]; } else { document.getElementById('petaError').classList.remove('hidden'); } }
+  let produkDefault = [
+    {nama:'Beras Premium 5 Kg',kategori:'dapur',harga:65000,stok:20,emoji:'🍚',deskripsi:'Beras pulen',foto:''},
+    {nama:'Minyak Goreng 1 L',kategori:'dapur',harga:17500,stok:35,emoji:'🧴',deskripsi:'Minyak 1 liter',foto:''},
+    {nama:'Gula Pasir 1 Kg',kategori:'dapur',harga:16000,stok:40,emoji:'🧂',deskripsi:'Gula pasir',foto:''},
+    {nama:'Telur Ayam 1 Kg',kategori:'dapur',harga:28000,stok:15,emoji:'🥚',deskripsi:'Telur segar',foto:''},
+    {nama:'Mie Instan 1 Dus',kategori:'warung',harga:105000,stok:12,emoji:'🍜',deskripsi:'1 Dus 40 pcs',foto:''},
+    {nama:'Minyak Goreng 1 Dus',kategori:'warung',harga:198000,stok:8,emoji:'🧴',deskripsi:'1 Dus 12 pcs',foto:''}
+  ];
+  function getData(k){ try{ return JSON.parse(localStorage.getItem(k))||[] }catch(e){ return [] } }
+  function getSetting(){ try{ return JSON.parse(localStorage.getItem('kdmp_setting'))||{wa:'',kasir:'Kasir KDMP Pendowo Asri'} }catch(e){ return {wa:'',kasir:'Kasir KDMP Pendowo Asri'} } }
+  let kategoriAktif='dapur'; let cart={};
+  function getProduk(){ const d=getData('kdmp_produk'); return d.length?d:produkDefault; }
+  function setKategori(k){ kategoriAktif=k; document.getElementById('btnDapur').classList.toggle('active',k==='dapur'); document.getElementById('btnWarung').classList.toggle('active',k==='warung'); document.getElementById('kategoriDesc').textContent=k==='dapur'?'Buat masak hari ini - harga ecer.':'Buat jualan lagi - harga grosir / dus.'; renderProduk(); }
+  function formatRp(n){ return 'Rp '+n.toLocaleString('id-ID'); }
+  function renderProduk(){
+    const q=(document.getElementById('searchInput').value||'').toLowerCase();
+    const list=getProduk().filter(p=>(p.kategori||'dapur')===kategoriAktif && p.nama.toLowerCase().includes(q));
+    const el=document.getElementById('produkList');
+    document.getElementById('produkKosong').classList.toggle('hidden',list.length>0);
+    el.innerHTML=list.map((p)=>{
+      const allIdx=getProduk().findIndex(x=>x.nama===p.nama && x.kategori===p.kategori);
+      const qty=cart[allIdx]||0;
+      const fotoHtml=p.foto?`<img src="${p.foto}">`:p.emoji;
+      const btn=qty===0?`<button class="btn-keranjang" ${p.stok<=0?'disabled':''} onclick="tambahKeranjang(${allIdx})">${p.stok<=0?'Habis':'+ Keranjang'}</button>`:`<div class="qty-mini"><button onclick="ubahQty(${allIdx},-1)">-</button><b>${qty}</b><button class="plus" onclick="ubahQty(${allIdx},1)">+</button></div>`;
+      return `<div class="produk-card"><div class="produk-img">${fotoHtml}</div><div class="produk-body"><h3>${p.nama}</h3><div class="harga">${formatRp(p.harga)}</div><div class="diskon">Stok: ${p.stok}</div>${btn}</div></div>`
+    }).join('');
+  }
+  function ubahQty(idx,delta){ const p=getProduk()[idx]; let q=(cart[idx]||0)+delta; if(q<0)q=0; if(q>p.stok)q=p.stok; if(q===0)delete cart[idx]; else cart[idx]=q; renderProduk(); renderCart(); }
+  function tambahKeranjang(idx){ const p=getProduk()[idx]; if((cart[idx]||0)>=p.stok) return alert('Stok habis bre!'); cart[idx]=(cart[idx]||0)+1; renderProduk(); renderCart(); }
+  function renderCart(){ const list=getProduk(); let total=0,count=0,html=''; Object.keys(cart).forEach(k=>{ const p=list[k]; const q=cart[k]; const sub=p.harga*q; total+=sub; count+=q; html+=`<div class="cart-item"><span>${p.emoji} ${p.nama} x ${q}</span><b>${formatRp(sub)}</b></div>` }); document.getElementById('cartList').innerHTML=html||'<p style="color:#777;font-size:14px">Keranjang masih kosong.</p>'; document.getElementById('cartTotal').textContent=formatRp(total); document.getElementById('cartCount').textContent=count; }
+  function bersihinWA(no){ let n=String(no||'').replace(/\D/g,''); if(n.startsWith('0')) n='62'+n.slice(1); if(n && !n.startsWith('62')) n='62'+n; return n; }
+  function checkoutWA(){ if(Object.keys(cart).length===0) return alert('Keranjang masih kosong bre!'); const nama=document.getElementById('namaPembeli').value||'Warga'; const alamat=document.getElementById('alamatPembeli').value||'-'; const s=getSetting(); let wa=bersihinWA(s.wa); if(!wa || wa.length<10) return alert('Nomor WA Kasir belum bener bre!\n\nCek di Admin > Setting, isi kayak gini:\n6281234567890\nJangan pakai 08, jangan pakai +, jangan pakai spasi.'); let pesan=`Halo ${s.kasir||'Kasir'}! Saya mau pesan dari KDMP:%0A%0A`; let total=0; Object.keys(cart).forEach(k=>{ const p=getProduk()[k]; const q=cart[k]; total+=p.harga*q; pesan+=`- ${p.nama} x ${q} = ${formatRp(p.harga*q)}%0A` }); pesan+=`%0ATotal: ${formatRp(total)}%0ANama: ${nama}%0AAlamat: ${alamat}`; window.open(`https://wa.me/${wa}?text=${pesan}`,'_blank'); }
+  let filterBeritaAktif='Semua';
+  function filterBerita(k){ filterBeritaAktif=k; document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); const map={'Semua':'fbSemua','Berita Harian':'fbBerita','Pengumuman':'fbPengumuman','Informasi':'fbInformasi','Kegiatan':'fbKegiatan'}; if(map[k]) document.getElementById(map[k]).classList.add('active'); renderBerita(); }
+  function renderBerita(){ const d=getData('kdmp_berita'); const el=document.getElementById('beritaList'); if(!d.length){ el.innerHTML=`<div class="card"><span class="badge">Informasi</span><b>Selamat Datang di KDMP</b><p>Koperasi Desa Merah Putih resmi hadir untuk warga.</p></div><div class="card"><span class="badge">Kegiatan</span><b>Gerai Sudah Buka</b><p>Gerai sudah buka setiap hari.</p></div><div class="card"><span class="badge">Pengumuman</span><b>Yuk Jadi Anggota</b><p>Daftar jadi anggota untuk dapat SHU.</p></div>`; return; } const list = filterBeritaAktif==='Semua'? d : d.filter(x=>(x.kategori||'Berita Harian')===filterBeritaAktif); if(!list.length){ el.innerHTML=`<p style="color:#fff">Belum ada ${filterBeritaAktif} bre.</p>`; return; } el.innerHTML=list.map(x=>`<div class="card">${x.foto?`<img src="${x.foto}" class="berita-img">`:''}<span class="badge">${x.kategori||'Berita Harian'}</span><b>${x.judul}</b><p>${x.ringkasan||''}</p></div>`).join(''); }
+  function renderStruktur(){ const d=getData('kdmp_struktur'); const el=document.getElementById('strukturList'); if(!d.length){ el.innerHTML=`<div class="card" style="text-align:center"><div style="width:100px;height:100px;border-radius:50%;background:#FFF0F1;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px">👤</div><b>Ketua</b><p>Ketua KDMP</p></div><div class="card" style="text-align:center"><div style="width:100px;height:100px;border-radius:50%;background:#FFF0F1;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px">👤</div><b>Sekretaris</b><p>Sekretaris KDMP</p></div><div class="card" style="text-align:center"><div style="width:100px;height:100px;border-radius:50%;background:#FFF0F1;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px">👤</div><b>Bendahara</b><p>Bendahara KDMP</p></div>`; return; } el.innerHTML=d.map(x=>`<div class="card" style="text-align:center">${x.foto?`<img src="${x.foto}" style="width:110px;height:110px;object-fit:cover;border-radius:50%;border:3px solid #FFE1E5;display:block;margin:0 auto 10px">`:`<div style="width:110px;height:110px;border-radius:50%;background:#FFF0F1;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 10px">👤</div>`}<b>${x.nama}</b><p>${x.jabatan}<br>${x.deskripsi||''}</p></div>`).join(''); }
+  renderBerita(); renderStruktur(); renderProduk(); renderCart(); document.getElementById('waDisplay').textContent=getSetting().wa || 'Belum diatur - atur di Admin';
+</script>
+</body>
+</html>
