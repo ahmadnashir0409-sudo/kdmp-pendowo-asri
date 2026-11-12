@@ -1,114 +1,202 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Admin | KDMP Pendowo Asri</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #fff5f5, #f8dfe2);
-    }
-    .login-box {
-      width: 100%;
-      max-width: 420px;
-      padding: 35px;
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 12px 40px rgba(120,21,33,.12);
-    }
-    h1 { color: #b91c2c; margin-bottom: 8px; }
-    p { color: #666; line-height: 1.5; }
-    label { display: block; margin: 18px 0 7px; font-weight: bold; }
-    input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ddd;
-      border-radius: 9px;
-      font-size: 15px;
-    }
-    button {
-      width: 100%;
-      margin-top: 24px;
-      padding: 14px;
-      border: 0;
-      border-radius: 9px;
-      color: white;
-      background: #b91c2c;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:disabled { opacity: .6; }
-    #message { margin-top: 16px; font-size: 14px; }
-    .back { display: block; margin-top: 20px; color: #b91c2c; text-align: center; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - KDMP Pendowo Asri</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#fff8f8;color:#252525}
+  header{background:#b91c2c;color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+  header a{color:#fff;text-decoration:none;font-weight:700}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+  .card{background:#fff;border:1px solid #f0dddd;border-radius:16px;padding:22px;margin-bottom:20px;box-shadow:0 8px 24px rgba(84,16,22,.06)}
+  input,textarea,select{width:100%;padding:12px;border:1px solid #e5e7eb;border-radius:10px;margin:6px 0 12px;font-size:14px;font-family:inherit;background:#fff}
+  button{padding:11px 18px;border:0;border-radius:10px;font-weight:700;cursor:pointer}
+  .btn-red{background:#b91c2c;color:#fff} .btn-white{background:#fff;border:1px solid #ddd} .btn-green{background:#16a34a;color:#fff}
+  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+  .tabs button{background:#fff;border:1px solid #f0dddd}
+  .tabs button.active{background:#b91c2c;color:#fff}
+  .item{border:1px solid #eee;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+  .item b{display:block} .item small{color:#6b7280}
+  .hidden{display:none}
+  .login-box{max-width:420px;margin:60px auto;background:#fff;padding:28px;border-radius:18px;box-shadow:0 15px 40px rgba(0,0,0,.08)}
+  .login-box h2{margin:0 0 6px;color:#781521} .login-box p{color:#6b7280;font-size:13px}
+  .badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:800;background:#fff0f0;color:#b91c2c}
+  .badge.warung{background:#fef3c7;color:#92400e}
+  label{font-size:13px;font-weight:700;color:#374151}
+</style>
 </head>
 <body>
-  <main class="login-box">
-    <h1>Login Admin</h1>
-    <p>KDMP Pendowo Asri<br>Silakan masuk menggunakan akun manajer.</p>
+<header><a href="index.html">← Balik ke Website</a><b>Dashboard Admin KDMP</b><span id="adminName"></span></header>
 
-    <form id="loginForm">
-      <label for="email">Email</label>
-      <input id="email" type="email" required autocomplete="username">
+<!-- LOGIN -->
+<div id="loginPage" class="wrap">
+  <div class="login-box">
+    <h2>Login Admin</h2>
+    <p>Login untuk update Berita, Struktur & Produk Gerai</p>
+    <label>Username</label><input id="userInput" placeholder="admin" value="admin">
+    <label>Password</label><input id="passInput" type="password" placeholder="kdmp123" value="kdmp123">
+    <button class="btn-red" style="width:100%" onclick="doLogin()">Masuk Dashboard</button>
+    <p id="loginMsg" style="color:#b91c2c;text-align:center"></p>
+    <p style="text-align:center;background:#fff5f5;padding:10px;border-radius:10px;font-size:13px">Default: <b>admin</b> / <b>kdmp123</b><br>Ganti di menu Pengaturan setelah login</p>
+  </div>
+</div>
 
-      <label for="password">Password</label>
-      <input id="password" type="password" required autocomplete="current-password">
+<!-- DASHBOARD -->
+<div id="dashPage" class="wrap hidden">
+  <div style="background:#fff;border:1px solid #f0dddd;border-radius:12px;padding:14px 16px;margin-bottom:18px">👋 Halo Admin! Di sini lu bisa <b>input stok, ganti harga, nambah barang baru</b>, semua langsung muncul di website utama. Gak perlu ngoding lagi.</div>
+  <div class="tabs">
+    <button id="tabBerita" class="active" onclick="showTab('berita')">📰 Berita</button>
+    <button id="tabStruktur" onclick="showTab('struktur')">👥 Struktur Organisasi</button>
+    <button id="tabProduk" onclick="showTab('produk')">🛒 Produk Gerai</button>
+    <button id="tabSetting" onclick="showTab('setting')">⚙️ Pengaturan</button>
+    <button onclick="doLogout()" style="margin-left:auto;background:#241a1b;color:#fff">Logout</button>
+  </div>
 
-      <button id="loginButton" type="submit">Masuk Dashboard</button>
-      <div id="message" role="status"></div>
-    </form>
+  <!-- BERITA -->
+  <div id="panel-berita">
+    <div class="card"><h3>Tambah / Edit Berita</h3>
+      <label>Judul Berita</label><input id="bJudul" placeholder="Contoh: Rapat Anggota Tahunan KDMP">
+      <label>Ringkasan</label><textarea id="bRingkasan" rows="3" placeholder="Ringkasan berita..."></textarea>
+      <label>Kategori</label><input id="bKategori" placeholder="Informasi / Kegiatan">
+      <label>Tanggal</label><input id="bTanggal" type="date">
+      <button class="btn-red" onclick="saveBerita()">Simpan Berita</button>
+      <button class="btn-white" onclick="resetBerita()">Batal Edit</button>
+    </div>
+    <div class="card"><h3>Daftar Berita</h3><div id="listBerita"></div></div>
+  </div>
 
-    <a class="back" href="index.html">← Kembali ke website</a>
-  </main>
+  <!-- STRUKTUR -->
+  <div id="panel-struktur" class="hidden">
+    <div class="card"><h3>Tambah / Edit Struktur Organisasi</h3>
+      <label>Nama</label><input id="sNama" placeholder="Contoh: Budi Santoso">
+      <label>Jabatan</label><input id="sJabatan" placeholder="Contoh: Ketua / Bendahara / Sekretaris">
+      <label>Deskripsi</label><textarea id="sDeskripsi" rows="2" placeholder="Deskripsi singkat..."></textarea>
+      <button class="btn-red" onclick="saveStruktur()">Simpan Anggota</button>
+      <button class="btn-white" onclick="resetStruktur()">Batal Edit</button>
+    </div>
+    <div class="card"><h3>Daftar Struktur Organisasi</h3><div id="listStruktur"></div></div>
+  </div>
 
-  <script>
-    const SUPABASE_URL = "https://ntelnblacqrwunjctxwd.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_xxxxxxxxx";
+  <!-- PRODUK - INI YANG PALING SERING LU PAKE BRE -->
+  <div id="panel-produk" class="hidden">
+    <div class="card"><h3>Tambah / Edit Produk Gerai</h3>
+      <label>Nama Barang</label><input id="pNama" placeholder="Contoh: Beras 5 Kg / Minyak 1 Dus">
+      <label>Masuk ke Kategori Mana?</label>
+      <select id="pKategori">
+        <option value="dapur">🍳 Belanja Kebutuhan Dapur - Eceran buat masak</option>
+        <option value="warung">🏪 Untuk Stok Warung Kamu - Grosir / Dus</option>
+      </select>
+      <label>Harga (Rp)</label><input id="pHarga" type="number" placeholder="Contoh: 65000">
+      <label>Stok</label><input id="pStok" type="number" placeholder="Contoh: 20">
+      <label>Emoji</label><input id="pEmoji" placeholder="Contoh: 🍚 / 🧴 / 🥚">
+      <label>Deskripsi</label><textarea id="pDeskripsi" rows="2" placeholder="Deskripsi produk..."></textarea>
+      <button class="btn-red" onclick="saveProduk()">Simpan Produk</button>
+      <button class="btn-white" onclick="resetProduk()">Batal Edit</button>
+      <p style="font-size:13px;color:#6b7280">Tips: Kalau mau ganti harga doang, klik tombol Edit di bawah, ganti harganya, terus klik Simpan Produk. Beres.</p>
+    </div>
+    <div class="card">
+      <h3>Daftar Produk Gerai</h3>
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+        <button class="btn-white" onclick="filterProdukAdmin('semua')">Semua</button>
+        <button class="btn-white" onclick="filterProdukAdmin('dapur')">🍳 Dapur</button>
+        <button class="btn-white" onclick="filterProdukAdmin('warung')">🏪 Warung</button>
+      </div>
+      <div id="listProduk"></div>
+    </div>
+  </div>
 
-    const client = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
+  <!-- SETTING -->
+  <div id="panel-setting" class="hidden">
+    <div class="card"><h3>Pengaturan Admin & WA Kasir</h3>
+      <label>Username Baru</label><input id="setUser" value="admin">
+      <label>Password Baru</label><input id="setPass" value="kdmp123">
+      <label>Nomor WA Kasir (format 62...)</label><input id="setWA" value="6281234567890">
+      <label>Nama Kasir</label><input id="setNamaKasir" value="Kasir KDMP Pendowo Asri">
+      <button class="btn-green" onclick="saveSetting()">Simpan Pengaturan</button>
+      <p style="font-size:13px;color:#6b7280">Nomor WA ini yang dipakai untuk checkout belanja di website utama. Ganti di sini aja, gak perlu ngoding.</p>
+    </div>
+  </div>
+</div>
 
-    const form = document.getElementById("loginForm");
-    const button = document.getElementById("loginButton");
-    const message = document.getElementById("message");
+<script>
+  function getData(key){ try{ return JSON.parse(localStorage.getItem(key)) || [] }catch(e){ return [] } }
+  function setData(key,val){ localStorage.setItem(key, JSON.stringify(val)) }
+  function getSetting(){ try{ return JSON.parse(localStorage.getItem('kdmp_setting')) || {user:'admin',pass:'kdmp123',wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} }catch(e){ return {user:'admin',pass:'kdmp123',wa:'6281234567890',kasir:'Kasir KDMP Pendowo Asri'} } }
+  let editIndex = -1, editType = '';
+  let filterAdmin = 'semua';
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      button.disabled = true;
-      button.textContent = "Memeriksa...";
-      message.textContent = "";
-
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
-
-      const { error } = await client.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) {
-        message.textContent = "Login gagal: " + error.message;
-        message.style.color = "#b91c2c";
-        button.disabled = false;
-        button.textContent = "Masuk Dashboard";
-        return;
-      }
-
-      window.location.href = "dashboard.html";
+  function doLogin(){
+    const s = getSetting();
+    const u = document.getElementById('userInput').value.trim();
+    const p = document.getElementById('passInput').value.trim();
+    if(u===s.user && p===s.pass){ localStorage.setItem('kdmp_login','1'); showDash(); }
+    else { document.getElementById('loginMsg').textContent = 'Username / Password salah bre!'; }
+  }
+  function doLogout(){ localStorage.removeItem('kdmp_login'); location.reload(); }
+  function showDash(){
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('dashPage').classList.remove('hidden');
+    document.getElementById('adminName').textContent = 'Halo, ' + getSetting().user;
+    const s = getSetting();
+    document.getElementById('setUser').value = s.user;
+    document.getElementById('setPass').value = s.pass;
+    document.getElementById('setWA').value = s.wa;
+    document.getElementById('setNamaKasir').value = s.kasir;
+    renderAll();
+  }
+  if(localStorage.getItem('kdmp_login')==='1') showDash();
+  function showTab(t){
+    ['berita','struktur','produk','setting'].forEach(x=>{
+      document.getElementById('panel-'+x).classList.toggle('hidden', x!==t);
+      const btn = document.getElementById('tab'+x.charAt(0).toUpperCase()+x.slice(1));
+      if(btn) btn.classList.toggle('active', x===t);
     });
-  </script>
+  }
+  function saveBerita(){
+    const list = getData('kdmp_berita');
+    const data = {judul:document.getElementById('bJudul').value, ringkasan:document.getElementById('bRingkasan').value, kategori:document.getElementById('bKategori').value||'Berita', tanggal:document.getElementById('bTanggal').value||new Date().toISOString().slice(0,10)};
+    if(!data.judul) return alert('Judul berita wajib diisi!');
+    if(editType==='berita' && editIndex>=0) list[editIndex]=data; else list.unshift(data);
+    setData('kdmp_berita', list); resetBerita(); renderAll(); alert('Berita tersimpan! Cek di website utama.');
+  }
+  function resetBerita(){ editIndex=-1; editType=''; ['bJudul','bRingkasan','bKategori','bTanggal'].forEach(id=>document.getElementById(id).value=''); }
+  function saveStruktur(){
+    const list = getData('kdmp_struktur');
+    const data = {nama:document.getElementById('sNama').value, jabatan:document.getElementById('sJabatan').value, deskripsi:document.getElementById('sDeskripsi').value};
+    if(!data.nama) return alert('Nama wajib diisi!');
+    if(editType==='struktur' && editIndex>=0) list[editIndex]=data; else list.push(data);
+    setData('kdmp_struktur', list); resetStruktur(); renderAll(); alert('Struktur tersimpan!');
+  }
+  function resetStruktur(){ editIndex=-1; editType=''; ['sNama','sJabatan','sDeskripsi'].forEach(id=>document.getElementById(id).value=''); }
+  function saveProduk(){
+    const list = getData('kdmp_produk');
+    const data = {nama:document.getElementById('pNama').value, kategori:document.getElementById('pKategori').value, harga:parseInt(document.getElementById('pHarga').value||0), stok:parseInt(document.getElementById('pStok').value||0), emoji:document.getElementById('pEmoji').value||'🛒', deskripsi:document.getElementById('pDeskripsi').value};
+    if(!data.nama || !data.harga) return alert('Nama & Harga wajib diisi!');
+    if(editType==='produk' && editIndex>=0) list[editIndex]=data; else list.push(data);
+    setData('kdmp_produk', list); resetProduk(); renderAll(); alert('Produk tersimpan! Cek di website utama, tab ' + (data.kategori==='warung' ? 'Stok Warung' : 'Dapur'));
+  }
+  function resetProduk(){ editIndex=-1; editType=''; ['pNama','pHarga','pStok','pEmoji','pDeskripsi'].forEach(id=>document.getElementById(id).value=''); document.getElementById('pKategori').value='dapur'; }
+  function saveSetting(){
+    const s = {user:document.getElementById('setUser').value, pass:document.getElementById('setPass').value, wa:document.getElementById('setWA').value, kasir:document.getElementById('setNamaKasir').value};
+    localStorage.setItem('kdmp_setting', JSON.stringify(s));
+    alert('Pengaturan tersimpan! Nomor WA kasir: '+s.wa);
+  }
+  function filterProdukAdmin(f){ filterAdmin=f; renderAll(); }
+  function renderAll(){
+    const b = getData('kdmp_berita');
+    document.getElementById('listBerita').innerHTML = b.length ? b.map((x,i)=>`<div class="item"><div><b>${x.judul}</b><small>${x.kategori} - ${x.tanggal}</small></div><div><button class="btn-white" onclick="editBerita(${i})">Edit</button> <button class="btn-red" onclick="delItem('kdmp_berita',${i})">Hapus</button></div></div>`).join('') : '<p>Belum ada berita</p>';
+    const s = getData('kdmp_struktur');
+    document.getElementById('listStruktur').innerHTML = s.length ? s.map((x,i)=>`<div class="item"><div><b>${x.nama}</b><small>${x.jabatan}</small></div><div><button class="btn-white" onclick="editStruktur(${i})">Edit</button> <button class="btn-red" onclick="delItem('kdmp_struktur',${i})">Hapus</button></div></div>`).join('') : '<p>Belum ada struktur</p>';
+    let p = getData('kdmp_produk');
+    if(filterAdmin!=='semua') p = p.map((x,idx)=>({...x, _idx:idx})).filter(x=> (x.kategori||'dapur')===filterAdmin);
+    else p = p.map((x,idx)=>({...x, _idx:idx}));
+    document.getElementById('listProduk').innerHTML = p.length ? p.map((x)=>`<div class="item"><div><b>${x.emoji} ${x.nama}</b><br><span class="badge ${x.kategori==='warung'?'warung':''}">${x.kategori==='warung'?'🏪 Stok Warung':'🍳 Dapur'}</span> <small>Rp ${x.harga.toLocaleString('id-ID')} - Stok: ${x.stok}</small></div><div><button class="btn-white" onclick="editProduk(${x._idx})">Edit Harga / Stok</button> <button class="btn-red" onclick="delItem('kdmp_produk',${x._idx})">Hapus</button></div></div>`).join('') : '<p>Belum ada produk. Tambah dulu ya bre! Nanti produk default di website akan keganti sama produk lu.</p>';
+  }
+  function editBerita(i){ const x=getData('kdmp_berita')[i]; document.getElementById('bJudul').value=x.judul; document.getElementById('bRingkasan').value=x.ringkasan; document.getElementById('bKategori').value=x.kategori; document.getElementById('bTanggal').value=x.tanggal; editIndex=i; editType='berita'; window.scrollTo({top:0,behavior:'smooth'}); }
+  function editStruktur(i){ const x=getData('kdmp_struktur')[i]; document.getElementById('sNama').value=x.nama; document.getElementById('sJabatan').value=x.jabatan; document.getElementById('sDeskripsi').value=x.deskripsi; editIndex=i; editType='struktur'; showTab('struktur'); }
+  function editProduk(i){ const x=getData('kdmp_produk')[i]; document.getElementById('pNama').value=x.nama; document.getElementById('pKategori').value=x.kategori||'dapur'; document.getElementById('pHarga').value=x.harga; document.getElementById('pStok').value=x.stok; document.getElementById('pEmoji').value=x.emoji; document.getElementById('pDeskripsi').value=x.deskripsi; editIndex=i; editType='produk'; showTab('produk'); window.scrollTo({top:0,behavior:'smooth'}); }
+  function delItem(key,i){ if(!confirm('Yakin hapus?')) return; const l=getData(key); l.splice(i,1); setData(key,l); renderAll(); }
+</script>
 </body>
 </html>
-
