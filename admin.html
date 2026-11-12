@@ -23,6 +23,7 @@
   .btn-red{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;box-shadow:0 8px 18px rgba(255,10,42,.32)}
   .btn-white{background:#fff;border:1.5px solid #FFE1E5;color:#333}
   .btn-green{background:linear-gradient(135deg,#00C853,#00E676);color:#fff;box-shadow:0 8px 18px rgba(0,200,83,.28)}
+  .btn-small{padding:8px 12px;font-size:12px}
   .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;background:#fff;border:1.5px solid #FFE1E5;border-radius:999px;padding:5px;box-shadow:0 6px 18px rgba(255,10,42,.06)}
   .tabs button{background:transparent;border:0;color:#555}
   .tabs button.active{background:linear-gradient(135deg,#FF0A2A,#FF5A2A);color:#fff;box-shadow:0 6px 14px rgba(255,10,42,.32)}
@@ -38,7 +39,28 @@
   label{font-size:13px;font-weight:800;color:#333}
   .welcome{background:linear-gradient(135deg,#FF0A2A,#FF7A00);color:#fff;border-radius:18px;padding:16px 18px;margin-bottom:18px;box-shadow:0 12px 28px rgba(255,10,42,.28);font-size:14px;line-height:1.5}
   .welcome b{color:#fff}
-  @media(max-width:600px){ .tabs{border-radius:18px} .tabs button{flex:1 1 40%;font-size:12px} .item{flex-direction:column;align-items:flex-start} }
+
+  /* === PRODUK ADMIN JADI 3 KOLOM SEJAJAR KAYAK ALFAGIFT - INI EDITAN BARUNYA BRE === */
+  .produk-admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .produk-admin-card{background:#fff;border:1px solid #EEE;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  .produk-admin-img{background:linear-gradient(180deg,#FFF0F1,#FFFFFF);height:110px;display:flex;align-items:center;justify-content:center;font-size:52px}
+  .produk-admin-body{padding:10px;display:flex;flex-direction:column;gap:5px;flex:1}
+  .produk-admin-body h4{margin:0;font-size:13px;line-height:1.35;min-height:34px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-weight:700;color:#222}
+  .produk-admin-body .harga-admin{font-size:14px;font-weight:900;color:#FF0A2A}
+  .produk-admin-body small{font-size:11px;color:#888}
+  .produk-admin-btns{display:flex;gap:6px;margin-top:auto}
+  .produk-admin-btns button{flex:1;padding:8px 4px;font-size:12px}
+
+  @media(max-width:600px){
+    .tabs{border-radius:18px} .tabs button{flex:1 1 40%;font-size:12px} .item{flex-direction:column;align-items:flex-start}
+    .produk-admin-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+    .produk-admin-img{height:85px;font-size:38px}
+    .produk-admin-body{padding:8px}
+    .produk-admin-body h4{font-size:11px;min-height:30px}
+    .produk-admin-body .harga-admin{font-size:12px}
+    .produk-admin-btns{flex-direction:column}
+    .produk-admin-btns button{width:100%}
+  }
 </style>
 </head>
 <body>
@@ -112,7 +134,7 @@
       <p style="font-size:13px;color:#777">Tips: Kalau mau ganti harga doang, klik tombol Edit di bawah, ganti harganya, terus klik Simpan Produk. Beres.</p>
     </div>
     <div class="card">
-      <h3>Daftar <span>Produk Gerai</span></h3>
+      <h3>Daftar <span>Produk Gerai</span> - 3 Sejajar Kayak Alfagift</h3>
       <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
         <button class="btn-white" onclick="filterProdukAdmin('semua')">Semua</button>
         <button class="btn-white" onclick="filterProdukAdmin('dapur')">🍳 Dapur</button>
@@ -206,7 +228,8 @@
     let p = getData('kdmp_produk');
     if(filterAdmin!=='semua') p = p.map((x,idx)=>({...x, _idx:idx})).filter(x=> (x.kategori||'dapur')===filterAdmin);
     else p = p.map((x,idx)=>({...x, _idx:idx}));
-    document.getElementById('listProduk').innerHTML = p.length ? p.map((x)=>`<div class="item"><div><b>${x.emoji} ${x.nama}</b><br><span class="badge ${x.kategori==='warung'?'warung':''}">${x.kategori==='warung'?'🏪 Stok Warung':'🍳 Dapur'}</span> <small>Rp ${x.harga.toLocaleString('id-ID')} - Stok: ${x.stok}</small></div><div><button class="btn-white" onclick="editProduk(${x._idx})">Edit Harga / Stok</button> <button class="btn-red" onclick="delItem('kdmp_produk',${x._idx})">Hapus</button></div></div>`).join('') : '<p>Belum ada produk. Tambah dulu ya bre! Nanti produk default di website akan keganti sama produk lu.</p>';
+    // INI YANG DIEDIT: DARI LIST KEBAWAH JADI GRID 3 SEJAJAR
+    document.getElementById('listProduk').innerHTML = p.length ? `<div class="produk-admin-grid">` + p.map((x)=>`<div class="produk-admin-card"><div class="produk-admin-img">${x.emoji}</div><div class="produk-admin-body"><span class="badge ${x.kategori==='warung'?'warung':''}">${x.kategori==='warung'?'🏪 Warung':'🍳 Dapur'}</span><h4>${x.nama}</h4><div class="harga-admin">Rp ${x.harga.toLocaleString('id-ID')}</div><small>Stok: ${x.stok} • ${x.deskripsi||''}</small><div class="produk-admin-btns"><button class="btn-white" onclick="editProduk(${x._idx})">Edit</button><button class="btn-red" onclick="delItem('kdmp_produk',${x._idx})">Hapus</button></div></div></div>`).join('') + `</div>` : '<p>Belum ada produk. Tambah dulu ya bre! Nanti produk default di website akan keganti sama produk lu.</p>';
   }
   function editBerita(i){ const x=getData('kdmp_berita')[i]; document.getElementById('bJudul').value=x.judul; document.getElementById('bRingkasan').value=x.ringkasan; document.getElementById('bKategori').value=x.kategori; document.getElementById('bTanggal').value=x.tanggal; editIndex=i; editType='berita'; window.scrollTo({top:0,behavior:'smooth'}); }
   function editStruktur(i){ const x=getData('kdmp_struktur')[i]; document.getElementById('sNama').value=x.nama; document.getElementById('sJabatan').value=x.jabatan; document.getElementById('sDeskripsi').value=x.deskripsi; editIndex=i; editType='struktur'; showTab('struktur'); }
