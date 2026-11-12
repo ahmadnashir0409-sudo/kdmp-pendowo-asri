@@ -1,74 +1,63 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KDMP Pendowo Asri - Gerai</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>body{font-family:system-ui} .kuning{background:#FFD500}</style>
-</head>
-<body class="bg-gray-50">
-<!-- HEADER -->
-<div class="kuning p-4 sticky top-0 z-10 shadow">
-  <h1 class="font-black text-xl">KDMP PENDOWO ASRI</h1>
-  <p class="text-xs font-bold">Gerai Koperasi • Bandar Lampung</p>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KDMP Pendowo Asri</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#fff8e1}
+header{background:#FFD500;padding:18px;text-align:center;position:sticky;top:0;z-index:10}
+header h1{margin:0;font-size:22px}header p{margin:4px 0 0;font-size:13px}
+.search{padding:12px} .search input{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;font-size:16px}
+.filter{padding:0 12px;display:flex;gap:8px} .filter button{flex:1;padding:10px;border-radius:20px;border:1px solid #ddd;background:#fff}
+.filter button.active{background:#000;color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}
+.card{background:#fff;border-radius:14px;padding:12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.card .icon{font-size:42px}.card h3{font-size:15px;margin:8px 0 4px;min-height:38px}
+.card .stok{font-size:12px;color:#666}.card .harga{font-weight:bold;font-size:17px;margin:6px 0}
+.card a{display:block;background:#25D366;color:#fff;padding:10px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:14px}
+.berita{padding:0 12px 20px}.berita .item{background:#fff;padding:12px;border-radius:12px;margin-bottom:10px;display:flex;gap:10px;align-items:center}
+</style></head><body>
+<header><h1>KDMP PENDOWO ASRI</h1><p>Koperasi Desa Merah Putih • Pendowo Asri</p></header>
+<div class="search"><input id="cari" placeholder="🔍 Cari produk... Beras, Minyak..." oninput="tampil()"></div>
+<div class="filter">
+<button onclick="setKat('semua',this)" class="active">Semua</button>
+<button onclick="setKat('dapur',this)">Dapur</button>
+<button onclick="setKat('warung',this)">Warung</button>
 </div>
-
-<div class="p-4 max-w-3xl mx-auto">
-  <div class="flex gap-2 mb-4">
-    <button onclick="filterCat('semua')" class="bg-black text-white px-4 py-2 rounded-full text-sm font-bold">Semua</button>
-    <button onclick="filterCat('dapur')" class="bg-white border px-4 py-2 rounded-full text-sm font-bold">Dapur</button>
-    <button onclick="filterCat('warung')" class="bg-white border px-4 py-2 rounded-full text-sm font-bold">Warung</button>
-  </div>
-  <div id="loading" class="text-center py-10 font-bold">Loading dari Google Sheets...</div>
-  <div id="list" class="grid grid-cols-2 gap-3"></div>
-  <div id="berita" class="mt-8"></div>
-</div>
+<div id="list" class="grid"><p style="grid-column:1/3;text-align:center">Memuat produk...</p></div>
+<div class="berita"><h3>📢 Berita / Pengumuman</h3><div id="beritaList"></div></div>
 
 <script>
-const SHEET_ID = "1gQkhDHcgmPRLiIlBl8TXS_DuulRnUwn2a1Z2D-UHQFY";
-let allProduk = [];
-let cat = 'semua';
+// GANTI LINK INI DENGAN LINK CSV SHEETS LU YANG TAB PRODUK
+const SHEET_PRODUK = "PASTE_LINK_CSV_PRODUK_DI_SINI";
+const SHEET_BERITA = "PASTE_LINK_CSV_BERITA_DI_SINI";
+let allData=[]; let katAktif='semua';
 
-async function getSheet(sheetName){
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${sheetName}`;
-  const res = await fetch(url);
-  const text = await res.text();
-  // CSV parser sederhana
-  const rows = text.split("\n").map(r => r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c=>c.replace(/^"|"$/g,'').trim()));
-  const header = rows[0];
-  return rows.slice(1).filter(r=>r[0]).map(r=>{
-    let o={}; header.forEach((h,i)=> o[h]=r[i]||''); return o;
-  });
+function iconFor(nama){
+  nama=nama.toLowerCase();
+  if(nama.includes('beras')) return '🍚';
+  if(nama.includes('minyak')) return '🛢️';
+  if(nama.includes('gula')) return '🍬';
+  if(nama.includes('telur')) return '🥚';
+  if(nama.includes('mie')||nama.includes('indomie')) return '🍜';
+  if(nama.includes('kopi')) return '☕';
+  return '🛒';
 }
-
-function render(){
-  const list = document.getElementById('list');
-  const filtered = allProduk.filter(p=> cat==='semua' || (p.Kategori||'').toLowerCase()===cat);
-  list.innerHTML = filtered.map(p=>`
-    <div class="bg-white rounded-2xl overflow-hidden shadow border">
-      <div class="h-28 bg-yellow-100 flex items-center justify-center text-5xl">${p.Kategori==='dapur'?'🍚':'🛒'}</div>
-      <div class="p-3">
-        <div class="font-bold text-sm leading-tight">${p.Nama}</div>
-        <div class="text-xs text-gray-500">Stok: ${p.Stok}</div>
-        <div class="font-black text-red-600 mt-1">Rp ${Number(p.Harga||0).toLocaleString('id-ID')}</div>
-        <a target="_blank" href="https://wa.me/6280000000000?text=Halo, saya mau pesan ${encodeURIComponent(p.Nama)}" class="block text-center bg-green-500 text-white text-xs font-bold py-2 rounded-full mt-2">Pesan WA</a>
-      </div>
-    </div>`).join('') || '<p class="col-span-2 text-center">Belum ada produk. Cek Sheets.</p>';
-}
-
-function filterCat(c){ cat=c; render(); }
-
-async function init(){
+async function load(){
   try{
-    allProduk = await getSheet('Produk');
-    const berita = await getSheet('Berita');
-    document.getElementById('loading').style.display='none';
-    render();
-    document.getElementById('berita').innerHTML = '<h2 class="font-black text-lg mb-3">Berita / Pengumuman</h2>' + berita.map(b=>`<div class="bg-white p-4 rounded-xl border mb-2"><b>${b.Judul}</b><div class="text-xs text-red-600 font-bold">${b.Kategori}</div><p class="text-sm text-gray-600">${b.Ringkasan}</p></div>`).join('');
-  }catch(e){ document.getElementById('loading').innerText='Gagal load. Cek Sheets sudah di-Share ke Siapa saja?'; }
+    let r=await fetch(SHEET_PRODUK); let t=await r.text();
+    let rows=t.split('\n').slice(1);
+    allData=rows.map(r=>{
+      let c=r.split(','); return {nama:c[0],harga:c[1],stok:c[2],kategori:(c[3]||'').toLowerCase(),deskripsi:c[5]||''}
+    }).filter(x=>x.nama);
+    tampil();
+  }catch(e){ document.getElementById('list').innerHTML='<p>Gagal load. Cek link Sheets.</p>' }
 }
-init();
-</script>
-</body>
-</html>
+function setKat(k,btn){ katAktif=k; document.querySelectorAll('.filter button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); tampil(); }
+function tampil(){
+  let q=document.getElementById('cari').value.toLowerCase();
+  let f=allData.filter(x=>(katAktif=='semua'||x.kategori.includes(katAktif)) && x.nama.toLowerCase().includes(q));
+  document.getElementById('list').innerHTML=f.map(x=>`
+    <div class="card"><div class="icon">${iconFor(x.nama)}</div><h3>${x.nama}</h3><div class="stok">Stok: ${x.stok}</div><div class="harga">Rp ${Number(x.harga).toLocaleString('id-ID')}</div><a href="https://wa.me/6280000000000?text=Halo%20saya%20mau%20pesan%20${encodeURIComponent(x.nama)}">Pesan via WhatsApp</a></div>
+  `).join('') || '<p style="grid-column:1/3;text-align:center">Produk tidak ditemukan</p>';
+}
+load();
+</script></body></html>
