@@ -28,7 +28,6 @@
   <button class="btn-red" style="width:100%" onclick="doLogin()">Masuk</button>
   <p style="font-size:12px;color:#888">Default awal: admin / admin123<br>Setelah login bisa diganti di menu Setting</p>
 </div>
-
 <div id="adminBox" class="hidden">
 <h1>🛠️ Admin KDMP Pendowo Asri</h1>
 <div style="display:flex;gap:10px;align-items:center"><a href="index.html">← Lihat Website</a><button class="btn-ghost" onclick="doLogout()">Logout</button></div>
@@ -38,7 +37,6 @@
   <button id="tStruktur" onclick="showTab('struktur')">Struktur</button>
   <button id="tSetting" onclick="showTab('setting')">Setting</button>
 </div>
-
 <div id="tab-produk">
   <div class="card"><h2>+ Tambah Produk + Foto</h2>
     <input id="pNama" placeholder="Nama Produk - Contoh: Beras Premium 5 Kg">
@@ -49,17 +47,22 @@
     <button class="btn-red" onclick="tambahProduk()">Simpan Produk</button>
   </div><div id="listProduk"></div>
 </div>
-
 <div id="tab-berita" class="hidden">
   <div class="card"><h2>+ Tambah Berita + Foto</h2>
-    <input id="bJudul" placeholder="Judul Berita"><textarea id="bRingkasan" placeholder="Ringkasan"></textarea>
-    <input id="bKategori" placeholder="Kategori (Informasi / Kegiatan / Pengumuman)">
+    <input id="bJudul" placeholder="Judul Berita">
+    <label style="font-size:13px;font-weight:700">Jenis Berita:</label>
+    <select id="bKategori">
+      <option value="Berita Harian">📰 Berita Harian</option>
+      <option value="Pengumuman">📢 Pengumuman</option>
+      <option value="Informasi">ℹ️ Informasi</option>
+      <option value="Kegiatan">🎉 Kegiatan</option>
+    </select>
+    <textarea id="bRingkasan" placeholder="Isi berita / pengumuman..."></textarea>
     <label style="font-size:13px;font-weight:700">Foto Berita:</label>
     <div class="row" style="margin:8px 0"><img id="bPreview" style="display:none"><input type="file" accept="image/*" onchange="previewFoto(event,'berita')" style="border:0;padding:0"></div>
     <button class="btn-red" onclick="tambahBerita()">Simpan Berita</button>
   </div><div id="listBerita"></div>
 </div>
-
 <div id="tab-struktur">
   <div class="card"><h2>+ Tambah Pengurus + Foto</h2>
     <input id="sNama" placeholder="Nama Lengkap"><input id="sJabatan" placeholder="Jabatan - Contoh: Ketua"><input id="sDeskripsi" placeholder="Deskripsi singkat">
@@ -68,7 +71,6 @@
     <button class="btn-red" onclick="tambahStruktur()">Simpan Pengurus</button>
   </div><div id="listStruktur"></div>
 </div>
-
 <div id="tab-setting" class="hidden">
   <div class="card"><h2>⚙️ Setting WA & Akun Admin</h2>
     <label style="font-size:13px;font-weight:700">WA Kasir (pakai 62, jangan 0):</label><input id="setWa" placeholder="6281234567890">
@@ -81,7 +83,6 @@
   </div>
 </div>
 </div>
-
 <script>
   function getData(k){ try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return []} }
   function setData(k,v){ localStorage.setItem(k,JSON.stringify(v)); renderAll(); }
@@ -92,9 +93,9 @@
   function showTab(t){ ['produk','berita','struktur','setting'].forEach(x=>{ document.getElementById('tab-'+x).classList.toggle('hidden',x!==t); document.getElementById('t'+x.charAt(0).toUpperCase()+x.slice(1)).classList.toggle('active',x===t); }); }
   let fotoProduk='', fotoBerita='', fotoStruktur='';
   function previewFoto(e,tipe){ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=function(ev){ const img=document.getElementById(tipe==='produk'?'pPreview':tipe==='berita'?'bPreview':'sPreview'); img.src=ev.target.result; img.style.display='block'; if(tipe==='produk') fotoProduk=ev.target.result; if(tipe==='berita') fotoBerita=ev.target.result; if(tipe==='struktur') fotoStruktur=ev.target.result; }; r.readAsDataURL(f); }
-  function tambahProduk(){ const nama=document.getElementById('pNama').value.trim(); if(!nama) return alert('Nama produk wajib!'); const d=getData('kdmp_produk'); d.push({nama,kategori:document.getElementById('pKategori').value,harga:Number(document.getElementById('pHarga').value)||0,stok:Number(document.getElementById('pStok').value)||0,emoji:'📦',deskripsi:'',foto:fotoProduk}); setData('kdmp_produk',d); fotoProduk=''; document.getElementById('pPreview').style.display='none'; alert('Produk tersimpan!'); }
+  function tambahProduk(){ const nama=document.getElementById('pNama').value.trim(); if(!nama) return alert('Nama produk wajib!'); const d=getData('kdmp_produk'); d.push({nama,kategori:document.getElementById('pKategori').value,harga:Number(document.getElementById('pHarga').value)||0,stok:Number(document.getElementById('pStok').value)||0,emoji:'📦',deskripsi:'',foto:fotoProduk}); setData('kdmp_produk',d); fotoProduk=''; document.getElementById('pPreview').style.display='none'; document.getElementById('pNama').value=''; alert('Produk tersimpan!'); }
   function hapusProduk(i){ if(!confirm('Hapus produk?')) return; const d=getData('kdmp_produk'); d.splice(i,1); setData('kdmp_produk',d); }
-  function tambahBerita(){ const judul=document.getElementById('bJudul').value.trim(); if(!judul) return alert('Judul wajib!'); const d=getData('kdmp_berita'); d.push({judul,ringkasan:document.getElementById('bRingkasan').value,kategori:document.getElementById('bKategori').value||'Berita',foto:fotoBerita}); setData('kdmp_berita',d); fotoBerita=''; document.getElementById('bPreview').style.display='none'; alert('Berita tersimpan!'); }
+  function tambahBerita(){ const judul=document.getElementById('bJudul').value.trim(); if(!judul) return alert('Judul wajib!'); const d=getData('kdmp_berita'); d.push({judul,ringkasan:document.getElementById('bRingkasan').value,kategori:document.getElementById('bKategori').value||'Berita Harian',foto:fotoBerita}); setData('kdmp_berita',d); fotoBerita=''; document.getElementById('bPreview').style.display='none'; document.getElementById('bJudul').value=''; document.getElementById('bRingkasan').value=''; alert('Berita tersimpan!'); }
   function hapusBerita(i){ if(!confirm('Hapus berita?')) return; const d=getData('kdmp_berita'); d.splice(i,1); setData('kdmp_berita',d); }
   function tambahStruktur(){ const nama=document.getElementById('sNama').value.trim(); const jabatan=document.getElementById('sJabatan').value.trim(); if(!nama||!jabatan) return alert('Nama & Jabatan wajib!'); const d=getData('kdmp_struktur'); d.push({nama,jabatan,deskripsi:document.getElementById('sDeskripsi').value,foto:fotoStruktur}); setData('kdmp_struktur',d); fotoStruktur=''; document.getElementById('sPreview').style.display='none'; alert('Pengurus tersimpan!'); }
   function hapusStruktur(i){ if(!confirm('Hapus pengurus?')) return; const d=getData('kdmp_struktur'); d.splice(i,1); setData('kdmp_struktur',d); }
@@ -109,7 +110,7 @@
   }
   function renderAll(){
     document.getElementById('listProduk').innerHTML=getData('kdmp_produk').map((x,i)=>`<div class="item"><div style="display:flex;gap:10px;align-items:center">${x.foto?`<img src="${x.foto}">`:`<div>📦</div>`}<span><b>${x.nama}</b><br>Rp ${x.harga}</span></div><button class="btn-ghost" onclick="hapusProduk(${i})">Hapus</button></div>`).join('');
-    document.getElementById('listBerita').innerHTML=getData('kdmp_berita').map((x,i)=>`<div class="item"><div style="display:flex;gap:10px;align-items:center">${x.foto?`<img src="${x.foto}">`:`<div>📰</div>`}<span><b>${x.judul}</b><br>${x.ringkasan||''}</span></div><button class="btn-ghost" onclick="hapusBerita(${i})">Hapus</button></div>`).join('');
+    document.getElementById('listBerita').innerHTML=getData('kdmp_berita').map((x,i)=>`<div class="item"><div style="display:flex;gap:10px;align-items:center">${x.foto?`<img src="${x.foto}">`:`<div>📰</div>`}<span><b>[${x.kategori||''}] ${x.judul}</b><br>${x.ringkasan||''}</span></div><button class="btn-ghost" onclick="hapusBerita(${i})">Hapus</button></div>`).join('');
     document.getElementById('listStruktur').innerHTML=getData('kdmp_struktur').map((x,i)=>`<div class="item"><div style="display:flex;gap:10px;align-items:center">${x.foto?`<img class="bulat" src="${x.foto}">`:`<div>👤</div>`}<span><b>${x.nama}</b><br>${x.jabatan}</span></div><button class="btn-ghost" onclick="hapusStruktur(${i})">Hapus</button></div>`).join('');
     try{ const s=JSON.parse(localStorage.getItem('kdmp_setting'))||{}; document.getElementById('setWa').value=s.wa||''; document.getElementById('setKasir').value=s.kasir||''; const a=getAkun(); document.getElementById('setUser').value=a.user; }catch(e){}
   }
