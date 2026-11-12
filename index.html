@@ -89,7 +89,8 @@
   <div class="peta-box">
     <h2 style="margin:0">📍 Peta Wilayah Kampung Pendowo Asri</h2>
     <p style="color:#555;font-size:13px">Peta wilayah administratif Kampung Pendowo Asri untuk memudahkan distribusi dan layanan kepada seluruh warga.</p>
-    <img src="peta.jpg" onerror="this.onerror=null;this.src='peta%20pendowo%20asri.jpeg';this.onerror=null;this.src='peta%20pendowo%20asri.jpg'" alt="Peta Kampung Pendowo Asri">
+    <img id="petaImg" src="peta%20pendowo%20asri.jpeg" onerror="cobaPetaBerikutnya(this)" alt="Peta Kampung Pendowo Asri">
+    <p id="petaError" class="hidden" style="font-size:13px;color:#DC2626;font-weight:700">Peta belum ketemu. Cek nama file di Github harus persis: peta pendowo asri.jpeg</p>
     <div style="background:#fff;padding:12px;border-radius:12px;text-align:left;font-size:13px;line-height:1.6;color:#333">
       <b>Kawasan ini merupakan wilayah layanan Koperasi Merah Putih Kampung Pendowo Asri.</b><br>
       Semua pesanan akan diantar sesuai alamat di dalam area peta di atas.
@@ -104,6 +105,9 @@
 
 <footer><div style="max-width:1100px;margin:0 auto"><b style="color:#fff">KDMP Pendowo Asri</b><p style="font-size:13px">Koperasi Desa Merah Putih - Dari Warga, Oleh Warga, Untuk Warga.</p><p style="font-size:12px;color:#888">© 2026 KDMP Pendowo Asri</p></div></footer>
 <script>
+  let petaList = ['peta%20pendowo%20asri.jpeg','peta%20pendowo%20asri.jpg','peta.jpg','peta.jpeg','Peta%20pendowo%20asri.jpeg','peta%20pendowo%20asri.JPG'];
+  let petaIdx = 0;
+  function cobaPetaBerikutnya(img){ petaIdx++; if(petaIdx < petaList.length){ img.src = petaList[petaIdx]; } else { document.getElementById('petaError').classList.remove('hidden'); } }
   let produkDefault = [
     {nama:'Beras Premium 5 Kg',kategori:'dapur',harga:65000,stok:20,emoji:'🍚',deskripsi:'Beras pulen',foto:''},
     {nama:'Minyak Goreng 1 L',kategori:'dapur',harga:17500,stok:35,emoji:'🧴',deskripsi:'Minyak 1 liter',foto:''},
