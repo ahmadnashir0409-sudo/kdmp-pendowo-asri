@@ -21,7 +21,7 @@ nav::-webkit-scrollbar{display:none}
 nav a{padding:8px 14px;border-radius:999px;text-decoration:none;font-size:13px;font-weight:700;color:#333;white-space:nowrap;display:flex;align-items:center;gap:5px;background:#fff}
 nav a.active{background:#c81e1e;color:#fff}
 nav a:hover{background:#fee2e2}
-.btn-masuk{background:#c81e1e;color:#fff;padding:9px 18px;border-radius:999px;font-weight:900;font-size:13px;text-decoration:none;white-space:nowrap;flex-shrink:0}
+/* TOMBOL MASUK UDAH DIHAPUS - KARENA UDAH ADA KONTAK */
 .marquee{background:#a31616;overflow:hidden;white-space:nowrap;padding:7px 0;color:#fff}
 .marquee span{display:inline-block;animation:jalan 18s linear infinite;font-size:12px;font-weight:700;letter-spacing:.5px}
 @keyframes jalan{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
@@ -43,13 +43,11 @@ nav a:hover{background:#fee2e2}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;position:relative;z-index:2}
 .tab{padding:9px 16px;border-radius:999px;border:2px solid #c81e1e;background:#fff;color:#c81e1e;font-weight:800;cursor:pointer;font-size:13px}
 .tab.active{background:#c81e1e;color:#fff}
-/* DAPUR & WARUNG - UDAH DIUBAH SESUAI REQUEST, DIPEPETIN SAMA SEARCH */
 .dua-pil{display:flex;gap:10px;position:relative;z-index:2;margin:14px 0 10px}
 .pil-btn{flex:1;padding:13px 10px;border-radius:999px;font-weight:900;font-size:14px;text-align:center;cursor:pointer;border:none;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;line-height:1.3}
 .pil-dapur{background:#c81e1e;color:#fff;box-shadow:0 4px 10px rgba(200,30,30,.3)}
 .pil-warung{background:#e5e5e5;color:#888;border:2px solid #ccc;cursor:not-allowed;opacity:.7}
 @media(max-width:500px){.pil-btn{font-size:12px;padding:12px 8px}}
-/* SEARCH - UDAH DIPEPETIN, TOMBOL HAPUS UDAH DIHAPUS */
 .search-box{display:flex;gap:0;margin:0 0 8px;position:relative;z-index:2}
 .search-box input{flex:1;padding:14px 16px;border:2px solid #c81e1e;border-radius:999px;font-size:15px;outline:none;background:#FFFBEB;width:100%}
 .search-box input:focus{border-color:#a31616;background:#fff;box-shadow:0 0 0 3px #fee2e2}
@@ -72,7 +70,7 @@ nav a:hover{background:#fee2e2}
 footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:20px;font-size:13px;line-height:1.6}
 .loading{text-align:center;padding:20px;color:#888}
 .shape2{position:absolute;border-radius:50%;background:#c81e1e;opacity:.04;pointer-events:none}
-@media(max-width:750px){.hero-text h1{font-size:28px} nav{justify-content:flex-start} .btn-masuk{padding:8px 12px;font-size:12px}}
+@media(max-width:750px){.hero-text h1{font-size:28px} nav{justify-content:flex-start}}
 </style>
 </head>
 <body>
@@ -91,7 +89,7 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 <a href="#belanja">🛍️ Produk</a>
 <a href="#lokasi">📞 Kontak</a>
 </nav>
-<a class="btn-masuk" href="https://wa.me/6285782102726" target="_blank">🛒 Masuk</a>
+<!-- TOMBOL MASUK UDAH DIHAPUS DISINI -->
 </div>
 <div class="marquee"><span>📢 SELAMAT DATANG DI KOPERASI DESA MERAH PUTIH PENDOWO ASRI &nbsp;•&nbsp; BELANJA KEBUTUHAN DAPUR LANGSUNG VIA WHATSAPP &nbsp;•&nbsp; WARUNG DITUTUP SEMENTARA MENUNGGU JUKLAK JUKNIS &nbsp;•&nbsp; SENIN - SABTU BUKA 08.00 - 16.00 WIB &nbsp;•&nbsp;</span></div>
 </header>
@@ -116,14 +114,10 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 <div class="section" id="belanja">
 <div class="shape2" style="width:150px;height:150px;right:-30px;top:-30px"></div>
 <h2>🛒 Belanja Koperasi</h2>
-
-<!-- TOMBOL BARU - GAK ADA LAGI TULISAN BUKA / TUTUP -->
 <div class="dua-pil">
 <a href="#produkList" class="pil-btn pil-dapur">Belanja Kebutuhan Dapur</a>
 <button class="pil-btn pil-warung" disabled>🔒 Belanja Stok Warung</button>
 </div>
-
-<!-- SEARCH - UDAH DIPEPETIN LANGSUNG DIBAWAH TOMBOL, GAK ADA TULISAN / TOMBOL HAPUS LAGI -->
 <div id="produkArea">
 <div class="search-box">
 <input type="text" id="cariProduk" placeholder="🔍 Ketik nama produk... contoh: Beras" oninput="cariProduk()">
