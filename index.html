@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KDMP Pendowo Asri - Koperasi Desa Merah Putih</title>
+<title>KDMP Pendowo Asri</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#FFF3C4;color:#1a1a1a}
@@ -18,7 +18,7 @@ nav{display:none;gap:14px}@media(min-width:850px){nav{display:flex}} nav a{color
 .status{display:inline-block;padding:7px 14px;border-radius:999px;font-weight:900;font-size:13px;margin:8px 0}
 .buka{background:#d1fae5;color:#065f46}.tutup{background:#fee2e2;color:#991b1b}
 .btn{padding:12px 18px;border-radius:999px;font-weight:900;text-decoration:none;display:inline-block;font-size:14px;border:none;cursor:pointer}
-.btn-red{background:#c81e1e;color:#fff}.btn-yellow{background:#ffcc00;color:#a31616}.btn-line{border:2px solid #c81e1e;color:#c81e1e;background:#fff}
+.btn-red{background:#c81e1e;color:#fff}.btn-line{border:2px solid #c81e1e;color:#c81e1e;background:#fff}
 .section{background:#fff;border:3px solid #c81e1e;border-radius:18px;padding:18px;margin-top:18px}
 .section h2{font-size:22px}.section p.sub{color:#5a3d00;font-size:13px;margin:4px 0 14px}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
@@ -41,8 +41,8 @@ nav{display:none;gap:14px}@media(min-width:850px){nav{display:flex}} nav a{color
 .modal-box{background:#fff;width:100%;max-width:600px;border-radius:18px;overflow:hidden;max-height:90vh;overflow-y:auto}
 .modal-box img{width:100%;height:240px;object-fit:cover}
 .modal-box .in{padding:20px}.modal-box p{line-height:1.7;color:#333;font-size:14px;white-space:pre-line}
-input{width:100%;padding:10px;border:2px solid #ddd;border-radius:10px;margin-top:8px}
 footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:20px;font-size:13px;line-height:1.6}
+.loading{text-align:center;padding:20px;color:#888}
 </style>
 </head>
 <body>
@@ -53,14 +53,13 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 </header>
 
 <div class="wrap" id="beranda">
-<!-- HERO -->
 <div class="hero">
 <div class="hero-text">
 <span class="badge">📍 Pendowo Asri, Gedung Meneng, Tulang Bawang</span>
 <h1>Koperasi Desa<br><span>Merah Putih</span><br>Pendowo Asri</h1>
-<p>Belanja kebutuhan dapur dari koperasi desa sendiri. Harga jelas, stok jelas, admin fast respon. Tanpa ribet, langsung via WhatsApp.</p>
+<p>Belanja kebutuhan dapur dari koperasi desa sendiri. Harga jelas, stok jelas, admin fast respon. Langsung via WhatsApp.</p>
 <div id="statusJam" class="status buka">● BUKA - Melayani Order</div>
-<p style="font-size:12px;color:#888" id="jamText">Senin - Sabtu: 08.00 - 16.00 WIB | Minggu: Tutup</p>
+<p style="font-size:12px;color:#888">Senin - Sabtu: 08.00 - 16.00 WIB | Minggu: Tutup</p>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
 <a class="btn btn-red" href="#belanja">🛒 Belanja Sekarang ↓</a>
 <a class="btn btn-line" href="#berita">Lihat Berita ↓</a>
@@ -69,50 +68,44 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 <img src="gedung-kdmp-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=900&q=80'">
 </div>
 
-<!-- BERITA - UDAH BISA DI KLIK -->
 <div class="section" id="berita">
-<h2>📰 Berita Koperasi</h2><p class="sub">Klik berita untuk baca selengkapnya</p>
+<h2>📰 Berita Koperasi</h2><p class="sub">Klik berita untuk baca selengkapnya - Data dari Google Sheets</p>
 <div class="tabs">
 <button class="tab active" onclick="filterBerita('all',this)">Semua</button>
 <button class="tab" onclick="filterBerita('Rapat',this)">Rapat</button>
 <button class="tab" onclick="filterBerita('Pengumuman',this)">Pengumuman</button>
 </div>
-<div class="grid" id="beritaList"></div>
+<div id="beritaList" class="grid"><div class="loading">⏳ Loading berita dari Sheets...</div></div>
 </div>
 
-<!-- BELANJA DAPUR -->
 <div class="section" id="belanja">
-<h2>🛒 Belanja Kebutuhan Dapur</h2><p class="sub">Untuk kebutuhan rumah. Pilih produk, masuk keranjang, checkout via WA.</p>
+<h2>🛒 Belanja Kebutuhan Dapur</h2><p class="sub">Data dari Google Sheets - Ubah di Sheets, web langsung berubah</p>
 <div class="tabs">
 <button class="tab active" onclick="filterProduk('all',this)">Semua</button>
 <button class="tab" onclick="filterProduk('Sembako',this)">Sembako</button>
 <button class="tab" onclick="filterProduk('Bumbu',this)">Bumbu Dapur</button>
 <button class="tab" onclick="filterProduk('Minuman',this)">Minuman</button>
 </div>
-<div class="grid" id="produkList"></div>
+<div id="produkList" class="grid"><div class="loading">⏳ Loading produk dari Sheets...</div></div>
 </div>
 
-<!-- WARUNG DITUTUP -->
 <div class="section">
 <h2>🏪 Layanan Warung</h2>
 <div class="warung-box">
 <h3>🔒 WARUNG DITUTUP SEMENTARA</h3>
-<p>Layanan Warung Koperasi ditutup sementara menunggu Juklak Juknis resmi.<br>Untuk saat ini, kami hanya melayani <b>Belanja Kebutuhan Dapur</b> di atas.<br>Terima kasih atas pengertiannya.</p>
+<p>Layanan Warung Koperasi ditutup sementara menunggu Juklak Juknis resmi.<br>Untuk saat ini, kami hanya melayani <b>Belanja Kebutuhan Dapur</b> di atas.</p>
 </div>
 </div>
 
-<!-- LOKASI -->
 <div class="section" id="lokasi">
 <h2>📍 Lokasi Koperasi</h2><p class="sub">Kampung Pendowo Asri, Kec. Gedung Meneng, Kab. Tulang Bawang, Lampung</p>
 <img src="peta-pendowoasri.jpeg" onerror="this.src='https://images.unsplash.com/photo-1524661135-423995f22d0b?w=900&q=80'" style="width:100%;height:220px;object-fit:cover;border-radius:14px">
 <a class="btn btn-red" style="margin-top:12px;display:block;text-align:center" href="https://maps.google.com/?q=KDMP+Pendowo+Asri+Tulang+Bawang" target="_blank">Buka di Google Maps →</a>
 </div>
-
 </div>
 
 <button class="keranjang" onclick="checkoutWA()">🛒 Keranjang (<span id="cartCount">0</span>) • Checkout WA</button>
 
-<!-- MODAL BERITA -->
 <div class="modal" id="modalBerita" onclick="if(event.target==this) tutupBerita()">
 <div class="modal-box">
 <img id="mFoto" src="">
@@ -128,24 +121,39 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 </div>
 
 <script>
-// JAM OPERASIONAL OTOMATIS
-function cekJam(){
-  const now = new Date(); const hari = now.getDay(); const jam = now.getHours();
-  const el = document.getElementById('statusJam');
-  // Minggu tutup, Senin-Sabtu 08.00-16.00 buka
-  if(hari==0 || jam<8 || jam>=16){ el.textContent="● TUTUP - Buka lagi jam 08.00"; el.className="status tutup"; }
-  else { el.textContent="● BUKA - Melayani Order"; el.className="status buka"; }
-}
-cekJam(); setInterval(cekJam,60000);
+const SHEET_ID = "1qR9ahIcF-dw2WLh-5B9v1D8apqgwtsfegjQwv6epSKw";
 
-// DATA BERITA - GANTI DENGAN DATA SHEETS LU NANTI, INI BIAR LANGSUNG JALAN
-let semuaBerita = [
-{judul:"rapat anggota tahunan", kategori:"Rapat", tanggal:"13 Nov 2026", foto:"gedung-kdmp-2.jpg", isi:"Rapat Anggota Tahunan KDMP Pendowo Asri akan dilaksanakan di Gedung Koperasi.\n\nSeluruh anggota diharapkan hadir tepat waktu. Membawa KTP dan kartu anggota.\n\nAgenda: Laporan keuangan, pemilihan pengurus, dan rencana kerja tahun depan."},
-{judul:"Pengumuman Jam Buka Koperasi", kategori:"Pengumuman", tanggal:"12 Nov 2026", foto:"peta-pendowoasri.jpeg", isi:"Koperasi buka Senin - Sabtu jam 08.00 - 16.00 WIB. Minggu tutup.\n\nLayanan Warung ditutup sementara menunggu Juklak Juknis. Layanan Dapur tetap buka."},
-{judul:"Stok Baru Sembako Masuk", kategori:"Pengumuman", tanggal:"10 Nov 2026", foto:"gedung-kdmp-2.jpg", isi:"Stok baru sudah masuk: Beras, Minyak Goreng, Gula, Telur, dan kebutuhan dapur lainnya.\n\nSilakan cek di katalog dan order via WhatsApp."}
-];
+// JAM OTOMATIS
+function cekJam(){ const now=new Date(); const hari=now.getDay(); const jam=now.getHours(); const el=document.getElementById('statusJam'); if(hari==0||jam<8||jam>=16){ el.textContent="● TUTUP - Buka lagi jam 08.00"; el.className="status tutup"; } else { el.textContent="● BUKA - Melayani Order"; el.className="status buka"; } }
+cekJam();
+
+// FUNGSI BACA CSV DARI SHEETS
+async function loadSheet(sheetName){
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
+  const res = await fetch(url);
+  const text = await res.text();
+  // Parsing CSV sederhana - support koma di dalam tanda petik
+  const rows = [];
+  let cur = [''], inQ = false;
+  for(let i=0;i<text.length;i++){
+    const c = text[i];
+    if(c=='"'){ inQ=!inQ; }
+    else if(c==',' && !inQ){ cur.push(''); }
+    else if(c=='\n' && !inQ){ rows.push(cur); cur=['']; }
+    else if(c!='\r'){ cur[cur.length-1]+=c; }
+  }
+  if(cur.length>1) rows.push(cur);
+  // Baris pertama = header, buang
+  const data = rows.slice(1).filter(r=>r[0] && r[0].trim()!='').map(r=>r.map(v=>v.replace(/^"|"$/g,'').trim()));
+  return data;
+}
+
+// ===== BERITA =====
+let semuaBerita = [];
 function tampilkanBerita(data){
-  const list=document.getElementById('beritaList'); list.innerHTML="";
+  const list=document.getElementById('beritaList');
+  if(data.length==0){ list.innerHTML="<p>Belum ada berita di Sheets.</p>"; return; }
+  list.innerHTML="";
   data.forEach((b,i)=>{
     const d=document.createElement('div'); d.className='card'; d.onclick=()=>bukaBerita(i);
     d.innerHTML=`<img src="${b.foto}" onerror="this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=80'"><div class="in"><span class="badge">${b.kategori}</span><h3>${b.judul}</h3><p>${b.isi.substring(0,80)}...</p><div class="klik">Klik untuk baca selengkapnya →</div></div>`;
@@ -156,25 +164,16 @@ function bukaBerita(i){ const b=semuaBerita[i]; document.getElementById('mFoto')
 function tutupBerita(){ document.getElementById('modalBerita').classList.remove('open'); }
 function tanyaWA(){ const j=document.getElementById('mJudul').textContent; window.open(`https://wa.me/6285782102726?text=Halo%20Min%2C%20saya%20mau%20tanya%20tentang%20berita%20${encodeURIComponent(j)}`,'_blank'); }
 function filterBerita(kat,el){ document.querySelectorAll('#berita .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); if(kat=='all') tampilkanBerita(semuaBerita); else tampilkanBerita(semuaBerita.filter(b=>b.kategori.toLowerCase().includes(kat.toLowerCase()))); }
-tampilkanBerita(semuaBerita);
 
-// DATA PRODUK - INI JUGA NANTI BISA LU GANTI LEWAT SHEETS
-let semuaProduk = [
-{nama:"Beras 5kg", harga:65000, kategori:"Sembako", foto:"https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80"},
-{nama:"Minyak Goreng 1L", harga:18000, kategori:"Sembako", foto:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&q=80"},
-{nama:"Gula Pasir 1kg", harga:16000, kategori:"Sembako", foto:"https://images.unsplash.com/photo-1581441363689-1f3c3c414635?w=600&q=80"},
-{nama:"Telur 1kg", harga:30000, kategori:"Sembako", foto:"https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=600&q=80"},
-{nama:"Bawang Merah 500gr", harga:20000, kategori:"Bumbu", foto:"https://images.unsplash.com/photo-1518977956812-cd3dbadaaf31?w=600&q=80"},
-{nama:"Cabai Merah 250gr", harga:15000, kategori:"Bumbu", foto:"https://images.unsplash.com/photo-1583119912267-cc97c911e416?w=600&q=80"},
-{nama:"Kopi Bubuk 250gr", harga:25000, kategori:"Minuman", foto:"https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&q=80"},
-{nama:"Teh Celup 25pcs", harga:12000, kategori:"Minuman", foto:"https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=600&q=80"},
-];
-let cart = [];
+// ===== PRODUK =====
+let semuaProduk = []; let cart = [];
 function tampilkanProduk(data){
-  const list=document.getElementById('produkList'); list.innerHTML="";
+  const list=document.getElementById('produkList');
+  if(data.length==0){ list.innerHTML="<p>Belum ada produk di Sheets.</p>"; return; }
+  list.innerHTML="";
   data.forEach((p)=>{
     const d=document.createElement('div'); d.className='produk-card';
-    d.innerHTML=`<img src="${p.foto}"><div class="in"><span class="badge">${p.kategori}</span><h3 style="margin:6px 0">${p.nama}</h3><div class="harga">Rp ${p.harga.toLocaleString('id-ID')}</div><button class="btn btn-red" style="width:100%;margin-top:10px" onclick="tambahKeranjang('${p.nama}',${p.harga})">+ Tambah Keranjang</button></div>`;
+    d.innerHTML=`<img src="${p.foto}" onerror="this.src='https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80'"><div class="in"><span class="badge">${p.kategori}</span><h3 style="margin:6px 0">${p.nama}</h3><div class="harga">Rp ${p.harga.toLocaleString('id-ID')}</div><button class="btn btn-red" style="width:100%;margin-top:10px" onclick="tambahKeranjang('${p.nama.replace(/'/g,"")}',${p.harga})">+ Tambah Keranjang</button></div>`;
     list.appendChild(d);
   });
 }
@@ -187,7 +186,27 @@ function checkoutWA(){
   pesan+=`\nTotal: Rp ${total.toLocaleString('id-ID')}\n\nMohon info stok & pengiriman ya Min. Terima kasih.`;
   window.open(`https://wa.me/6285782102726?text=${encodeURIComponent(pesan)}`,'_blank');
 }
-tampilkanProduk(semuaProduk);
+
+// ===== LOAD SEMUA DARI SHEETS LU =====
+async function init(){
+  try{
+    // COBA BACA TAB "Berita" dan "Produk" - KALO NAMA TAB LU BEDA, GANTI DI SINI
+    const beritaRaw = await loadSheet("Berita");
+    // Format di Sheets Berita harus: Judul | Kategori | Tanggal | Foto | Isi
+    // Contoh baris: rapat anggota tahunan | Rapat | 13 Nov 2026 | gedung-kdmp-2.jpg | Isi lengkap...
+    semuaBerita = beritaRaw.map(r=>({judul:r[0]||"", kategori:r[1]||"Pengumuman", tanggal:r[2]||"", foto:r[3]||"", isi:r[4]||""}));
+    tampilkanBerita(semuaBerita);
+  }catch(e){ document.getElementById('beritaList').innerHTML="<p>Gagal load berita. Cek nama tab di Sheets harus 'Berita' dan format kolomnya: Judul | Kategori | Tanggal | Foto | Isi</p>"; }
+
+  try{
+    const produkRaw = await loadSheet("Produk");
+    // Format di Sheets Produk harus: Nama | Harga | Kategori | Foto
+    // Contoh: Beras 5kg | 65000 | Sembako | link foto / nama file
+    semuaProduk = produkRaw.map(r=>({nama:r[0]||"", harga:parseInt((r[1]||"0").replace(/[^0-9]/g,''))||0, kategori:r[2]||"Sembako", foto:r[3]||""}));
+    tampilkanProduk(semuaProduk);
+  }catch(e){ document.getElementById('produkList').innerHTML="<p>Gagal load produk. Cek nama tab di Sheets harus 'Produk' dan format kolomnya: Nama | Harga | Kategori | Foto</p>"; }
+}
+init();
 </script>
 
 <footer>
