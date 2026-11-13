@@ -43,15 +43,16 @@ nav a:hover{background:#fee2e2}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;position:relative;z-index:2}
 .tab{padding:9px 16px;border-radius:999px;border:2px solid #c81e1e;background:#fff;color:#c81e1e;font-weight:800;cursor:pointer;font-size:13px}
 .tab.active{background:#c81e1e;color:#fff}
-.dua-pil{display:flex;gap:10px;position:relative;z-index:2}
+/* DAPUR & WARUNG - UDAH DIUBAH SESUAI REQUEST, DIPEPETIN SAMA SEARCH */
+.dua-pil{display:flex;gap:10px;position:relative;z-index:2;margin:14px 0 10px}
 .pil-btn{flex:1;padding:13px 10px;border-radius:999px;font-weight:900;font-size:14px;text-align:center;cursor:pointer;border:none;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;line-height:1.3}
 .pil-dapur{background:#c81e1e;color:#fff;box-shadow:0 4px 10px rgba(200,30,30,.3)}
-.pil-warung{background:#fff;color:#666;border:2px solid #bbb}
+.pil-warung{background:#e5e5e5;color:#888;border:2px solid #ccc;cursor:not-allowed;opacity:.7}
 @media(max-width:500px){.pil-btn{font-size:12px;padding:12px 8px}}
-.search-box{display:flex;gap:8px;margin:12px 0;position:relative;z-index:2}
-.search-box input{flex:1;padding:14px 16px;border:2px solid #c81e1e;border-radius:999px;font-size:15px;outline:none;background:#FFFBEB}
+/* SEARCH - UDAH DIPEPETIN, TOMBOL HAPUS UDAH DIHAPUS */
+.search-box{display:flex;gap:0;margin:0 0 8px;position:relative;z-index:2}
+.search-box input{flex:1;padding:14px 16px;border:2px solid #c81e1e;border-radius:999px;font-size:15px;outline:none;background:#FFFBEB;width:100%}
 .search-box input:focus{border-color:#a31616;background:#fff;box-shadow:0 0 0 3px #fee2e2}
-.search-box button{padding:12px 20px;border-radius:999px;background:#c81e1e;color:#fff;font-weight:900;border:none;cursor:pointer;font-size:14px;white-space:nowrap}
 .grid{display:grid;gap:14px;position:relative;z-index:2}@media(min-width:750px){.grid{grid-template-columns:1fr 1fr 1fr}}
 .card{background:#fff;border:2px solid #e8c547;border-radius:16px;overflow:hidden;cursor:pointer}
 .card img{width:100%;height:170px;object-fit:cover;background:#eee}
@@ -79,7 +80,6 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 <header>
 <div class="header-top">
 <a class="logo-wrap" href="#beranda">
-<!-- LOGO BARU UDAH DI-RENAME JADI logo-KDMP.png - HURUF BESAR SEMUA -->
 <img class="logo-img-asli" src="logo-KDMP.png" alt="Logo KDMP">
 <div class="logo-txt"><b>KDMP</b><span>Pendowo Asri</span></div>
 </a>
@@ -115,18 +115,18 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 
 <div class="section" id="belanja">
 <div class="shape2" style="width:150px;height:150px;right:-30px;top:-30px"></div>
-<h2>🛒 Belanja Koperasi</h2><p class="sub">Pilih layanan di bawah - Kiri Dapur, Kanan Warung, sekali liat langsung keliatan semua</p>
+<h2>🛒 Belanja Koperasi</h2>
+
+<!-- TOMBOL BARU - GAK ADA LAGI TULISAN BUKA / TUTUP -->
 <div class="dua-pil">
-<a href="#produkArea" class="pil-btn pil-dapur">🍳 DAPUR - BUKA ✅</a>
-<button class="pil-btn pil-warung" onclick="alert('Warung masih DITUTUP SEMENTARA, menunggu Juklak Juknis resmi. Untuk saat ini silahkan order Kebutuhan Dapur dulu nggih 🙏')">🏪 WARUNG - TUTUP 🔒</button>
+<a href="#produkList" class="pil-btn pil-dapur">Belanja Kebutuhan Dapur</a>
+<button class="pil-btn pil-warung" disabled>🔒 Belanja Stok Warung</button>
 </div>
-<p style="font-size:12px;color:#888;margin-top:8px;text-align:center">Dapur melayani order • Warung tutup sementara menunggu Juklak Juknis</p>
-<div style="margin-top:18px" id="produkArea">
-<h3 style="font-size:16px">Produk Dapur yang Tersedia:</h3>
-<p style="font-size:13px;color:#666;margin:4px 0 0">Ketik nama produk yang dicari, contoh: Beras, Minyak, Gas</p>
+
+<!-- SEARCH - UDAH DIPEPETIN LANGSUNG DIBAWAH TOMBOL, GAK ADA TULISAN / TOMBOL HAPUS LAGI -->
+<div id="produkArea">
 <div class="search-box">
 <input type="text" id="cariProduk" placeholder="🔍 Ketik nama produk... contoh: Beras" oninput="cariProduk()">
-<button onclick="resetCari()">✕ Hapus</button>
 </div>
 <p id="hasilCari" style="font-size:13px;color:#888;margin-bottom:10px"></p>
 <div id="produkList" class="grid"><div class="loading">⏳ Loading produk dari Sheets...</div></div>
@@ -217,7 +217,6 @@ function cariProduk(){
   tampilkanProduk(hasil);
   info.textContent = `Hasil cari "${kata}": ${hasil.length} produk ditemukan`;
 }
-function resetCari(){ document.getElementById('cariProduk').value=''; cariProduk(); }
 function tambahKeranjang(nama,harga){ cart.push({nama,harga}); document.getElementById('cartCount').textContent=cart.length; alert(nama+" ditambah ke keranjang!"); }
 function checkoutWA(){
   if(cart.length==0){ alert("Keranjang masih kosong bre, pilih produk dulu!"); return; }
