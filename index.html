@@ -50,7 +50,6 @@ nav a:hover{background:#fee2e2}
 .search-box{display:flex;gap:0;margin:0 0 8px;position:relative;z-index:2}
 .search-box input{flex:1;padding:14px 16px;border:2px solid #c81e1e;border-radius:999px;font-size:15px;outline:none;background:#FFFBEB;width:100%}
 .search-box input:focus{border-color:#a31616;background:#fff;box-shadow:0 0 0 3px #fee2e2}
-/* GRID PRODUK - UDAH DIBENERIN: HP 2 SEJAJAR, LAPTOP 4 SEJAJAR */
 .grid{display:grid;gap:10px;position:relative;z-index:2;grid-template-columns:1fr 1fr}
 @media(min-width:750px){.grid{grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}}
 .card{background:#fff;border:2px solid #e8c547;border-radius:16px;overflow:hidden;cursor:pointer}
@@ -58,7 +57,6 @@ nav a:hover{background:#fee2e2}
 .card .in{padding:12px}.card h3{font-size:15px;margin:6px 0;color:#111}.card p{font-size:13px;color:#333;line-height:1.5;font-weight:600}
 .badge{font-size:11px;background:#ffcc00;padding:4px 8px;border-radius:999px;font-weight:800;color:#111}
 .klik{font-size:12px;color:#c81e1e;font-weight:800;margin-top:8px}
-/* KARTU PRODUK LEBIH RAMPAT BIAR MUAT 2 SEJAJAR DI HP */
 .produk-card{border:2px solid #eee;border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
 .produk-card img{width:100%;height:130px;object-fit:cover;background:#f5f5f5}
 @media(min-width:750px){.produk-card img{height:160px}}
@@ -68,12 +66,16 @@ nav a:hover{background:#fee2e2}
 .harga{font-weight:900;color:#c81e1e;font-size:15px}
 @media(min-width:750px){.harga{font-size:16px}}
 .stok{font-size:11px;color:#666;margin-top:2px}
-/* KUANTITI - / + */
-.qty-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0 8px;background:#FFF3C4;border-radius:999px;padding:4px}
-.qty-btn{width:32px;height:32px;border-radius:50%;border:2px solid #c81e1e;background:#fff;color:#c81e1e;font-weight:900;font-size:18px;cursor:pointer;line-height:1}
-.qty-num{font-weight:900;font-size:15px;min-width:24px;text-align:center}
+/* BAR CHECKOUT IJO - PANJANG SAMPE TEPI, PENGGANTI TOMBOL MELAYANG + KUANTITI DI BAWAH PRODUK */
+.checkout-bar{background:#16a34a;color:#fff;margin:16px -18px -18px -18px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:2}
+.checkout-bar .cb-info{line-height:1.3}
+.checkout-bar .cb-info b{font-size:15px;display:block}
+.checkout-bar .cb-info span{font-size:12px;opacity:.95}
+.checkout-bar .cb-btn{background:#fff;color:#16a34a;border:none;padding:12px 18px;border-radius:999px;font-weight:900;font-size:14px;cursor:pointer;white-space:nowrap;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+.checkout-bar .cb-btn:disabled{background:#e5e5e5;color:#999;box-shadow:none;cursor:not-allowed}
+@media(max-width:480px){.checkout-bar{padding:12px 14px}.checkout-bar .cb-info b{font-size:13px}.checkout-bar .cb-btn{padding:10px 14px;font-size:13px}}
 .kosong{border:2px dashed #ddd;border-radius:14px;padding:18px;text-align:center;color:#999;font-size:13px;grid-column:1/-1}
-.keranjang{position:fixed;bottom:16px;right:16px;background:#c81e1e;color:#fff;padding:14px 20px;border-radius:999px;font-weight:900;z-index:99;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.3);border:none}
+/* TOMBOL MELAYANG MERAH UDAH DIHAPUS */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
 .modal-box{background:#fff;width:100%;max-width:600px;border-radius:18px;overflow:hidden;max-height:90vh;overflow-y:auto}
@@ -82,7 +84,6 @@ nav a:hover{background:#fee2e2}
 footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:20px;font-size:13px;line-height:1.6}
 .loading{text-align:center;padding:20px;color:#888;grid-column:1/-1}
 .shape2{position:absolute;border-radius:50%;background:#c81e1e;opacity:.04;pointer-events:none}
-/* FORM CHECKOUT - LAMAN NAMA & ALAMAT */
 .form-group{margin-bottom:12px}
 .form-group label{display:block;font-weight:800;font-size:13px;margin-bottom:6px;color:#111}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 14px;border:2px solid #ddd;border-radius:12px;font-size:14px;outline:none;font-family:Arial}
@@ -149,6 +150,14 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 <p id="hasilCari" style="font-size:13px;color:#888;margin-bottom:10px"></p>
 <div id="produkList" class="grid"><div class="loading">⏳ Loading produk dari Sheets...</div></div>
 </div>
+<!-- BAR IJO CHECKOUT - PANJANG SAMPE TEPI, PENGGANTI TOMBOL MELAYANG -->
+<div class="checkout-bar" id="checkoutBar">
+<div class="cb-info">
+<b id="cbJudul">🛒 Keranjang Kosong</b>
+<span id="cbSub">Pilih produk dulu, klik + Tambah Keranjang</span>
+</div>
+<button class="cb-btn" id="cbBtn" onclick="bukaKeranjang()" disabled>Checkout →</button>
+</div>
 </div>
 
 <div class="section" id="berita">
@@ -169,7 +178,7 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 </div>
 </div>
 
-<button class="keranjang" onclick="bukaKeranjang()">🛒 Keranjang (<span id="cartCount">0</span>) • Checkout</button>
+<!-- TOMBOL MELAYANG MERAH UDAH DIHAPUS - GAK ADA LAGI YANG NUTUPIN BERITA -->
 
 <!-- MODAL BERITA -->
 <div class="modal" id="modalBerita" onclick="if(event.target==this) tutupBerita()">
@@ -186,12 +195,12 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 </div>
 </div>
 
-<!-- MODAL KERANJANG + FORM NAMA & ALAMAT - BALIK KAYAK VERSI PERTAMA -->
+<!-- MODAL KERANJANG + FORM NAMA & ALAMAT - KUANTITI PINDAH KESINI -->
 <div class="modal" id="modalCart" onclick="if(event.target==this) tutupKeranjang()">
 <div class="modal-box">
 <div class="in">
 <h2 style="margin-bottom:4px">🛒 Keranjang Belanja</h2>
-<p style="color:#666;font-size:13px;margin-bottom:14px">Cek lagi pesananmu, isi nama & alamat, baru kirim ke WA</p>
+<p style="color:#666;font-size:13px;margin-bottom:14px">Atur jumlah di sini, isi nama & alamat, baru kirim ke WA</p>
 <div id="cartList"></div>
 <div id="cartTotalWrap"></div>
 <hr style="border:1px solid #eee;margin:16px 0">
@@ -294,37 +303,38 @@ function tutupBerita(){ document.getElementById('modalBerita').classList.remove(
 function tanyaWA(){ const j=document.getElementById('mJudul').textContent; window.open(`https://wa.me/6285782102726?text=Halo%20Min%2C%20saya%20mau%20tanya%20tentang%20berita%20${encodeURIComponent(j)}`,'_blank'); }
 function filterBerita(kat,el){ document.querySelectorAll('#berita .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); if(kat=='all') tampilkanBerita(semuaBerita); else tampilkanBerita(semuaBerita.filter(b=>b.kategori.toLowerCase().includes(kat.toLowerCase()))); }
 
-// === KERANJANG + KUANTITI ===
+// === KERANJANG - KUANTITI PINDAH KE BAR IJO + MODAL, BUKAN LAGI DI BAWAH PRODUK ===
 let semuaProduk = [];
 let cart = {}; // nama -> {nama,harga,qty,foto}
-let qtyPilih = {}; // qty sementara per produk
 
-function updateCartCount(){
-  let totalQty = Object.values(cart).reduce((a,c)=>a+c.qty,0);
-  document.getElementById('cartCount').textContent = totalQty;
-}
-function ubahQtyPilih(nama, delta, el){
-  if(!qtyPilih[nama]) qtyPilih[nama]=1;
-  qtyPilih[nama] = Math.max(1, Math.min(99, qtyPilih[nama]+delta));
-  // update semua tampilan qty dengan nama yang sama
-  document.querySelectorAll(`[data-qty="${CSS.escape(nama)}"]`).forEach(e=>e.textContent=qtyPilih[nama]);
+function updateBarIjo(){
+  const keys=Object.keys(cart);
+  let totalQty=0, totalHarga=0, totalItem=keys.length;
+  keys.forEach(k=>{ totalQty+=cart[k].qty; totalHarga+=cart[k].harga*cart[k].qty; });
+  const judul=document.getElementById('cbJudul');
+  const sub=document.getElementById('cbSub');
+  const btn=document.getElementById('cbBtn');
+  if(totalItem===0){
+    judul.textContent="🛒 Keranjang Kosong";
+    sub.textContent="Pilih produk dulu, klik + Tambah Keranjang";
+    btn.disabled=true; btn.textContent="Checkout →";
+  } else {
+    judul.textContent=`🛒 ${totalItem} Item • ${totalQty} Pcs • Total Rp ${totalHarga.toLocaleString('id-ID')}`;
+    sub.textContent="Klik Checkout untuk isi nama & alamat, lalu kirim ke WA";
+    btn.disabled=false; btn.textContent=`Checkout (${totalQty}) →`;
+  }
 }
 function tampilkanProduk(data){
   const list=document.getElementById('produkList');
   if(data.length==0){ list.innerHTML="<div class='kosong'>Tidak ada produk yang ditemukan - Coba kata lain</div>"; return; }
   list.innerHTML="";
   data.forEach((p)=>{
-    if(!qtyPilih[p.nama]) qtyPilih[p.nama]=1;
     const d=document.createElement('div'); d.className='produk-card';
     const fotoHTML = p.foto ? `<img src="${fixFoto(p.foto)}" onerror="this.style.display='none'">` : `<div style="height:130px;background:#FFF3C4;display:flex;align-items:center;justify-content:center;font-size:40px">🛒</div>`;
     const stokHTML = p.stok ? `<div class="stok">Stok: ${p.stok}</div>` : (p.kategori && p.kategori!=="Dapur" ? `<div class="stok">${p.kategori}</div>` : ``);
+    // KUANTITI DI BAWAH PRODUK UDAH DIHAPUS - TINGGAL TOMBOL TAMBAH AJA, 1 KLIK = 1 PCS
     d.innerHTML=`${fotoHTML}<div class="in"><span class="badge">${p.kategori}</span><h3>${p.nama}</h3><div class="harga">Rp ${p.harga.toLocaleString('id-ID')}</div>${stokHTML}
-    <div class="qty-row">
-      <button class="qty-btn" onclick="ubahQtyPilih('${p.nama.replace(/'/g,"")}',-1)">−</button>
-      <span class="qty-num" data-qty="${p.nama}">${qtyPilih[p.nama]}</span>
-      <button class="qty-btn" onclick="ubahQtyPilih('${p.nama.replace(/'/g,"")}',1)">+</button>
-    </div>
-    <button class="btn btn-red" style="width:100%;padding:10px;font-size:13px;margin-top:auto" onclick="tambahKeranjang('${p.nama.replace(/'/g,"")}',${p.harga},'${fixFoto(p.foto)}')">+ Tambah Keranjang</button></div>`;
+    <button class="btn btn-red" style="width:100%;padding:10px;font-size:13px;margin-top:10px" onclick="tambahKeranjang('${p.nama.replace(/'/g,"")}',${p.harga},'${fixFoto(p.foto)}')">+ Tambah Keranjang</button></div>`;
     list.appendChild(d);
   });
 }
@@ -337,10 +347,8 @@ function cariProduk(){
   info.textContent = `Hasil cari "${kata}": ${hasil.length} produk ditemukan`;
 }
 function tambahKeranjang(nama,harga,foto){
-  let qty = qtyPilih[nama] || 1;
-  if(cart[nama]){ cart[nama].qty += qty; } else { cart[nama]={nama,harga,qty,foto}; }
-  updateCartCount();
-  alert(nama+" x"+qty+" ditambah ke keranjang!");
+  if(cart[nama]){ cart[nama].qty += 1; } else { cart[nama]={nama,harga,qty:1,foto}; }
+  updateBarIjo();
 }
 function bukaKeranjang(){
   const list=document.getElementById('cartList');
@@ -369,9 +377,9 @@ function ubahQtyCart(nama,delta){
   if(!cart[nama]) return;
   cart[nama].qty+=delta;
   if(cart[nama].qty<=0) delete cart[nama];
-  updateCartCount(); bukaKeranjang();
+  updateBarIjo(); bukaKeranjang();
 }
-function hapusCart(nama){ delete cart[nama]; updateCartCount(); bukaKeranjang(); }
+function hapusCart(nama){ delete cart[nama]; updateBarIjo(); bukaKeranjang(); }
 function checkoutWA(){
   const keys=Object.keys(cart);
   if(keys.length==0){ alert("Keranjang masih kosong bre!"); return; }
@@ -390,6 +398,7 @@ function checkoutWA(){
   window.open(`https://wa.me/6285782102726?text=${encodeURIComponent(pesan)}`,'_blank');
 }
 async function init(){
+  updateBarIjo();
   try{ const beritaRaw = await loadSheet("Berita"); semuaBerita = beritaRaw.map(r=>parseBerita(r)); tampilkanBerita(semuaBerita); }catch(e){ document.getElementById('beritaList').innerHTML="<div class='kosong'>Gagal load berita - Cek nama tab harus 'Berita'</div>"; }
   try{ const produkRaw = await loadSheet("Produk"); semuaProduk = produkRaw.map(r=>parseProduk(r)); tampilkanProduk(semuaProduk); document.getElementById('hasilCari').textContent = `Menampilkan ${semuaProduk.length} produk`; }catch(e){ document.getElementById('produkList').innerHTML="<div class='kosong'>Gagal load produk - Cek nama tab harus 'Produk'</div>"; }
 }
