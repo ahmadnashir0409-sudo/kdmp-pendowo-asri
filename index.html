@@ -46,11 +46,12 @@ h2{font-size:24px;margin-bottom:6px;color:#1a1a1a;font-weight:900}.sub{color:#5a
 .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .tab{padding:9px 16px;border:2px solid #c81e1e;background:#fff;border-radius:999px;cursor:pointer;font-weight:700}
 .tab.active{background:#c81e1e;color:#fff;border-color:#c81e1e}
-/* PILIHAN DAPUR / WARUNG */
 .mode-box{display:flex;gap:10px;margin-bottom:16px}
 .mode-btn{flex:1;padding:14px;border:3px solid #c81e1e;background:#fff;border-radius:14px;cursor:pointer;text-align:center;font-weight:900;font-size:15px}
 .mode-btn.active{background:#c81e1e;color:#fff}
 .mode-btn small{display:block;font-weight:600;font-size:12px;margin-top:4px;opacity:.9}
+.mode-btn.disabled{background:#eee;border-color:#ccc;color:#888;cursor:not-allowed}
+.mode-btn.disabled small{color:#888}
 .jam-box{background:#fff;border:3px solid #c81e1e;border-radius:16px;padding:18px;display:grid;gap:12px;box-shadow:0 6px 16px rgba(0,0,0,.15)}
 @media(min-width:700px){.jam-box{grid-template-columns:1fr 1fr}}
 .jam-box h3{color:#c81e1e}
@@ -81,11 +82,6 @@ footer a{color:#ffcc00;text-decoration:none;font-weight:700}
 .checkout{background:#25D366;border:none;width:100%;padding:14px;border-radius:10px;font-weight:900;font-size:16px;cursor:pointer;margin-top:12px;color:#fff}
 .close{background:#eee;border:none;padding:8px 12px;border-radius:999px;cursor:pointer}
 input.field{width:100%;padding:11px;border:2px solid #c81e1e;border-radius:10px;margin-top:8px;background:#fff}
-.keperluan{display:flex;gap:8px;margin-top:10px}
-.keperluan label{flex:1;text-align:center;padding:10px;border:2px solid #c81e1e;border-radius:10px;cursor:pointer;font-weight:800;background:#fff;font-size:14px}
-.keperluan input{display:none}
-.keperluan input:checked + span{color:#c81e1e}
-.keperluan label:has(input:checked){background:#ffcc00}
 </style>
 </head>
 <body>
@@ -130,12 +126,11 @@ input.field{width:100%;padding:11px;border:2px solid #c81e1e;border-radius:10px;
 <div id="beritaList" class="grid"><p>Memuat berita...</p></div>
 </div>
 <div class="wrap" id="produk">
-<h2>🛒 Belanja Untuk Apa Hari Ini?</h2><p class="sub">Pilih dulu bre, biar admin tau ini buat dapur atau buat stok warung.</p>
+<h2>🛒 Belanja Kebutuhan Dapur</h2><p class="sub">Untuk kebutuhan rumah tangga warga Pendowo Asri.</p>
 <div class="mode-box">
-<button class="mode-btn active" id="btnDapur" onclick="setMode('DAPUR')">🏠 BUAT DAPUR<small>Belanja harian rumah</small></button>
-<button class="mode-btn" id="btnWarung" onclick="setMode('WARUNG')">🏪 BUAT WARUNG<small>Stok toko / jualan lagi</small></button>
+<button class="mode-btn active">🏠 BUAT DAPUR<small>Belanja harian rumah - AKTIF</small></button>
+<button class="mode-btn disabled" onclick="alert('Layanan Warung / Stok Toko masih ditutup sementara, menunggu Juklak Juknis ya bre!')">🏪 BUAT WARUNG<small>🔒 DITUTUP SEMENTARA - Menunggu Juklak Juknis</small></button>
 </div>
-<p class="sub" id="modeInfo">Mode: Dapur - Harga ecer, cocok buat kebutuhan rumah.</p>
 <div id="produkList" class="grid"><p>Memuat produk...</p></div>
 </div>
 <div class="wrap" id="lokasi">
@@ -168,35 +163,23 @@ WA Admin: <a href="#" id="waLink">Chat WhatsApp</a><br>© 2026 KDMP Pendowo Asri
 <div style="display:flex;justify-content:space-between;align-items:center"><h3>Keranjang Belanja</h3><button class="close" onclick="toggleCart(false)">✕</button></div>
 <div id="cartItems" style="margin-top:12px"></div>
 <div id="cartTotal" style="font-weight:900;font-size:18px;margin-top:12px"></div>
-<p style="font-weight:800;margin-top:14px">Belanja ini untuk apa?</p>
-<div class="keperluan">
-<label><input type="radio" name="keperluan" value="DAPUR - Kebutuhan Rumah" checked><span>🏠 Dapur</span></label>
-<label><input type="radio" name="keperluan" value="WARUNG - Stok Toko / Jualan Lagi"><span>🏪 Warung</span></label>
-</div>
+<p style="font-weight:800;margin-top:14px">Keperluan: 🏠 Dapur - Kebutuhan Rumah</p>
+<p style="font-size:12px;color:#888">Layanan Warung ditutup sementara, menunggu Juklak Juknis.</p>
 <input class="field" id="namaPembeli" placeholder="Nama Pembeli (wajib)">
-<input class="field" id="alamatPembeli" placeholder="Alamat / RT / Dusun - Kalau Warung tulis Nama Warung">
+<input class="field" id="alamatPembeli" placeholder="Alamat / RT / Dusun">
 <button class="checkout" onclick="checkoutWA()">Checkout via WhatsApp →</button>
 </div>
 <script>
 const SHEET_ID = "1qR9ahIcF-dw2WLh-5B9v1D8apqgwtsfegjQwv6epSKw";
 const WA_NUMBER = "6285782102726";
 document.getElementById('waLink').href = "https://wa.me/"+WA_NUMBER;
-let produkData = [], beritaData = [], cart = {}, currentCat = "Semua", currentMode = "DAPUR";
-// Jam buka otomatis
+let produkData = [], beritaData = [], cart = {}, currentCat = "Semua";
 (function(){
   let now=new Date(), day=now.getDay(), hour=now.getHours();
   let open = (day>=1 && day<=5 && hour>=8 && hour<17) || (day==6 && hour>=8 && hour<15);
   let el=document.getElementById('openStatus');
   if(el){ el.innerText = open ? "● BUKA SEKARANG" : "● TUTUP - Order WA Tetap Bisa"; el.style.background = open ? "#25D366" : "#c81e1e"; }
 })();
-function setMode(mode){
-  currentMode=mode;
-  document.getElementById('btnDapur').classList.toggle('active', mode==='DAPUR');
-  document.getElementById('btnWarung').classList.toggle('active', mode==='WARUNG');
-  document.getElementById('modeInfo').innerText = mode==='DAPUR' ? "Mode: Dapur - Harga ecer, cocok buat kebutuhan rumah." : "Mode: Warung - Buat stok toko, beli banyak, admin siapin duluan. Tulis nama warung di checkout!";
-  // sinkron ke radio di keranjang
-  document.querySelectorAll('input[name="keperluan"]').forEach(r=>{ r.checked = (r.value.startsWith(mode)); });
-}
 function gviz(sheet){
   return fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheet}&headers=1`)
   .then(r=>r.text()).then(t=>{
@@ -245,13 +228,12 @@ function toggleCart(open){ document.getElementById('drawer').classList.toggle('o
 function checkoutWA(){
   let nama=document.getElementById('namaPembeli').value.trim();
   let alamat=document.getElementById('alamatPembeli').value.trim();
-  let keperluan=document.querySelector('input[name="keperluan"]:checked')?.value || currentMode;
   if(!Object.keys(cart).length) return alert("Keranjang masih kosong bre!");
   if(!nama) return alert("Isi nama dulu bre!");
-  let pesan=`Halo KDMP Pendowo Asri, saya mau pesan:\nKEPERLUAN: ${keperluan}\n----------------\n`;
+  let pesan=`Halo KDMP Pendowo Asri, saya mau pesan:\nKEPERLUAN: DAPUR - Kebutuhan Rumah\n----------------\n`;
   let total=0;
   Object.keys(cart).forEach(idx=>{ let p=produkData[idx],qty=cart[idx],sub=Number(p.HARGA)*qty; total+=sub; pesan+=`- ${p.NAMA} x ${qty} = ${rupiah(sub)}\n`; });
-  pesan+=`----------------\nTotal: ${rupiah(total)}\nNama: ${nama}\nAlamat / Nama Warung: ${alamat}`;
+  pesan+=`----------------\nTotal: ${rupiah(total)}\nNama: ${nama}\nAlamat: ${alamat}`;
   window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(pesan),"_blank");
 }
 Promise.all([gviz('PRODUK'), gviz('BERITA')]).then(([p,b])=>{ produkData=p; beritaData=b; renderProduk(); renderBerita(); });
