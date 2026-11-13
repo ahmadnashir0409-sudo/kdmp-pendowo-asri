@@ -21,7 +21,6 @@ nav::-webkit-scrollbar{display:none}
 nav a{padding:8px 14px;border-radius:999px;text-decoration:none;font-size:13px;font-weight:700;color:#333;white-space:nowrap;display:flex;align-items:center;gap:5px;background:#fff}
 nav a.active{background:#c81e1e;color:#fff}
 nav a:hover{background:#fee2e2}
-/* TOMBOL MASUK UDAH DIHAPUS - KARENA UDAH ADA KONTAK */
 .marquee{background:#a31616;overflow:hidden;white-space:nowrap;padding:7px 0;color:#fff}
 .marquee span{display:inline-block;animation:jalan 18s linear infinite;font-size:12px;font-weight:700;letter-spacing:.5px}
 @keyframes jalan{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
@@ -89,7 +88,6 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 <a href="#belanja">🛍️ Produk</a>
 <a href="#lokasi">📞 Kontak</a>
 </nav>
-<!-- TOMBOL MASUK UDAH DIHAPUS DISINI -->
 </div>
 <div class="marquee"><span>📢 SELAMAT DATANG DI KOPERASI DESA MERAH PUTIH PENDOWO ASRI &nbsp;•&nbsp; BELANJA KEBUTUHAN DAPUR LANGSUNG VIA WHATSAPP &nbsp;•&nbsp; WARUNG DITUTUP SEMENTARA MENUNGGU JUKLAK JUKNIS &nbsp;•&nbsp; SENIN - SABTU BUKA 08.00 - 16.00 WIB &nbsp;•&nbsp;</span></div>
 </header>
@@ -163,6 +161,23 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 
 <script>
 const SHEET_ID = "1qR9ahIcF-dw2WLh-5B9v1D8apqgwtsfegjQwv6epSKw";
+function fixFoto(url){
+  if(!url) return "";
+  url = url.trim();
+  if(url.includes("drive.google.com/file/d/")){
+    const id = url.split("/file/d/")[1].split("/")[0];
+    return "https://drive.google.com/thumbnail?id="+id+"&sz=w800";
+  }
+  if(url.includes("drive.google.com/open?id=") || url.includes("drive.google.com/uc?")){
+    const m = url.match(/[?&]id=([^&]+)/);
+    if(m) return "https://drive.google.com/thumbnail?id="+m[1]+"&sz=w800";
+  }
+  if(url.includes("drive.google.com/drive/")){
+    const m = url.match(/[-\w]{25,}/);
+    if(m) return "https://drive.google.com/thumbnail?id="+m[0]+"&sz=w800";
+  }
+  return url;
+}
 function cekJam(){ const now=new Date(); const hari=now.getDay(); const jam=now.getHours(); const el=document.getElementById('statusJam'); if(hari==0||jam<8||jam>=16){ el.textContent="● TUTUP - Buka lagi jam 08.00"; el.className="status tutup"; } else { el.textContent="● BUKA - Melayani Order"; el.className="status buka"; } }
 cekJam();
 async function loadSheet(sheetName){
@@ -181,13 +196,13 @@ function tampilkanBerita(data){
   list.innerHTML="";
   data.forEach((b,i)=>{
     const d=document.createElement('div'); d.className='card'; d.onclick=()=>bukaBerita(i);
-    const fotoHTML = b.foto ? `<img src="${b.foto}">` : ``;
+    const fotoHTML = b.foto ? `<img src="${fixFoto(b.foto)}">` : ``;
     const isiPendek = b.isi ? b.isi.substring(0,80)+"..." : ``;
     d.innerHTML=`${fotoHTML}<div class="in"><span class="badge">${b.kategori}</span><h3>${b.judul}</h3><p>${isiPendek}</p><div class="klik">Klik untuk baca selengkapnya →</div></div>`;
     list.appendChild(d);
   });
 }
-function bukaBerita(i){ const b=semuaBerita[i]; document.getElementById('mFotoWrap').innerHTML = b.foto ? `<img src="${b.foto}">` : ``; document.getElementById('mJudul').textContent=b.judul; document.getElementById('mKategori').textContent=b.kategori; document.getElementById('mTanggal').textContent=b.tanggal; document.getElementById('mIsi').textContent=b.isi; document.getElementById('modalBerita').classList.add('open'); }
+function bukaBerita(i){ const b=semuaBerita[i]; document.getElementById('mFotoWrap').innerHTML = b.foto ? `<img src="${fixFoto(b.foto)}">` : ``; document.getElementById('mJudul').textContent=b.judul; document.getElementById('mKategori').textContent=b.kategori; document.getElementById('mTanggal').textContent=b.tanggal; document.getElementById('mIsi').textContent=b.isi; document.getElementById('modalBerita').classList.add('open'); }
 function tutupBerita(){ document.getElementById('modalBerita').classList.remove('open'); }
 function tanyaWA(){ const j=document.getElementById('mJudul').textContent; window.open(`https://wa.me/6285782102726?text=Halo%20Min%2C%20saya%20mau%20tanya%20tentang%20berita%20${encodeURIComponent(j)}`,'_blank'); }
 function filterBerita(kat,el){ document.querySelectorAll('#berita .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); if(kat=='all') tampilkanBerita(semuaBerita); else tampilkanBerita(semuaBerita.filter(b=>b.kategori.toLowerCase().includes(kat.toLowerCase()))); }
@@ -198,7 +213,7 @@ function tampilkanProduk(data){
   list.innerHTML="";
   data.forEach((p)=>{
     const d=document.createElement('div'); d.className='produk-card';
-    const fotoHTML = p.foto ? `<img src="${p.foto}">` : ``;
+    const fotoHTML = p.foto ? `<img src="${fixFoto(p.foto)}">` : ``;
     d.innerHTML=`${fotoHTML}<div class="in"><span class="badge">${p.kategori}</span><h3 style="margin:6px 0">${p.nama}</h3><div class="harga">Rp ${p.harga.toLocaleString('id-ID')}</div><button class="btn btn-red" style="width:100%;margin-top:10px" onclick="tambahKeranjang('${p.nama.replace(/'/g,"")}',${p.harga})">+ Tambah Keranjang</button></div>`;
     list.appendChild(d);
   });
