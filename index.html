@@ -50,6 +50,7 @@ nav a:hover{background:#fee2e2}
 .search-box{display:flex;gap:0;margin:0 0 8px;position:relative;z-index:2}
 .search-box input{flex:1;padding:14px 16px;border:2px solid #c81e1e;border-radius:999px;font-size:15px;outline:none;background:#FFFBEB;width:100%}
 .search-box input:focus{border-color:#a31616;background:#fff;box-shadow:0 0 0 3px #fee2e2}
+/* PRODUK TETEP 2 SEJAJAR DI HP, 4 DI LAPTOP - GAK DIUBAH JADI ATAS-BAWAH */
 .grid{display:grid;gap:10px;position:relative;z-index:2;grid-template-columns:1fr 1fr}
 @media(min-width:750px){.grid{grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}}
 .card{background:#fff;border:2px solid #e8c547;border-radius:16px;overflow:hidden;cursor:pointer}
@@ -66,7 +67,12 @@ nav a:hover{background:#fee2e2}
 .harga{font-weight:900;color:#c81e1e;font-size:15px}
 @media(min-width:750px){.harga{font-size:16px}}
 .stok{font-size:11px;color:#666;margin-top:2px}
-/* BAR CHECKOUT IJO - PANJANG SAMPE TEPI, PENGGANTI TOMBOL MELAYANG + KUANTITI DI BAWAH PRODUK */
+.qty-add{display:flex;gap:6px;margin-top:10px;align-items:stretch}
+.qty-box{display:flex;align-items:center;background:#FFF3C4;border-radius:999px;padding:2px;flex-shrink:0}
+.qty-box button{width:30px;height:30px;border-radius:50%;border:2px solid #c81e1e;background:#fff;color:#c81e1e;font-weight:900;font-size:18px;cursor:pointer;line-height:1}
+.qty-box span{font-weight:900;font-size:14px;min-width:22px;text-align:center}
+.btn-tambah{flex:1;background:#c81e1e;color:#fff;border:none;border-radius:999px;font-weight:900;font-size:12px;cursor:pointer;padding:8px 6px}
+@media(min-width:750px){.btn-tambah{font-size:13px}}
 .checkout-bar{background:#16a34a;color:#fff;margin:16px -18px -18px -18px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:2}
 .checkout-bar .cb-info{line-height:1.3}
 .checkout-bar .cb-info b{font-size:15px;display:block}
@@ -75,10 +81,9 @@ nav a:hover{background:#fee2e2}
 .checkout-bar .cb-btn:disabled{background:#e5e5e5;color:#999;box-shadow:none;cursor:not-allowed}
 @media(max-width:480px){.checkout-bar{padding:12px 14px}.checkout-bar .cb-info b{font-size:13px}.checkout-bar .cb-btn{padding:10px 14px;font-size:13px}}
 .kosong{border:2px dashed #ddd;border-radius:14px;padding:18px;text-align:center;color:#999;font-size:13px;grid-column:1/-1}
-/* TOMBOL MELAYANG MERAH UDAH DIHAPUS */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;padding:14px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:flex-end;justify-content:center;padding:0}
 .modal.open{display:flex}
-.modal-box{background:#fff;width:100%;max-width:600px;border-radius:18px;overflow:hidden;max-height:90vh;overflow-y:auto}
+.modal-box{background:#fff;width:100%;max-width:600px;border-radius:18px 18px 0 0;overflow:hidden;max-height:92vh;display:flex;flex-direction:column}
 .modal-box img{width:100%;height:240px;object-fit:cover}
 .modal-box .in{padding:20px}.modal-box p{line-height:1.7;color:#333;font-size:14px;white-space:pre-line}
 footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:20px;font-size:13px;line-height:1.6}
@@ -88,14 +93,28 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 .form-group label{display:block;font-weight:800;font-size:13px;margin-bottom:6px;color:#111}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 14px;border:2px solid #ddd;border-radius:12px;font-size:14px;outline:none;font-family:Arial}
 .form-group input:focus,.form-group textarea:focus{border-color:#c81e1e}
-.cart-item{display:flex;gap:10px;align-items:center;border:1px solid #eee;border-radius:12px;padding:10px;margin-bottom:10px}
-.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:8px;background:#f5f5f5;flex-shrink:0}
-.cart-item .ci-info{flex:1}
-.cart-item .ci-info b{font-size:13px;display:block;line-height:1.3}
-.cart-item .ci-info span{font-size:12px;color:#666}
-.cart-qty{display:flex;align-items:center;gap:6px;margin-top:6px}
-.cart-qty button{width:26px;height:26px;border-radius:50%;border:1px solid #c81e1e;background:#fff;color:#c81e1e;font-weight:900;cursor:pointer}
-.total-row{display:flex;justify-content:space-between;font-weight:900;font-size:16px;padding:12px 0;border-top:2px dashed #ddd;margin-top:10px}
+/* === KERANJANG ALA SHOPEE - BARANG MENDATAR, FOTO KIRI, - + KANAN === */
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #eee;flex-shrink:0}
+.cart-header b{font-size:17px}
+.cart-body{overflow-y:auto;padding:12px 16px;flex:1}
+.shopee-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0;align-items:flex-start}
+.shopee-item img{width:84px;height:84px;object-fit:cover;border-radius:10px;background:#f5f5f5;flex-shrink:0}
+.shopee-item .si-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.shopee-item .si-nama{font-size:14px;font-weight:700;line-height:1.3;color:#111;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.shopee-item .si-harga{font-size:14px;font-weight:900;color:#c81e1e}
+.shopee-item .si-sub{font-size:12px;color:#888}
+.shopee-item .si-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:2px}
+.shopee-qty{display:flex;align-items:center;border:1px solid #ddd;border-radius:8px;overflow:hidden}
+.shopee-qty button{width:30px;height:30px;background:#fff;border:none;font-size:18px;font-weight:900;color:#333;cursor:pointer}
+.shopee-qty span{min-width:32px;text-align:center;font-weight:900;font-size:14px;background:#f9f9f9;height:30px;line-height:30px}
+.shopee-del{font-size:12px;color:#999;background:none;border:none;cursor:pointer;text-decoration:underline}
+/* BAR BAWAH ALA SHOPEE - TOTAL KIRI, CHECKOUT KANAN, NEMPEL */
+.cart-footer{flex-shrink:0;border-top:1px solid #eee;background:#fff;padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 -2px 10px rgba(0,0,0,.06)}
+.cart-footer .cf-total{line-height:1.2}
+.cart-footer .cf-total span{font-size:12px;color:#666}
+.cart-footer .cf-total b{font-size:17px;color:#c81e1e;display:block}
+.cart-footer .cf-btn{background:#c81e1e;color:#fff;border:none;padding:13px 22px;border-radius:8px;font-weight:900;font-size:15px;cursor:pointer;white-space:nowrap}
+.cart-footer .cf-btn:disabled{background:#ccc;cursor:not-allowed}
 @media(max-width:750px){.hero-text h1{font-size:28px} nav{justify-content:flex-start}}
 </style>
 </head>
@@ -148,9 +167,9 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 <input type="text" id="cariProduk" placeholder="🔍 Ketik nama produk... contoh: Beras" oninput="cariProduk()">
 </div>
 <p id="hasilCari" style="font-size:13px;color:#888;margin-bottom:10px"></p>
+<!-- PRODUK TETEP 2 SEJAJAR, GAK JADI ATAS-BAWAH -->
 <div id="produkList" class="grid"><div class="loading">⏳ Loading produk dari Sheets...</div></div>
 </div>
-<!-- BAR IJO CHECKOUT - PANJANG SAMPE TEPI, PENGGANTI TOMBOL MELAYANG -->
 <div class="checkout-bar" id="checkoutBar">
 <div class="cb-info">
 <b id="cbJudul">🛒 Keranjang Kosong</b>
@@ -178,9 +197,6 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 </div>
 </div>
 
-<!-- TOMBOL MELAYANG MERAH UDAH DIHAPUS - GAK ADA LAGI YANG NUTUPIN BERITA -->
-
-<!-- MODAL BERITA -->
 <div class="modal" id="modalBerita" onclick="if(event.target==this) tutupBerita()">
 <div class="modal-box">
 <div id="mFotoWrap"></div>
@@ -195,34 +211,28 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 </div>
 </div>
 
-<!-- MODAL KERANJANG + FORM NAMA & ALAMAT - KUANTITI PINDAH KESINI -->
+<!-- KERANJANG ALA SHOPEE - MENDATAR, - + DI KANAN, BAR BAWAH TOTAL + CHECKOUT -->
 <div class="modal" id="modalCart" onclick="if(event.target==this) tutupKeranjang()">
 <div class="modal-box">
-<div class="in">
-<h2 style="margin-bottom:4px">🛒 Keranjang Belanja</h2>
-<p style="color:#666;font-size:13px;margin-bottom:14px">Atur jumlah di sini, isi nama & alamat, baru kirim ke WA</p>
+<div class="cart-header">
+<b id="cartTitle">← Keranjang Saya (0)</b>
+<button onclick="tutupKeranjang()" style="background:none;border:none;font-size:20px;cursor:pointer">✕</button>
+</div>
+<div class="cart-body" id="cartBody">
 <div id="cartList"></div>
-<div id="cartTotalWrap"></div>
-<hr style="border:1px solid #eee;margin:16px 0">
-<h3 style="font-size:16px;margin-bottom:12px">📝 Data Pembeli</h3>
-<div class="form-group">
-<label>Nama Pembeli *</label>
-<input type="text" id="namaPembeli" placeholder="Contoh: Ahmad Nashirudin">
+<div id="cartTotalWrap" style="display:none"></div>
+<div id="formPembeli" style="margin-top:16px">
+<h3 style="font-size:15px;margin-bottom:12px">📝 Data Pembeli</h3>
+<div class="form-group"><label>Nama Pembeli *</label><input type="text" id="namaPembeli" placeholder="Contoh: Ahmad Nashirudin"></div>
+<div class="form-group"><label>No. WhatsApp Pembeli</label><input type="text" id="waPembeli" placeholder="Contoh: 0857xxxx"></div>
+<div class="form-group"><label>Alamat / Dusun + RT *</label><textarea id="alamatPembeli" rows="2" placeholder="Contoh: Dusun 1, RT 02, Pendowo Asri - Depan Masjid"></textarea></div>
+<div class="form-group"><label>Catatan (Opsional)</label><textarea id="catatanPembeli" rows="2" placeholder="Contoh: Tolong antar jam 10, uang pas 100rb, dll"></textarea></div>
 </div>
-<div class="form-group">
-<label>No. WhatsApp Pembeli</label>
-<input type="text" id="waPembeli" placeholder="Contoh: 0857xxxx">
 </div>
-<div class="form-group">
-<label>Alamat / Dusun + RT *</label>
-<textarea id="alamatPembeli" rows="2" placeholder="Contoh: Dusun 1, RT 02, Pendowo Asri - Depan Masjid"></textarea>
-</div>
-<div class="form-group">
-<label>Catatan (Opsional)</label>
-<textarea id="catatanPembeli" rows="2" placeholder="Contoh: Tolong antar jam 10, uang pas 100rb, dll"></textarea>
-</div>
-<button class="btn btn-red" style="width:100%;background:#25D366;font-size:15px;padding:14px" onclick="checkoutWA()">💬 Kirim Pesanan ke WhatsApp →</button>
-<button class="btn" style="width:100%;margin-top:8px;background:#eee;color:#333" onclick="tutupKeranjang()">Lanjut Belanja Dulu</button>
+<!-- BAR BAWAH ALA SHOPEE - KIRI TOTAL, KANAN CHECKOUT -->
+<div class="cart-footer">
+<div class="cf-total"><span>Total Belanja</span><b id="footerTotal">Rp 0</b></div>
+<button class="cf-btn" id="footerBtn" onclick="checkoutWA()" disabled>Checkout (0)</button>
 </div>
 </div>
 </div>
@@ -303,9 +313,9 @@ function tutupBerita(){ document.getElementById('modalBerita').classList.remove(
 function tanyaWA(){ const j=document.getElementById('mJudul').textContent; window.open(`https://wa.me/6285782102726?text=Halo%20Min%2C%20saya%20mau%20tanya%20tentang%20berita%20${encodeURIComponent(j)}`,'_blank'); }
 function filterBerita(kat,el){ document.querySelectorAll('#berita .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); if(kat=='all') tampilkanBerita(semuaBerita); else tampilkanBerita(semuaBerita.filter(b=>b.kategori.toLowerCase().includes(kat.toLowerCase()))); }
 
-// === KERANJANG - KUANTITI PINDAH KE BAR IJO + MODAL, BUKAN LAGI DI BAWAH PRODUK ===
 let semuaProduk = [];
-let cart = {}; // nama -> {nama,harga,qty,foto}
+let cart = {};
+let qtyPilih = {};
 
 function updateBarIjo(){
   const keys=Object.keys(cart);
@@ -324,17 +334,29 @@ function updateBarIjo(){
     btn.disabled=false; btn.textContent=`Checkout (${totalQty}) →`;
   }
 }
+function ubahQtyPilih(nama, delta){
+  if(!qtyPilih[nama]) qtyPilih[nama]=1;
+  qtyPilih[nama] = Math.max(1, Math.min(99, qtyPilih[nama]+delta));
+  document.querySelectorAll(`[data-qty="${CSS.escape(nama)}"]`).forEach(e=>e.textContent=qtyPilih[nama]);
+}
 function tampilkanProduk(data){
   const list=document.getElementById('produkList');
   if(data.length==0){ list.innerHTML="<div class='kosong'>Tidak ada produk yang ditemukan - Coba kata lain</div>"; return; }
   list.innerHTML="";
   data.forEach((p)=>{
+    if(!qtyPilih[p.nama]) qtyPilih[p.nama]=1;
     const d=document.createElement('div'); d.className='produk-card';
     const fotoHTML = p.foto ? `<img src="${fixFoto(p.foto)}" onerror="this.style.display='none'">` : `<div style="height:130px;background:#FFF3C4;display:flex;align-items:center;justify-content:center;font-size:40px">🛒</div>`;
     const stokHTML = p.stok ? `<div class="stok">Stok: ${p.stok}</div>` : (p.kategori && p.kategori!=="Dapur" ? `<div class="stok">${p.kategori}</div>` : ``);
-    // KUANTITI DI BAWAH PRODUK UDAH DIHAPUS - TINGGAL TOMBOL TAMBAH AJA, 1 KLIK = 1 PCS
     d.innerHTML=`${fotoHTML}<div class="in"><span class="badge">${p.kategori}</span><h3>${p.nama}</h3><div class="harga">Rp ${p.harga.toLocaleString('id-ID')}</div>${stokHTML}
-    <button class="btn btn-red" style="width:100%;padding:10px;font-size:13px;margin-top:10px" onclick="tambahKeranjang('${p.nama.replace(/'/g,"")}',${p.harga},'${fixFoto(p.foto)}')">+ Tambah Keranjang</button></div>`;
+    <div class="qty-add">
+      <div class="qty-box">
+        <button onclick="ubahQtyPilih('${p.nama.replace(/'/g,"")}',-1)">−</button>
+        <span data-qty="${p.nama}">${qtyPilih[p.nama]}</span>
+        <button onclick="ubahQtyPilih('${p.nama.replace(/'/g,"")}',1)">+</button>
+      </div>
+      <button class="btn-tambah" onclick="tambahKeranjang('${p.nama.replace(/'/g,"")}',${p.harga},'${fixFoto(p.foto)}')">+ Tambah</button>
+    </div></div>`;
     list.appendChild(d);
   });
 }
@@ -347,28 +369,42 @@ function cariProduk(){
   info.textContent = `Hasil cari "${kata}": ${hasil.length} produk ditemukan`;
 }
 function tambahKeranjang(nama,harga,foto){
-  if(cart[nama]){ cart[nama].qty += 1; } else { cart[nama]={nama,harga,qty:1,foto}; }
+  let qty = qtyPilih[nama] || 1;
+  if(cart[nama]){ cart[nama].qty += qty; } else { cart[nama]={nama,harga,qty,foto}; }
   updateBarIjo();
 }
+// === KERANJANG ALA SHOPEE ===
 function bukaKeranjang(){
   const list=document.getElementById('cartList');
-  const totalWrap=document.getElementById('cartTotalWrap');
   const keys=Object.keys(cart);
-  if(keys.length==0){ list.innerHTML="<div class='kosong'>Keranjang masih kosong bre, pilih produk dulu!</div>"; totalWrap.innerHTML=""; }
+  let totalQty=0, totalHarga=0;
+  keys.forEach(k=>{ totalQty+=cart[k].qty; totalHarga+=cart[k].harga*cart[k].qty; });
+  document.getElementById('cartTitle').textContent=`← Keranjang Saya (${totalQty})`;
+  document.getElementById('footerTotal').textContent=`Rp ${totalHarga.toLocaleString('id-ID')}`;
+  const fBtn=document.getElementById('footerBtn');
+  fBtn.textContent=`Checkout (${keys.length})`;
+  fBtn.disabled = keys.length===0;
+  if(keys.length==0){ list.innerHTML="<div class='kosong' style='grid-column:1/-1'>Keranjang masih kosong bre, pilih produk dulu!</div>"; }
   else{
-    let html=""; let total=0;
+    let html="";
     keys.forEach(k=>{
-      const c=cart[k]; let sub=c.harga*c.qty; total+=sub;
-      html+=`<div class="cart-item">
-        ${c.foto ? `<img src="${c.foto}" onerror="this.style.display='none'">` : `<div style="width:60px;height:60px;background:#FFF3C4;display:flex;align-items:center;justify-content:center;border-radius:8px">🛒</div>`}
-        <div class="ci-info"><b>${c.nama}</b><span>Rp ${c.harga.toLocaleString('id-ID')} x ${c.qty} = <b style="color:#c81e1e">Rp ${sub.toLocaleString('id-ID')}</b></span>
-        <div class="cart-qty">
-          <button onclick="ubahQtyCart('${c.nama.replace(/'/g,"")}',-1)">−</button><span style="font-weight:900">${c.qty}</span><button onclick="ubahQtyCart('${c.nama.replace(/'/g,"")}',1)">+</button>
-          <button onclick="hapusCart('${c.nama.replace(/'/g,"")}')" style="border-color:#999;color:#999;margin-left:8px;width:auto;padding:0 8px;border-radius:999px;font-size:11px;height:26px">Hapus ✕</button>
-        </div></div></div>`;
+      const c=cart[k]; let sub=c.harga*c.qty;
+      html+=`<div class="shopee-item">
+        ${c.foto ? `<img src="${c.foto}" onerror="this.style.display='none'">` : `<div style="width:84px;height:84px;background:#FFF3C4;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:30px">🛒</div>`}
+        <div class="si-right">
+          <div class="si-nama">${c.nama}</div>
+          <div class="si-harga">Rp ${c.harga.toLocaleString('id-ID')}</div>
+          <div class="si-sub">Subtotal: Rp ${sub.toLocaleString('id-ID')}</div>
+          <div class="si-bottom">
+            <button class="shopee-del" onclick="hapusCart('${c.nama.replace(/'/g,"")}')">Hapus</button>
+            <div class="shopee-qty">
+              <button onclick="ubahQtyCart('${c.nama.replace(/'/g,"")}',-1)">−</button><span>${c.qty}</span><button onclick="ubahQtyCart('${c.nama.replace(/'/g,"")}',1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
     });
     list.innerHTML=html;
-    totalWrap.innerHTML=`<div class="total-row"><span>Total Belanja:</span><span style="color:#c81e1e">Rp ${total.toLocaleString('id-ID')}</span></div>`;
   }
   document.getElementById('modalCart').classList.add('open');
 }
