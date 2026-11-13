@@ -3,138 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KDMP Pendowo Asri</title>
+<title>KDMP Pendowo Asri - Koperasi Desa Merah Putih</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#FFF3C4;color:#1a1a1a}
 header{background:#c81e1e;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99}
-.logo{font-weight:900;font-size:18px}.logo small{display:block;font-size:10px;font-weight:400;opacity:.9}
-nav{display:none;gap:16px}@media(min-width:800px){nav{display:flex}} nav a{color:#fff;text-decoration:none;font-weight:700;font-size:14px}
-.wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
-.tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0}
-.tab{padding:10px 18px;border-radius:999px;border:2px solid #c81e1e;background:#fff;color:#c81e1e;font-weight:800;cursor:pointer}
+.logo{font-weight:900;font-size:18px;line-height:1}.logo small{font-size:10px;font-weight:400;opacity:.9}
+nav{display:none;gap:14px}@media(min-width:850px){nav{display:flex}} nav a{color:#fff;text-decoration:none;font-weight:700;font-size:13px}
+.wrap{max-width:1100px;margin:0 auto;padding:18px 14px}
+.hero{background:#fff;border:3px solid #c81e1e;border-radius:18px;overflow:hidden;display:grid}@media(min-width:800px){.hero{grid-template-columns:1.1fr 1fr}}
+.hero-text{padding:22px}.hero-text h1{font-size:32px;line-height:1.1}.hero-text h1 span{color:#c81e1e}
+.hero-text p{color:#555;margin:10px 0;line-height:1.6;font-size:14px}
+.hero img{width:100%;height:100%;min-height:220px;object-fit:cover}
+.status{display:inline-block;padding:7px 14px;border-radius:999px;font-weight:900;font-size:13px;margin:8px 0}
+.buka{background:#d1fae5;color:#065f46}.tutup{background:#fee2e2;color:#991b1b}
+.btn{padding:12px 18px;border-radius:999px;font-weight:900;text-decoration:none;display:inline-block;font-size:14px;border:none;cursor:pointer}
+.btn-red{background:#c81e1e;color:#fff}.btn-yellow{background:#ffcc00;color:#a31616}.btn-line{border:2px solid #c81e1e;color:#c81e1e;background:#fff}
+.section{background:#fff;border:3px solid #c81e1e;border-radius:18px;padding:18px;margin-top:18px}
+.section h2{font-size:22px}.section p.sub{color:#5a3d00;font-size:13px;margin:4px 0 14px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.tab{padding:9px 16px;border-radius:999px;border:2px solid #c81e1e;background:#fff;color:#c81e1e;font-weight:800;cursor:pointer;font-size:13px}
 .tab.active{background:#c81e1e;color:#fff}
-.grid{display:grid;gap:16px}@media(min-width:750px){.grid{grid-template-columns:1fr 1fr 1fr}}
-.card{background:#fff;border-radius:16px;overflow:hidden;border:2px solid #e8c547;cursor:pointer;transition:.2s}
-.card:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,.15)}
-.card img{width:100%;height:180px;object-fit:cover;background:#eee}
-.card .in{padding:14px}
-.card h3{font-size:16px;margin:6px 0}.card p{font-size:13px;color:#555;line-height:1.5}
+.grid{display:grid;gap:14px}@media(min-width:750px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.card{background:#fff;border:2px solid #e8c547;border-radius:16px;overflow:hidden;cursor:pointer}
+.card img{width:100%;height:170px;object-fit:cover;background:#eee}
+.card .in{padding:12px}.card h3{font-size:15px;margin:6px 0}.card p{font-size:13px;color:#555;line-height:1.5}
 .badge{font-size:11px;background:#ffcc00;padding:4px 8px;border-radius:999px;font-weight:800}
-.klik{font-size:12px;color:#c81e1e;font-weight:800;margin-top:10px}
-/* POPUP BERITA */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;padding:16px}
+.klik{font-size:12px;color:#c81e1e;font-weight:800;margin-top:8px}
+.produk-card{border:2px solid #eee;border-radius:16px;overflow:hidden;background:#fff}
+.produk-card img{width:100%;height:160px;object-fit:cover}
+.produk-card .in{padding:12px}.harga{font-weight:900;color:#c81e1e;font-size:16px}
+.keranjang{position:fixed;bottom:16px;right:16px;background:#c81e1e;color:#fff;padding:14px 20px;border-radius:999px;font-weight:900;z-index:99;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.3);border:none}
+.warung-box{background:#fee2e2;border:2px dashed #c81e1e;border-radius:14px;padding:16px;text-align:center;margin-top:14px}
+.warung-box h3{color:#991b1b}.warung-box p{font-size:13px;color:#7f1d1d;margin-top:6px;line-height:1.6}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
 .modal-box{background:#fff;width:100%;max-width:600px;border-radius:18px;overflow:hidden;max-height:90vh;overflow-y:auto}
-.modal-box img{width:100%;height:260px;object-fit:cover}
-.modal-box .in{padding:20px}
-.modal-box h2{font-size:22px;margin:8px 0}
-.modal-box p{color:#333;line-height:1.7;font-size:15px;white-space:pre-line}
-.btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:900;cursor:pointer;margin-top:16px}
-.btn-tutup{background:#111;color:#fff}
-.btn-wa{background:#25D366;color:#fff;margin-top:8px}
-.belanja{background:#ff5a8a;color:#fff;text-align:center;padding:14px;border-radius:12px;font-weight:900;margin-top:20px}
+.modal-box img{width:100%;height:240px;object-fit:cover}
+.modal-box .in{padding:20px}.modal-box p{line-height:1.7;color:#333;font-size:14px;white-space:pre-line}
+input{width:100%;padding:10px;border:2px solid #ddd;border-radius:10px;margin-top:8px}
+footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:20px;font-size:13px;line-height:1.6}
 </style>
 </head>
 <body>
 <header>
-<div class="logo">KDMP PENDOWO ASRI<small>Koperasi Desa Merah Putih - Pendowo Asri</small></div>
-<nav><a href="#">Beranda</a><a href="#berita">Berita</a><a href="#produk">Produk</a></nav>
+<div class="logo">KDMP PENDOWO ASRI<small>Koperasi Desa Merah Putih</small></div>
+<nav><a href="#beranda">Beranda</a><a href="#berita">Berita</a><a href="#belanja">Belanja</a><a href="#lokasi">Lokasi</a></nav>
+<a href="https://wa.me/6285782102726" target="_blank" style="color:#fff;font-weight:800;font-size:13px;text-decoration:none">💬 WA Admin</a>
 </header>
 
-<div class="wrap">
-<h2 style="text-align:center">Berita Koperasi</h2>
-<p style="text-align:center;color:#5a3d00;font-size:14px;margin:6px 0">Klik berita untuk baca selengkapnya</p>
+<div class="wrap" id="beranda">
+<!-- HERO -->
+<div class="hero">
+<div class="hero-text">
+<span class="badge">📍 Pendowo Asri, Gedung Meneng, Tulang Bawang</span>
+<h1>Koperasi Desa<br><span>Merah Putih</span><br>Pendowo Asri</h1>
+<p>Belanja kebutuhan dapur dari koperasi desa sendiri. Harga jelas, stok jelas, admin fast respon. Tanpa ribet, langsung via WhatsApp.</p>
+<div id="statusJam" class="status buka">● BUKA - Melayani Order</div>
+<p style="font-size:12px;color:#888" id="jamText">Senin - Sabtu: 08.00 - 16.00 WIB | Minggu: Tutup</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+<a class="btn btn-red" href="#belanja">🛒 Belanja Sekarang ↓</a>
+<a class="btn btn-line" href="#berita">Lihat Berita ↓</a>
+</div>
+</div>
+<img src="gedung-kdmp-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=900&q=80'">
+</div>
 
+<!-- BERITA - UDAH BISA DI KLIK -->
+<div class="section" id="berita">
+<h2>📰 Berita Koperasi</h2><p class="sub">Klik berita untuk baca selengkapnya</p>
 <div class="tabs">
 <button class="tab active" onclick="filterBerita('all',this)">Semua</button>
 <button class="tab" onclick="filterBerita('Rapat',this)">Rapat</button>
 <button class="tab" onclick="filterBerita('Pengumuman',this)">Pengumuman</button>
 </div>
-
-<div class="grid" id="beritaList">
-<!-- CONTOH DATA - NANTI KEISI OTOMATIS DARI SHEETS -->
+<div class="grid" id="beritaList"></div>
 </div>
 
-<div class="belanja">🛒 Belanja Kebutuhan Dapur</div>
+<!-- BELANJA DAPUR -->
+<div class="section" id="belanja">
+<h2>🛒 Belanja Kebutuhan Dapur</h2><p class="sub">Untuk kebutuhan rumah. Pilih produk, masuk keranjang, checkout via WA.</p>
+<div class="tabs">
+<button class="tab active" onclick="filterProduk('all',this)">Semua</button>
+<button class="tab" onclick="filterProduk('Sembako',this)">Sembako</button>
+<button class="tab" onclick="filterProduk('Bumbu',this)">Bumbu Dapur</button>
+<button class="tab" onclick="filterProduk('Minuman',this)">Minuman</button>
+</div>
+<div class="grid" id="produkList"></div>
 </div>
 
-<!-- MODAL DETAIL BERITA -->
+<!-- WARUNG DITUTUP -->
+<div class="section">
+<h2>🏪 Layanan Warung</h2>
+<div class="warung-box">
+<h3>🔒 WARUNG DITUTUP SEMENTARA</h3>
+<p>Layanan Warung Koperasi ditutup sementara menunggu Juklak Juknis resmi.<br>Untuk saat ini, kami hanya melayani <b>Belanja Kebutuhan Dapur</b> di atas.<br>Terima kasih atas pengertiannya.</p>
+</div>
+</div>
+
+<!-- LOKASI -->
+<div class="section" id="lokasi">
+<h2>📍 Lokasi Koperasi</h2><p class="sub">Kampung Pendowo Asri, Kec. Gedung Meneng, Kab. Tulang Bawang, Lampung</p>
+<img src="peta-pendowoasri.jpeg" onerror="this.src='https://images.unsplash.com/photo-1524661135-423995f22d0b?w=900&q=80'" style="width:100%;height:220px;object-fit:cover;border-radius:14px">
+<a class="btn btn-red" style="margin-top:12px;display:block;text-align:center" href="https://maps.google.com/?q=KDMP+Pendowo+Asri+Tulang+Bawang" target="_blank">Buka di Google Maps →</a>
+</div>
+
+</div>
+
+<button class="keranjang" onclick="checkoutWA()">🛒 Keranjang (<span id="cartCount">0</span>) • Checkout WA</button>
+
+<!-- MODAL BERITA -->
 <div class="modal" id="modalBerita" onclick="if(event.target==this) tutupBerita()">
 <div class="modal-box">
 <img id="mFoto" src="">
 <div class="in">
 <span class="badge" id="mKategori">BERITA</span>
-<h2 id="mJudul">Judul Berita</h2>
+<h2 id="mJudul" style="margin:8px 0">Judul</h2>
 <p id="mTanggal" style="color:#888;font-size:13px"></p>
-<p id="mIsi" style="margin-top:12px">Isi berita...</p>
-<button class="btn btn-wa" onclick="tanyaWA()">💬 Tanya via WhatsApp</button>
-<button class="btn btn-tutup" onclick="tutupBerita()">Tutup ✕</button>
+<p id="mIsi" style="margin-top:12px">Isi...</p>
+<button class="btn btn-red" style="width:100%;margin-top:16px;background:#25D366" onclick="tanyaWA()">💬 Tanya via WhatsApp</button>
+<button class="btn" style="width:100%;margin-top:8px;background:#111;color:#fff" onclick="tutupBerita()">Tutup ✕</button>
 </div>
 </div>
 </div>
 
 <script>
-// GANTI LINK INI DENGAN LINK CSV GOOGLE SHEETS BERITA LU YANG LAMA BRE!
-const SHEETS_URL = "https://docs.google.com/spreadsheets/d/PASTE_ID_SHEETS_LU/gviz/tq?tqx=out:csv&sheet=Berita";
-let semuaBerita = [];
+// JAM OPERASIONAL OTOMATIS
+function cekJam(){
+  const now = new Date(); const hari = now.getDay(); const jam = now.getHours();
+  const el = document.getElementById('statusJam');
+  // Minggu tutup, Senin-Sabtu 08.00-16.00 buka
+  if(hari==0 || jam<8 || jam>=16){ el.textContent="● TUTUP - Buka lagi jam 08.00"; el.className="status tutup"; }
+  else { el.textContent="● BUKA - Melayani Order"; el.className="status buka"; }
+}
+cekJam(); setInterval(cekJam,60000);
 
-// DATA CADANGAN KALO SHEETS BELUM KELOAD - BIAR LU BISA TES KLIK DULU
-const contohBerita = [
-{judul:"rapat anggota tahunan", kategori:"Rapat", tanggal:"13 Nov 2026", foto:"gedung-kdmp-2.jpg", isi:"Rapat Anggota Tahunan KDMP Pendowo Asri akan dilaksanakan di Gedung Koperasi. Seluruh anggota diharapkan hadir tepat waktu. Membawa KTP dan kartu anggota.\n\nAgenda: Laporan keuangan, pemilihan pengurus, dan rencana kerja tahun depan."},
-{judul:"Pengumuman Jam Buka Koperasi", kategori:"Pengumuman", tanggal:"12 Nov 2026", foto:"peta-pendowoasri.jpeg", isi:"Koperasi buka Senin - Sabtu jam 08.00 - 16.00 WIB. Minggu tutup. Layanan Warung ditutup sementara menunggu Juklak Juknis. Layanan Dapur tetap buka."},
-{judul:"Stok Baru Sembako Masuk", kategori:"Pengumuman", tanggal:"10 Nov 2026", foto:"gedung-kdmp-2.jpg", isi:"Stok baru sudah masuk: Beras, Minyak Goreng, Gula, Telur, dan kebutuhan dapur lainnya. Silakan cek di katalog dan order via WhatsApp."}
+// DATA BERITA - GANTI DENGAN DATA SHEETS LU NANTI, INI BIAR LANGSUNG JALAN
+let semuaBerita = [
+{judul:"rapat anggota tahunan", kategori:"Rapat", tanggal:"13 Nov 2026", foto:"gedung-kdmp-2.jpg", isi:"Rapat Anggota Tahunan KDMP Pendowo Asri akan dilaksanakan di Gedung Koperasi.\n\nSeluruh anggota diharapkan hadir tepat waktu. Membawa KTP dan kartu anggota.\n\nAgenda: Laporan keuangan, pemilihan pengurus, dan rencana kerja tahun depan."},
+{judul:"Pengumuman Jam Buka Koperasi", kategori:"Pengumuman", tanggal:"12 Nov 2026", foto:"peta-pendowoasri.jpeg", isi:"Koperasi buka Senin - Sabtu jam 08.00 - 16.00 WIB. Minggu tutup.\n\nLayanan Warung ditutup sementara menunggu Juklak Juknis. Layanan Dapur tetap buka."},
+{judul:"Stok Baru Sembako Masuk", kategori:"Pengumuman", tanggal:"10 Nov 2026", foto:"gedung-kdmp-2.jpg", isi:"Stok baru sudah masuk: Beras, Minyak Goreng, Gula, Telur, dan kebutuhan dapur lainnya.\n\nSilakan cek di katalog dan order via WhatsApp."}
 ];
-
 function tampilkanBerita(data){
-  const list = document.getElementById('beritaList');
-  list.innerHTML = "";
+  const list=document.getElementById('beritaList'); list.innerHTML="";
   data.forEach((b,i)=>{
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.onclick = ()=> bukaBerita(i);
-    div.innerHTML = `
-      <img src="${b.foto}" onerror="this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=80'">
-      <div class="in">
-        <span class="badge">${b.kategori}</span>
-        <h3>${b.judul}</h3>
-        <p>${b.isi.substring(0,80)}...</p>
-        <div class="klik">Klik untuk baca selengkapnya →</div>
-      </div>`;
-    list.appendChild(div);
+    const d=document.createElement('div'); d.className='card'; d.onclick=()=>bukaBerita(i);
+    d.innerHTML=`<img src="${b.foto}" onerror="this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=80'"><div class="in"><span class="badge">${b.kategori}</span><h3>${b.judul}</h3><p>${b.isi.substring(0,80)}...</p><div class="klik">Klik untuk baca selengkapnya →</div></div>`;
+    list.appendChild(d);
   });
 }
-
-function bukaBerita(i){
-  const b = semuaBerita[i];
-  document.getElementById('mFoto').src = b.foto;
-  document.getElementById('mJudul').textContent = b.judul;
-  document.getElementById('mKategori').textContent = b.kategori;
-  document.getElementById('mTanggal').textContent = b.tanggal;
-  document.getElementById('mIsi').textContent = b.isi;
-  document.getElementById('modalBerita').classList.add('open');
-}
+function bukaBerita(i){ const b=semuaBerita[i]; document.getElementById('mFoto').src=b.foto; document.getElementById('mJudul').textContent=b.judul; document.getElementById('mKategori').textContent=b.kategori; document.getElementById('mTanggal').textContent=b.tanggal; document.getElementById('mIsi').textContent=b.isi; document.getElementById('modalBerita').classList.add('open'); }
 function tutupBerita(){ document.getElementById('modalBerita').classList.remove('open'); }
-function tanyaWA(){
-  const judul = document.getElementById('mJudul').textContent;
-  window.open(`https://wa.me/6285782102726?text=Halo%20Min%2C%20saya%20mau%20tanya%20tentang%20berita%20${encodeURIComponent(judul)}`, '_blank');
-}
-function filterBerita(kat, el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  if(kat=='all') tampilkanBerita(semuaBerita);
-  else tampilkanBerita(semuaBerita.filter(b=>b.kategori.toLowerCase().includes(kat.toLowerCase())));
-}
-
-// LOAD DARI SHEETS, KALO GAGAL PAKE DATA CONTOH
-semuaBerita = contohBerita;
+function tanyaWA(){ const j=document.getElementById('mJudul').textContent; window.open(`https://wa.me/6285782102726?text=Halo%20Min%2C%20saya%20mau%20tanya%20tentang%20berita%20${encodeURIComponent(j)}`,'_blank'); }
+function filterBerita(kat,el){ document.querySelectorAll('#berita .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); if(kat=='all') tampilkanBerita(semuaBerita); else tampilkanBerita(semuaBerita.filter(b=>b.kategori.toLowerCase().includes(kat.toLowerCase()))); }
 tampilkanBerita(semuaBerita);
 
-// KALO LU UDAH PASANG LINK SHEETS YANG BENER, INI AKAN JALAN OTOMATIS
-// fetch(SHEETS_URL).then(r=>r.text()).then(csv=>{
-//   // parsing CSV Sheets lu disini, format: Judul,Kategori,Tanggal,Foto,Isi
-// });
-
+// DATA PRODUK - INI JUGA NANTI BISA LU GANTI LEWAT SHEETS
+let semuaProduk = [
+{nama:"Beras 5kg", harga:65000, kategori:"Sembako", foto:"https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80"},
+{nama:"Minyak Goreng 1L", harga:18000, kategori:"Sembako", foto:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&q=80"},
+{nama:"Gula Pasir 1kg", harga:16000, kategori:"Sembako", foto:"https://images.unsplash.com/photo-1581441363689-1f3c3c414635?w=600&q=80"},
+{nama:"Telur 1kg", harga:30000, kategori:"Sembako", foto:"https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=600&q=80"},
+{nama:"Bawang Merah 500gr", harga:20000, kategori:"Bumbu", foto:"https://images.unsplash.com/photo-1518977956812-cd3dbadaaf31?w=600&q=80"},
+{nama:"Cabai Merah 250gr", harga:15000, kategori:"Bumbu", foto:"https://images.unsplash.com/photo-1583119912267-cc97c911e416?w=600&q=80"},
+{nama:"Kopi Bubuk 250gr", harga:25000, kategori:"Minuman", foto:"https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&q=80"},
+{nama:"Teh Celup 25pcs", harga:12000, kategori:"Minuman", foto:"https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?w=600&q=80"},
+];
+let cart = [];
+function tampilkanProduk(data){
+  const list=document.getElementById('produkList'); list.innerHTML="";
+  data.forEach((p)=>{
+    const d=document.createElement('div'); d.className='produk-card';
+    d.innerHTML=`<img src="${p.foto}"><div class="in"><span class="badge">${p.kategori}</span><h3 style="margin:6px 0">${p.nama}</h3><div class="harga">Rp ${p.harga.toLocaleString('id-ID')}</div><button class="btn btn-red" style="width:100%;margin-top:10px" onclick="tambahKeranjang('${p.nama}',${p.harga})">+ Tambah Keranjang</button></div>`;
+    list.appendChild(d);
+  });
+}
+function filterProduk(kat,el){ document.querySelectorAll('#belanja .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); if(kat=='all') tampilkanProduk(semuaProduk); else tampilkanProduk(semuaProduk.filter(p=>p.kategori==kat)); }
+function tambahKeranjang(nama,harga){ cart.push({nama,harga}); document.getElementById('cartCount').textContent=cart.length; alert(nama+" ditambah ke keranjang!"); }
+function checkoutWA(){
+  if(cart.length==0){ alert("Keranjang masih kosong bre, pilih produk dulu!"); return; }
+  let pesan="Halo KDMP Pendowo Asri, saya mau order:\n\n"; let total=0;
+  cart.forEach((c,i)=>{ pesan+=`${i+1}. ${c.nama} - Rp ${c.harga.toLocaleString('id-ID')}\n`; total+=c.harga; });
+  pesan+=`\nTotal: Rp ${total.toLocaleString('id-ID')}\n\nMohon info stok & pengiriman ya Min. Terima kasih.`;
+  window.open(`https://wa.me/6285782102726?text=${encodeURIComponent(pesan)}`,'_blank');
+}
+tampilkanProduk(semuaProduk);
 </script>
+
+<footer>
+<b>KDMP PENDOWO ASRI</b><br>
+Koperasi Desa Merah Putih - Kampung Pendowo Asri, Gedung Meneng, Tulang Bawang, Lampung<br>
+Dibuat oleh Ahmad Nashirudin dengan metode Vibe Coding
+</footer>
 </body>
 </html>
