@@ -7,27 +7,39 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#FFF3C4;color:#1a1a1a;overflow-x:hidden}
-header{background:#c81e1e;color:#fff;position:sticky;top:0;z-index:99;overflow:hidden}
-.header-top{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
-.logo-wrap{display:flex;align-items:center;gap:10px}
-.logo-img{width:44px;height:44px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;border:2px solid #ffcc00;flex-shrink:0}
-.logo{font-weight:900;font-size:18px;line-height:1}.logo small{font-size:10px;font-weight:400;opacity:.9}
-nav{display:none;gap:14px}@media(min-width:850px){nav{display:flex}} nav a{color:#fff;text-decoration:none;font-weight:700;font-size:13px}
-/* SHAPE HIASAN BULET - OPACITY BIAR CANTIK */
-.shape{position:absolute;border-radius:50%;pointer-events:none;background:#fff}
-.s1{width:140px;height:140px;opacity:.07;top:-40px;right:10%}
-.s2{width:80px;height:80px;opacity:.08;bottom:-20px;left:30%}
-.s3{width:60px;height:60px;border:2px solid #fff;opacity:.12;background:transparent;top:10px;left:55%}
-/* TEKS BERJALAN */
-.marquee{background:#a31616;overflow:hidden;white-space:nowrap;padding:7px 0;position:relative;z-index:2}
+/* ===== HEADER BARU - PERSIS KAYAK CONTOH LU ===== */
+header{background:#fff;position:sticky;top:0;z-index:99;box-shadow:0 2px 10px rgba(0,0,0,.08);border-bottom:3px solid #ffcc00}
+.header-top{max-width:1100px;margin:0 auto;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.logo-wrap{display:flex;align-items:center;gap:8px;flex-shrink:0;text-decoration:none;color:#111}
+.logo-icon{width:44px;height:44px;background:#c81e1e;color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;line-height:1;position:relative;flex-shrink:0}
+.logo-icon small{position:absolute;bottom:2px;font-size:6px;letter-spacing:.5px}
+.logo-txt{line-height:1}
+.logo-txt b{font-size:20px;color:#c81e1e;letter-spacing:.5px}
+.logo-txt span{display:block;font-size:12px;font-weight:800;color:#111}
+.divider{width:1px;height:38px;background:#ddd;display:none}
+@media(min-width:900px){.divider{display:block}}
+/* MENU ADA SHAPE PIL */
+nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;justify-content:center}
+nav::-webkit-scrollbar{display:none}
+nav a{padding:8px 14px;border-radius:999px;text-decoration:none;font-size:13px;font-weight:700;color:#333;white-space:nowrap;display:flex;align-items:center;gap:5px;background:#fff}
+nav a.active{background:#c81e1e;color:#fff}
+nav a:hover{background:#fee2e2}
+.btn-masuk{background:#c81e1e;color:#fff;padding:9px 18px;border-radius:999px;font-weight:900;font-size:13px;text-decoration:none;white-space:nowrap;flex-shrink:0}
+/* TEKS BERJALAN - TETEP ADA */
+.marquee{background:#a31616;overflow:hidden;white-space:nowrap;padding:7px 0;color:#fff}
 .marquee span{display:inline-block;animation:jalan 18s linear infinite;font-size:12px;font-weight:700;letter-spacing:.5px}
 @keyframes jalan{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
 .wrap{max-width:1100px;margin:0 auto;padding:18px 14px}
-.hero{background:#fff;border:3px solid #c81e1e;border-radius:18px;overflow:hidden;display:grid;position:relative}@media(min-width:800px){.hero{grid-template-columns:1.1fr 1fr}}
-.hero-text{padding:22px;position:relative;z-index:2}.hero-text h1{font-size:32px;line-height:1.1}.hero-text h1 span{color:#c81e1e}
-.hero-text p{color:#555;margin:10px 0;line-height:1.6;font-size:14px}
-.hero img{width:100%;height:100%;min-height:220px;object-fit:cover}
-.status{display:inline-block;padding:7px 14px;border-radius:999px;font-weight:900;font-size:13px;margin:8px 0}
+/* ===== HERO BARU - FOTO GEDUNG JADI BACKGROUND OPACITY RENDAH, LATAR KUNING/PUTIH ===== */
+.hero{background:#FFF3C4;border:3px solid #c81e1e;border-radius:18px;overflow:hidden;position:relative;min-height:340px;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28;pointer-events:none}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,#FFF3C4 0%,rgba(255,243,196,.85) 45%,rgba(255,243,196,.25) 100%);pointer-events:none}
+.hero-text{padding:28px 22px;position:relative;z-index:2;max-width:620px}
+.hero-text .pill-merah{display:inline-block;background:#c81e1e;color:#fff;padding:7px 16px;border-radius:999px;font-weight:800;font-size:13px}
+.hero-text h1{font-size:34px;line-height:1.15;margin:12px 0}
+.hero-text h1 span{color:#c81e1e}
+.hero-text p{color:#444;line-height:1.6;font-size:14px;font-weight:600}
+.status{display:inline-block;padding:7px 14px;border-radius:999px;font-weight:900;font-size:13px;margin:10px 0}
 .buka{background:#d1fae5;color:#065f46}.tutup{background:#fee2e2;color:#991b1b}
 .btn{padding:12px 18px;border-radius:999px;font-weight:900;text-decoration:none;display:inline-block;font-size:14px;border:none;cursor:pointer}
 .btn-red{background:#c81e1e;color:#fff}.btn-line{border:2px solid #c81e1e;color:#c81e1e;background:#fff}
@@ -36,14 +48,16 @@ nav{display:none;gap:14px}@media(min-width:850px){nav{display:flex}} nav a{color
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;position:relative;z-index:2}
 .tab{padding:9px 16px;border-radius:999px;border:2px solid #c81e1e;background:#fff;color:#c81e1e;font-weight:800;cursor:pointer;font-size:13px}
 .tab.active{background:#c81e1e;color:#fff}
+.dua-pil{display:flex;gap:10px;position:relative;z-index:2}
+.pil-btn{flex:1;padding:13px 10px;border-radius:999px;font-weight:900;font-size:14px;text-align:center;cursor:pointer;border:none;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;line-height:1.3}
+.pil-dapur{background:#c81e1e;color:#fff;box-shadow:0 4px 10px rgba(200,30,30,.3)}
+.pil-warung{background:#fff;color:#666;border:2px solid #bbb}
+@media(max-width:500px){.pil-btn{font-size:12px;padding:12px 8px}}
+.search-box{display:flex;gap:8px;margin:12px 0;position:relative;z-index:2}
+.search-box input{flex:1;padding:14px 16px;border:2px solid #c81e1e;border-radius:999px;font-size:15px;outline:none;background:#FFFBEB}
+.search-box input:focus{border-color:#a31616;background:#fff;box-shadow:0 0 0 3px #fee2e2}
+.search-box button{padding:12px 20px;border-radius:999px;background:#c81e1e;color:#fff;font-weight:900;border:none;cursor:pointer;font-size:14px;white-space:nowrap}
 .grid{display:grid;gap:14px;position:relative;z-index:2}@media(min-width:750px){.grid{grid-template-columns:1fr 1fr 1fr}}
-/* DAPUR & WARUNG SEJAJAR - INI KUNCINYA BUAT ORANG TUA */
-.dua-kolom{display:grid;gap:14px;position:relative;z-index:2}@media(min-width:750px){.dua-kolom{grid-template-columns:1fr 1fr}}
-.kotak-layanan{border:2px solid #e8c547;border-radius:16px;padding:16px;background:#FFFBEB}
-.kotak-layanan.dapur{border-color:#c81e1e}
-.kotak-layanan.warung{border-color:#999;background:#f9f9f9}
-.kotak-layanan h3{font-size:18px;margin-bottom:6px}
-.kotak-layanan p{font-size:13px;color:#555;line-height:1.6}
 .card{background:#fff;border:2px solid #e8c547;border-radius:16px;overflow:hidden;cursor:pointer}
 .card img{width:100%;height:170px;object-fit:cover;background:#eee}
 .card .in{padding:12px}.card h3{font-size:15px;margin:6px 0}.card p{font-size:13px;color:#555;line-height:1.5}
@@ -54,8 +68,6 @@ nav{display:none;gap:14px}@media(min-width:850px){nav{display:flex}} nav a{color
 .produk-card .in{padding:12px}.harga{font-weight:900;color:#c81e1e;font-size:16px}
 .kosong{border:2px dashed #ddd;border-radius:14px;padding:18px;text-align:center;color:#999;font-size:13px}
 .keranjang{position:fixed;bottom:16px;right:16px;background:#c81e1e;color:#fff;padding:14px 20px;border-radius:999px;font-weight:900;z-index:99;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.3);border:none}
-.warung-box{background:#fee2e2;border:2px dashed #c81e1e;border-radius:14px;padding:14px;text-align:center;margin-top:12px}
-.warung-box h3{color:#991b1b;font-size:15px}.warung-box p{font-size:12px;color:#7f1d1d;margin-top:6px;line-height:1.6}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
 .modal-box{background:#fff;width:100%;max-width:600px;border-radius:18px;overflow:hidden;max-height:90vh;overflow-y:auto}
@@ -64,76 +76,71 @@ nav{display:none;gap:14px}@media(min-width:850px){nav{display:flex}} nav a{color
 footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:20px;font-size:13px;line-height:1.6}
 .loading{text-align:center;padding:20px;color:#888}
 .shape2{position:absolute;border-radius:50%;background:#c81e1e;opacity:.04;pointer-events:none}
+@media(max-width:750px){.hero-text h1{font-size:28px} nav{justify-content:flex-start} .btn-masuk{padding:8px 12px;font-size:12px}}
 </style>
 </head>
 <body>
 
-<!-- HEADER - BALIKIN YANG CAKAP, ADA LOGO + TEKS BERJALAN + SHAPE BULET -->
+<!-- HEADER BARU - PUTIH, LOGO KDMP, MENU ADA SHAPE PIL, TOMBOL MASUK -->
 <header>
-<div class="shape s1"></div><div class="shape s2"></div><div class="shape s3"></div>
 <div class="header-top">
-<div class="logo-wrap">
-<div class="logo-img">🏛️</div>
-<div class="logo">KDMP PENDOWO ASRI<small>Koperasi Desa Merah Putih</small></div>
-</div>
-<nav><a href="#beranda">Beranda</a><a href="#belanja">Belanja</a><a href="#berita">Berita</a><a href="#lokasi">Lokasi</a></nav>
-<a href="https://wa.me/6285782102726" target="_blank" style="color:#fff;font-weight:800;font-size:13px;text-decoration:none">💬 WA Admin</a>
+<a class="logo-wrap" href="#beranda">
+<div class="logo-icon">🏠<small>KOP DES KEL</small></div>
+<div class="logo-txt"><b>KDMP</b><span>Pendowo Asri</span></div>
+</a>
+<div class="divider"></div>
+<nav>
+<a href="#beranda" class="active">🏠 Beranda</a>
+<a href="#belanja">ℹ️ Tentang</a>
+<a href="#belanja">⊞ Layanan</a>
+<a href="#belanja">🛍️ Produk</a>
+<a href="#lokasi">📞 Kontak</a>
+</nav>
+<a class="btn-masuk" href="https://wa.me/6285782102726" target="_blank">🛒 Masuk</a>
 </div>
 <div class="marquee"><span>📢 SELAMAT DATANG DI KOPERASI DESA MERAH PUTIH PENDOWO ASRI &nbsp;•&nbsp; BELANJA KEBUTUHAN DAPUR LANGSUNG VIA WHATSAPP &nbsp;•&nbsp; WARUNG DITUTUP SEMENTARA MENUNGGU JUKLAK JUKNIS &nbsp;•&nbsp; SENIN - SABTU BUKA 08.00 - 16.00 WIB &nbsp;•&nbsp;</span></div>
 </header>
 
 <div class="wrap" id="beranda">
-<!-- 1. BERANDA -->
+<!-- HERO BARU - FOTO GEDUNG JADI BACKGROUND OPACITY RENDAH, LATAR KUNING / PUTIH, GAK PNG -->
 <div class="hero">
-<div class="shape2" style="width:200px;height:200px;right:-40px;top:-40px"></div>
+<img class="hero-bg" src="gedung-kdmp-2.jpg">
+<div class="hero-overlay"></div>
 <div class="hero-text">
-<span class="badge">📍 Pendowo Asri, Gedung Meneng, Tulang Bawang</span>
-<h1>Koperasi Desa<br><span>Merah Putih</span><br>Pendowo Asri</h1>
-<p>Belanja kebutuhan dapur dari koperasi desa sendiri. Harga jelas, stok jelas, admin fast respon. Langsung via WhatsApp.</p>
+<span class="pill-merah">KDMP Pendowo Asri</span>
+<h1>Koperasi Desa<br><span>Merah Putih</span><br>Kampung Pendowo Asri</h1>
+<p>Mewujudkan Ekonomi Desa yang Mandiri,<br>Transparan, dan Berkelanjutan</p>
 <div id="statusJam" class="status buka">● BUKA - Melayani Order</div>
-<p style="font-size:12px;color:#888">Senin - Sabtu: 08.00 - 16.00 WIB | Minggu: Tutup</p>
+<p style="font-size:12px;color:#666">Senin - Sabtu: 08.00 - 16.00 WIB | Minggu: Tutup</p>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-<a class="btn btn-red" href="#belanja">🛒 Belanja Sekarang ↓</a>
+<a class="btn btn-red" href="#belanja">🛒 Belanja Sekarang →</a>
 <a class="btn btn-line" href="#berita">Lihat Berita ↓</a>
 </div>
 </div>
-<img src="gedung-kdmp-2.jpg" style="width:100%;height:100%;min-height:220px;object-fit:cover">
 </div>
 
-<!-- 2. BELANJA - DAPUR & WARUNG SEJAJAR KIRI-KANAN -->
+<!-- BELANJA -->
 <div class="section" id="belanja">
 <div class="shape2" style="width:150px;height:150px;right:-30px;top:-30px"></div>
 <h2>🛒 Belanja Koperasi</h2><p class="sub">Pilih layanan di bawah - Kiri Dapur, Kanan Warung, sekali liat langsung keliatan semua</p>
-
-<div class="dua-kolom">
-<!-- KIRI: KEBUTUHAN DAPUR - BUKA -->
-<div class="kotak-layanan dapur">
-<h3>🍳 KEBUTUHAN DAPUR - BUKA ✅</h3>
-<p>Sembako, bumbu dapur, minuman. Bisa langsung order di bawah ini. Pilih produk, masuk keranjang, checkout via WA.</p>
-<div style="margin-top:10px"><span class="badge">✅ MELAYANI ORDER</span></div>
+<div class="dua-pil">
+<a href="#produkArea" class="pil-btn pil-dapur">🍳 DAPUR - BUKA ✅</a>
+<button class="pil-btn pil-warung" onclick="alert('Warung masih DITUTUP SEMENTARA, menunggu Juklak Juknis resmi. Untuk saat ini silahkan order Kebutuhan Dapur dulu nggih 🙏')">🏪 WARUNG - TUTUP 🔒</button>
 </div>
-<!-- KANAN: WARUNG - TUTUP -->
-<div class="kotak-layanan warung">
-<h3>🏪 WARUNG - TUTUP SEMENTARA 🔒</h3>
-<p>Layanan Warung ditutup sementara menunggu Juklak Juknis resmi. Mohon maaf atas ketidaknyamanannya.</p>
-<div style="margin-top:10px"><span class="badge" style="background:#ddd">🔒 DITUTUP SEMENTARA</span></div>
-</div>
-</div>
-
-<!-- PRODUK DAPUR DI BAWAHNYA -->
-<div style="margin-top:18px">
+<p style="font-size:12px;color:#888;margin-top:8px;text-align:center">Dapur melayani order • Warung tutup sementara menunggu Juklak Juknis</p>
+<div style="margin-top:18px" id="produkArea">
 <h3 style="font-size:16px">Produk Dapur yang Tersedia:</h3>
-<div class="tabs">
-<button class="tab active" onclick="filterProduk('all',this)">Semua</button>
-<button class="tab" onclick="filterProduk('Sembako',this)">Sembako</button>
-<button class="tab" onclick="filterProduk('Bumbu',this)">Bumbu Dapur</button>
-<button class="tab" onclick="filterProduk('Minuman',this)">Minuman</button>
+<p style="font-size:13px;color:#666;margin:4px 0 0">Ketik nama produk yang dicari, contoh: Beras, Minyak, Gas</p>
+<div class="search-box">
+<input type="text" id="cariProduk" placeholder="🔍 Ketik nama produk... contoh: Beras" oninput="cariProduk()">
+<button onclick="resetCari()">✕ Hapus</button>
 </div>
+<p id="hasilCari" style="font-size:13px;color:#888;margin-bottom:10px"></p>
 <div id="produkList" class="grid"><div class="loading">⏳ Loading produk dari Sheets...</div></div>
 </div>
 </div>
 
-<!-- 3. BERITA - PINDAH KE BAWAH, DI ATAS MAPS, BIAR GAK MENUHIN BERANDA -->
+<!-- BERITA -->
 <div class="section" id="berita">
 <div class="shape2" style="width:120px;height:120px;left:-20px;bottom:-20px"></div>
 <h2>📰 Berita Koperasi</h2><p class="sub">Klik berita untuk baca selengkapnya</p>
@@ -145,7 +152,7 @@ footer{background:#a31616;color:#fff;text-align:center;padding:22px;margin-top:2
 <div id="beritaList" class="grid"><div class="loading">⏳ Loading berita dari Sheets...</div></div>
 </div>
 
-<!-- 4. LOKASI - PALING BAWAH -->
+<!-- LOKASI -->
 <div class="section" id="lokasi">
 <h2>📍 Lokasi Koperasi</h2><p class="sub">Kampung Pendowo Asri, Kec. Gedung Meneng, Kab. Tulang Bawang, Lampung</p>
 <img src="peta-pendowoasri.jpeg" style="width:100%;height:220px;object-fit:cover;border-radius:14px">
@@ -202,7 +209,7 @@ function filterBerita(kat,el){ document.querySelectorAll('#berita .tab').forEach
 let semuaProduk = []; let cart = [];
 function tampilkanProduk(data){
   const list=document.getElementById('produkList');
-  if(data.length==0){ list.innerHTML="<div class='kosong'>Belum ada produk - Isi di Sheets Produk</div>"; return; }
+  if(data.length==0){ list.innerHTML="<div class='kosong'>Tidak ada produk yang ditemukan - Coba kata lain</div>"; return; }
   list.innerHTML="";
   data.forEach((p)=>{
     const d=document.createElement('div'); d.className='produk-card';
@@ -211,7 +218,15 @@ function tampilkanProduk(data){
     list.appendChild(d);
   });
 }
-function filterProduk(kat,el){ document.querySelectorAll('#belanja .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active'); if(kat=='all') tampilkanProduk(semuaProduk); else tampilkanProduk(semuaProduk.filter(p=>p.kategori==kat)); }
+function cariProduk(){
+  const kata = document.getElementById('cariProduk').value.toLowerCase().trim();
+  const info = document.getElementById('hasilCari');
+  if(!kata){ tampilkanProduk(semuaProduk); info.textContent = `Menampilkan ${semuaProduk.length} produk`; return; }
+  const hasil = semuaProduk.filter(p => p.nama.toLowerCase().includes(kata) || p.kategori.toLowerCase().includes(kata));
+  tampilkanProduk(hasil);
+  info.textContent = `Hasil cari "${kata}": ${hasil.length} produk ditemukan`;
+}
+function resetCari(){ document.getElementById('cariProduk').value=''; cariProduk(); }
 function tambahKeranjang(nama,harga){ cart.push({nama,harga}); document.getElementById('cartCount').textContent=cart.length; alert(nama+" ditambah ke keranjang!"); }
 function checkoutWA(){
   if(cart.length==0){ alert("Keranjang masih kosong bre, pilih produk dulu!"); return; }
@@ -222,7 +237,7 @@ function checkoutWA(){
 }
 async function init(){
   try{ const beritaRaw = await loadSheet("Berita"); semuaBerita = beritaRaw.map(r=>({judul:r[0]||"", kategori:r[1]||"", tanggal:r[2]||"", foto:r[3]||"", isi:r[4]||""})); tampilkanBerita(semuaBerita); }catch(e){ document.getElementById('beritaList').innerHTML="<div class='kosong'>Gagal load berita - Cek nama tab harus 'Berita'</div>"; }
-  try{ const produkRaw = await loadSheet("Produk"); semuaProduk = produkRaw.map(r=>({nama:r[0]||"", harga:parseInt((r[1]||"0").replace(/[^0-9]/g,''))||0, kategori:r[2]||"", foto:r[3]||""})); tampilkanProduk(semuaProduk); }catch(e){ document.getElementById('produkList').innerHTML="<div class='kosong'>Gagal load produk - Cek nama tab harus 'Produk'</div>"; }
+  try{ const produkRaw = await loadSheet("Produk"); semuaProduk = produkRaw.map(r=>({nama:r[0]||"", harga:parseInt((r[1]||"0").replace(/[^0-9]/g,''))||0, kategori:r[2]||"", foto:r[3]||""})); tampilkanProduk(semuaProduk); document.getElementById('hasilCari').textContent = `Menampilkan ${semuaProduk.length} produk`; }catch(e){ document.getElementById('produkList').innerHTML="<div class='kosong'>Gagal load produk - Cek nama tab harus 'Produk'</div>"; }
 }
 init();
 </script>
