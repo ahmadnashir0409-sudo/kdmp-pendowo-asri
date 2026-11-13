@@ -3,240 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KDMP Pendowo Asri - Koperasi Desa Merah Putih</title>
+<title>KDMP Pendowo Asri</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#FFF3C4;color:#1a1a1a;overflow-x:hidden}
-header{background:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;position:sticky;top:0;z-index:99;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-.logo{display:flex;align-items:center;gap:10px;font-weight:900;color:#c81e1e}
-.logo img{width:42px;height:42px;object-fit:contain}
-.logo span{font-size:18px;line-height:1.1}.logo small{font-size:11px;color:#5a3d00;font-weight:700}
-nav{display:none;gap:18px}@media(min-width:800px){nav{display:flex}} nav a{text-decoration:none;color:#1a1a1a;font-weight:700;font-size:14px}
-.cart-btn{background:#c81e1e;color:#fff;border:none;padding:10px 16px;border-radius:999px;cursor:pointer;font-weight:800;box-shadow:0 3px 0 #7a0f0f}
-.marquee{background:#ffcc00;color:#a31616;font-weight:900;padding:10px;overflow:hidden;white-space:nowrap;font-size:15px;border-bottom:3px solid #c81e1e}
-.marquee span{display:inline-block;animation:jalan 18s linear infinite}
-@keyframes jalan{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
-.hero{position:relative;color:#fff;text-align:left;overflow:hidden;height:400px;display:flex;align-items:center}
-.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to right, rgba(0,0,0,.82) 0%, rgba(150,0,0,.75) 45%, rgba(150,0,0,.25) 100%)}
-.hero-inner{position:relative;z-index:5;padding:24px;max-width:620px}
-.hero h1{font-size:32px;line-height:1.15;text-shadow:0 3px 10px rgba(0,0,0,.6)}
-.hero h1 span{color:#ffcc00}
-.hero p{margin:12px 0 18px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.6);font-size:15px}
-.hero button{background:#ffcc00;border:none;padding:13px 24px;border-radius:999px;font-weight:900;cursor:pointer;color:#a31616;box-shadow:0 4px 0 #a31616}
-.shape-1{position:absolute;width:240px;height:240px;background:#ffcc00;border-radius:50%;top:-70px;right:-70px;opacity:.95;z-index:2;box-shadow:0 0 0 18px rgba(255,204,0,.3)}
-.shape-2{position:absolute;width:170px;height:170px;background:#c81e1e;border-radius:50%;bottom:-50px;left:-40px;opacity:.95;z-index:2;border:8px solid #ffcc00}
-.shape-4{position:absolute;width:90px;height:90px;background:#fff;border-radius:20px;bottom:30px;right:8%;transform:rotate(25deg);opacity:.2;z-index:2}
-.wave{height:42px;background:#ffcc00;clip-path:polygon(0 0,100% 0,100% 100%,0 30%);margin-top:-1px}
-.wave2{height:42px;background:#c81e1e;clip-path:polygon(0 0,100% 20%,100% 100%,0 100%);margin-bottom:16px}
-.search{max-width:800px;margin:-18px auto 0;background:#fff;padding:10px;border-radius:999px;display:flex;box-shadow:0 6px 16px rgba(0,0,0,.25);margin-left:16px;margin-right:16px;position:relative;z-index:10;border:3px solid #c81e1e}
-@media(min-width:800px){.search{margin-left:auto;margin-right:auto}}
-.search input{flex:1;border:none;outline:none;padding:10px 14px;font-size:15px;font-weight:600}
-.search button{background:#c81e1e;color:#fff;border:none;padding:10px 18px;border-radius:999px;cursor:pointer;font-weight:800}
-.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}
-h2{font-size:24px;margin-bottom:6px;color:#1a1a1a;font-weight:900}.sub{color:#5a3d00;margin-bottom:16px;font-weight:700}
-.about{display:grid;gap:0;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.18);border:3px solid #c81e1e}
-@media(min-width:800px){.about{grid-template-columns:1fr 1fr}}
-.about img{width:100%;height:100%;min-height:260px;object-fit:cover}
-.about-txt{padding:20px}
-.about-txt p{color:#222;line-height:1.6;margin:10px 0;font-weight:500}
-.stat{display:flex;gap:12px;margin-top:14px}
-.stat div{background:#FFF3C4;border:2px solid #c81e1e;padding:10px 14px;border-radius:12px;text-align:center;flex:1}
-.stat b{color:#c81e1e;font-size:19px}
-.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.tab{padding:9px 16px;border:2px solid #c81e1e;background:#fff;border-radius:999px;cursor:pointer;font-weight:700}
-.tab.active{background:#c81e1e;color:#fff;border-color:#c81e1e}
-.mode-box{display:flex;gap:10px;margin-bottom:16px}
-.mode-btn{flex:1;padding:14px;border:3px solid #c81e1e;background:#fff;border-radius:14px;cursor:pointer;text-align:center;font-weight:900;font-size:15px}
-.mode-btn.active{background:#c81e1e;color:#fff}
-.mode-btn small{display:block;font-weight:600;font-size:12px;margin-top:4px;opacity:.9}
-.mode-btn.disabled{background:#eee;border-color:#ccc;color:#888;cursor:not-allowed}
-.mode-btn.disabled small{color:#888}
-.jam-box{background:#fff;border:3px solid #c81e1e;border-radius:16px;padding:18px;display:grid;gap:12px;box-shadow:0 6px 16px rgba(0,0,0,.15)}
-@media(min-width:700px){.jam-box{grid-template-columns:1fr 1fr}}
-.jam-box h3{color:#c81e1e}
-.jam-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:2px dashed #ffcc00;font-weight:700}
-.jam-item b{color:#1a1a1a}
-.jam-item span{color:#c81e1e}
-.open-now{background:#25D366;color:#fff;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:900;display:inline-block;margin-top:6px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-@media(min-width:800px){.grid{grid-template-columns:repeat(3,1fr)}}
-.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 5px 14px rgba(0,0,0,.2);border:2px solid #c81e1e;border-top:7px solid #ffcc00}
-.card img{width:100%;height:150px;object-fit:cover;background:#eee}
-.card .in{padding:12px}
-.badge{display:inline-block;background:#ffe5e5;color:#c81e1e;font-size:11px;padding:5px 9px;border-radius:999px;font-weight:800;border:1px solid #c81e1e}
-.price{color:#c81e1e;font-weight:900;font-size:20px;margin:6px 0}
-.add{width:100%;background:#c81e1e;color:#fff;border:none;padding:11px;border-radius:10px;cursor:pointer;font-weight:800}
-.add:disabled{background:#ccc}
-.qty{display:flex;align-items:center;gap:8px;justify-content:center}
-.qty button{width:28px;height:28px;border:2px solid #c81e1e;background:#fff;border-radius:50%;cursor:pointer;font-weight:900}
-.map-box{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.18);border:3px solid #c81e1e}
-.map-box img{width:100%;display:block}
-.map-txt{padding:16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
-.map-txt a{background:#c81e1e;color:#fff;padding:11px 18px;border-radius:999px;text-decoration:none;font-weight:800}
-footer{background:#a31616;color:#fff;padding:28px 20px;margin-top:20px;border-top:8px solid #ffcc00}
-footer a{color:#ffcc00;text-decoration:none;font-weight:700}
-#drawer{position:fixed;right:0;top:0;width:100%;max-width:380px;height:100%;background:#FFFDF0;z-index:999;box-shadow:-4px 0 20px rgba(0,0,0,.3);transform:translateX(100%);transition:.3s;padding:18px;overflow:auto}
-#drawer.open{transform:translateX(0)}
-.cart-item{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:2px solid #ffcc00}
-.checkout{background:#25D366;border:none;width:100%;padding:14px;border-radius:10px;font-weight:900;font-size:16px;cursor:pointer;margin-top:12px;color:#fff}
-.close{background:#eee;border:none;padding:8px 12px;border-radius:999px;cursor:pointer}
-input.field{width:100%;padding:11px;border:2px solid #c81e1e;border-radius:10px;margin-top:8px;background:#fff}
+body{background:#FFF3C4;color:#1a1a1a}
+header{background:#c81e1e;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99}
+.logo{font-weight:900;font-size:18px}.logo small{display:block;font-size:10px;font-weight:400;opacity:.9}
+nav{display:none;gap:16px}@media(min-width:800px){nav{display:flex}} nav a{color:#fff;text-decoration:none;font-weight:700;font-size:14px}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:16px 0}
+.tab{padding:10px 18px;border-radius:999px;border:2px solid #c81e1e;background:#fff;color:#c81e1e;font-weight:800;cursor:pointer}
+.tab.active{background:#c81e1e;color:#fff}
+.grid{display:grid;gap:16px}@media(min-width:750px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.card{background:#fff;border-radius:16px;overflow:hidden;border:2px solid #e8c547;cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,.15)}
+.card img{width:100%;height:180px;object-fit:cover;background:#eee}
+.card .in{padding:14px}
+.card h3{font-size:16px;margin:6px 0}.card p{font-size:13px;color:#555;line-height:1.5}
+.badge{font-size:11px;background:#ffcc00;padding:4px 8px;border-radius:999px;font-weight:800}
+.klik{font-size:12px;color:#c81e1e;font-weight:800;margin-top:10px}
+/* POPUP BERITA */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.modal-box{background:#fff;width:100%;max-width:600px;border-radius:18px;overflow:hidden;max-height:90vh;overflow-y:auto}
+.modal-box img{width:100%;height:260px;object-fit:cover}
+.modal-box .in{padding:20px}
+.modal-box h2{font-size:22px;margin:8px 0}
+.modal-box p{color:#333;line-height:1.7;font-size:15px;white-space:pre-line}
+.btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:900;cursor:pointer;margin-top:16px}
+.btn-tutup{background:#111;color:#fff}
+.btn-wa{background:#25D366;color:#fff;margin-top:8px}
+.belanja{background:#ff5a8a;color:#fff;text-align:center;padding:14px;border-radius:12px;font-weight:900;margin-top:20px}
 </style>
 </head>
 <body>
 <header>
-<div class="logo"><img src="logo%20kpdes%20png.png" onerror="this.style.display='none'"><span>KDMP PENDOWO ASRI<br><small>Koperasi Desa Merah Putih</small></span></div>
-<nav><a href="#">Beranda</a><a href="#tentang">Tentang</a><a href="#berita">Berita</a><a href="#produk">Produk</a><a href="#lokasi">Lokasi</a></nav>
-<button class="cart-btn" onclick="toggleCart(true)">🛒 Keranjang (<span id="cartCount">0</span>)</button>
+<div class="logo">KDMP PENDOWO ASRI<small>Koperasi Desa Merah Putih - Pendowo Asri</small></div>
+<nav><a href="#">Beranda</a><a href="#berita">Berita</a><a href="#produk">Produk</a></nav>
 </header>
-<div class="marquee"><span>🔥 KDMP PENDOWO ASRI • HARGA JUJUR • DARI DESA UNTUK DESA • BELANJA GAMPANG LEWAT WA • STOK UPDATE TIAP HARI • 🔥 KDMP PENDOWO ASRI •</span></div>
-<div class="wave"></div>
-<div class="hero">
-<img class="bg" src="gedung-kdmp-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1200&q=80'">
-<div class="shape-1"></div><div class="shape-2"></div><div class="shape-4"></div>
-<div class="hero-inner">
-<h1>Koperasi Desa<br><span>Merah Putih</span><br>Kampung Pendowo Asri</h1>
-<p>Belanja kebutuhan pokok warga, harga jujur, dari desa untuk desa.</p>
-<button onclick="document.getElementById('produk').scrollIntoView({behavior:'smooth'})">Belanja Sekarang ↓</button>
-</div>
-</div>
-<div class="wave2"></div>
-<div class="search"><input id="searchInput" placeholder="Cari produk... Beras, Minyak, dll" oninput="renderProduk()"><button onclick="renderProduk()">Cari</button></div>
-<div class="wrap" id="tentang">
-<h2>Tentang KDMP Pendowo Asri</h2><p class="sub">Dari warga, oleh warga, untuk warga.</p>
-<div class="about">
-<img src="gedung-kdmp-2.jpg">
-<div class="about-txt">
-<h3>🏛️ Koperasi Kebanggaan Kampung Pendowo Asri</h3>
-<p>Koperasi Desa Merah Putih (KDMP) Pendowo Asri hadir untuk membantu warga mendapatkan kebutuhan pokok dengan harga jujur dan transparan. Semua keuntungan kembali lagi untuk kemajuan desa.</p>
-<p>Kami melayani warga Kampung Pendowo Asri, Kecamatan Gedung Meneng, Kabupaten Tulang Bawang, Lampung.</p>
-<div class="stat"><div><b>100+</b><br><small>Anggota</small></div><div><b>50+</b><br><small>Produk</small></div><div><b>100%</b><br><small>Untuk Desa</small></div></div>
-</div>
-</div>
-</div>
-<div class="wrap" id="berita">
-<h2>Berita, Pengumuman & Informasi</h2><p class="sub">Update terbaru dari koperasi, langsung dari Google Sheets.</p>
+
+<div class="wrap">
+<h2 style="text-align:center">Berita Koperasi</h2>
+<p style="text-align:center;color:#5a3d00;font-size:14px;margin:6px 0">Klik berita untuk baca selengkapnya</p>
+
 <div class="tabs">
-<button class="tab active" onclick="setCat(this,'Semua')">Semua</button>
-<button class="tab" onclick="setCat(this,'Berita')">Berita</button>
-<button class="tab" onclick="setCat(this,'Pengumuman')">Pengumuman</button>
-<button class="tab" onclick="setCat(this,'Informasi')">Informasi</button>
+<button class="tab active" onclick="filterBerita('all',this)">Semua</button>
+<button class="tab" onclick="filterBerita('Rapat',this)">Rapat</button>
+<button class="tab" onclick="filterBerita('Pengumuman',this)">Pengumuman</button>
 </div>
-<div id="beritaList" class="grid"><p>Memuat berita...</p></div>
+
+<div class="grid" id="beritaList">
+<!-- CONTOH DATA - NANTI KEISI OTOMATIS DARI SHEETS -->
 </div>
-<div class="wrap" id="produk">
-<h2>🛒 Belanja Kebutuhan Dapur</h2><p class="sub">Untuk kebutuhan rumah tangga warga Pendowo Asri.</p>
-<div class="mode-box">
-<button class="mode-btn active">🏠 BUAT DAPUR<small>Belanja harian rumah - AKTIF</small></button>
-<button class="mode-btn disabled" onclick="alert('Layanan Warung / Stok Toko masih ditutup sementara, menunggu Juklak Juknis ya bre!')">🏪 BUAT WARUNG<small>🔒 DITUTUP SEMENTARA - Menunggu Juklak Juknis</small></button>
+
+<div class="belanja">🛒 Belanja Kebutuhan Dapur</div>
 </div>
-<div id="produkList" class="grid"><p>Memuat produk...</p></div>
-</div>
-<div class="wrap" id="lokasi">
-<h2>📍 Lokasi & Jam Operasional</h2><p class="sub">Jangan dateng pas tutup bre!</p>
-<div class="jam-box">
-<div>
-<h3>🕒 Jam Buka Koperasi</h3>
-<span class="open-now" id="openStatus">● BUKA SEKARANG</span>
-<div class="jam-item"><span>Senin - Jumat</span><b>08.00 - 17.00 WIB</b></div>
-<div class="jam-item"><span>Sabtu</span><b>08.00 - 15.00 WIB</b></div>
-<div class="jam-item"><span>Minggu / Tanggal Merah</span><b>Tutup / Pengumuman</b></div>
-<p style="margin-top:10px;color:#555;font-size:13px">Order WA bisa kapan aja, tapi diproses pas jam buka ya bre!</p>
-</div>
-<div>
-<h3>📍 Alamat</h3>
-<p style="font-weight:600;margin-top:8px">KDMP Pendowo Asri<br>Kampung Pendowo Asri, Kec. Gedung Meneng,<br>Kab. Tulang Bawang, Lampung</p>
-<a href="https://www.google.com/maps/search/?api=1&query=Pendowo+Asri+Gedung+Meneng+Tulang+Bawang+Lampung" target="_blank" style="display:inline-block;margin-top:12px;background:#c81e1e;color:#fff;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:800">Buka di Google Maps →</a>
+
+<!-- MODAL DETAIL BERITA -->
+<div class="modal" id="modalBerita" onclick="if(event.target==this) tutupBerita()">
+<div class="modal-box">
+<img id="mFoto" src="">
+<div class="in">
+<span class="badge" id="mKategori">BERITA</span>
+<h2 id="mJudul">Judul Berita</h2>
+<p id="mTanggal" style="color:#888;font-size:13px"></p>
+<p id="mIsi" style="margin-top:12px">Isi berita...</p>
+<button class="btn btn-wa" onclick="tanyaWA()">💬 Tanya via WhatsApp</button>
+<button class="btn btn-tutup" onclick="tutupBerita()">Tutup ✕</button>
 </div>
 </div>
-<div class="map-box" style="margin-top:16px">
-<img src="peta-pendowoasri.jpeg" alt="Peta Pendowo Asri">
-<div class="map-txt"><div><b>KDMP Pendowo Asri</b><br><span style="color:#333;font-weight:600">Kampung Pendowo Asri, Kec. Gedung Meneng, Kab. Tulang Bawang, Lampung</span></div></div>
 </div>
-</div>
-<footer id="kontak">
-<b>KDMP Pendowo Asri</b><br>Kampung Pendowo Asri, Gedung Meneng, Tulang Bawang, Lampung<br>Jam Buka: Senin-Jumat 08.00-17.00 | Sabtu 08.00-15.00<br><br>
-WA Admin: <a href="#" id="waLink">Chat WhatsApp</a><br>© 2026 KDMP Pendowo Asri
-</footer>
-<div id="drawer">
-<div style="display:flex;justify-content:space-between;align-items:center"><h3>Keranjang Belanja</h3><button class="close" onclick="toggleCart(false)">✕</button></div>
-<div id="cartItems" style="margin-top:12px"></div>
-<div id="cartTotal" style="font-weight:900;font-size:18px;margin-top:12px"></div>
-<p style="font-weight:800;margin-top:14px">Keperluan: 🏠 Dapur - Kebutuhan Rumah</p>
-<p style="font-size:12px;color:#888">Layanan Warung ditutup sementara, menunggu Juklak Juknis.</p>
-<input class="field" id="namaPembeli" placeholder="Nama Pembeli (wajib)">
-<input class="field" id="alamatPembeli" placeholder="Alamat / RT / Dusun">
-<button class="checkout" onclick="checkoutWA()">Checkout via WhatsApp →</button>
-</div>
+
 <script>
-const SHEET_ID = "1qR9ahIcF-dw2WLh-5B9v1D8apqgwtsfegjQwv6epSKw";
-const WA_NUMBER = "6285782102726";
-document.getElementById('waLink').href = "https://wa.me/"+WA_NUMBER;
-let produkData = [], beritaData = [], cart = {}, currentCat = "Semua";
-(function(){
-  let now=new Date(), day=now.getDay(), hour=now.getHours();
-  let open = (day>=1 && day<=5 && hour>=8 && hour<17) || (day==6 && hour>=8 && hour<15);
-  let el=document.getElementById('openStatus');
-  if(el){ el.innerText = open ? "● BUKA SEKARANG" : "● TUTUP - Order WA Tetap Bisa"; el.style.background = open ? "#25D366" : "#c81e1e"; }
-})();
-function gviz(sheet){
-  return fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheet}&headers=1`)
-  .then(r=>r.text()).then(t=>{
-    const j = JSON.parse(t.substring(47).slice(0,-2));
-    const cols = j.table.cols.map(c=>c.label.toUpperCase().trim());
-    return j.table.rows.map(r=>{
-      let o={}; r.c.forEach((c,i)=>{ o[cols[i]] = c ? c.v : "" }); return o;
-    }).filter(o=>o[Object.keys(o)[0]]);
+// GANTI LINK INI DENGAN LINK CSV GOOGLE SHEETS BERITA LU YANG LAMA BRE!
+const SHEETS_URL = "https://docs.google.com/spreadsheets/d/PASTE_ID_SHEETS_LU/gviz/tq?tqx=out:csv&sheet=Berita";
+let semuaBerita = [];
+
+// DATA CADANGAN KALO SHEETS BELUM KELOAD - BIAR LU BISA TES KLIK DULU
+const contohBerita = [
+{judul:"rapat anggota tahunan", kategori:"Rapat", tanggal:"13 Nov 2026", foto:"gedung-kdmp-2.jpg", isi:"Rapat Anggota Tahunan KDMP Pendowo Asri akan dilaksanakan di Gedung Koperasi. Seluruh anggota diharapkan hadir tepat waktu. Membawa KTP dan kartu anggota.\n\nAgenda: Laporan keuangan, pemilihan pengurus, dan rencana kerja tahun depan."},
+{judul:"Pengumuman Jam Buka Koperasi", kategori:"Pengumuman", tanggal:"12 Nov 2026", foto:"peta-pendowoasri.jpeg", isi:"Koperasi buka Senin - Sabtu jam 08.00 - 16.00 WIB. Minggu tutup. Layanan Warung ditutup sementara menunggu Juklak Juknis. Layanan Dapur tetap buka."},
+{judul:"Stok Baru Sembako Masuk", kategori:"Pengumuman", tanggal:"10 Nov 2026", foto:"gedung-kdmp-2.jpg", isi:"Stok baru sudah masuk: Beras, Minyak Goreng, Gula, Telur, dan kebutuhan dapur lainnya. Silakan cek di katalog dan order via WhatsApp."}
+];
+
+function tampilkanBerita(data){
+  const list = document.getElementById('beritaList');
+  list.innerHTML = "";
+  data.forEach((b,i)=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.onclick = ()=> bukaBerita(i);
+    div.innerHTML = `
+      <img src="${b.foto}" onerror="this.src='https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=80'">
+      <div class="in">
+        <span class="badge">${b.kategori}</span>
+        <h3>${b.judul}</h3>
+        <p>${b.isi.substring(0,80)}...</p>
+        <div class="klik">Klik untuk baca selengkapnya →</div>
+      </div>`;
+    list.appendChild(div);
   });
 }
-function rupiah(n){ return "Rp "+Number(n||0).toLocaleString('id-ID'); }
-function setCat(el,cat){ document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); el.classList.add('active'); currentCat=cat; renderBerita(); }
-function renderBerita(){
-  let list = beritaData.filter(b=> currentCat==="Semua" || (b.KATEGORI||"").toLowerCase()===currentCat.toLowerCase());
-  if(!list.length) return document.getElementById('beritaList').innerHTML="<p>Belum ada berita di kategori ini.</p>";
-  document.getElementById('beritaList').innerHTML = list.map(b=>`
-  <div class="card"><img src="${b.FOTO||'https://picsum.photos/600/300?random='+Math.random()}" onerror="this.src='https://picsum.photos/600/300'">
-  <div class="in"><span class="badge">${b.KATEGORI||'Berita'} • ${b.TANGGAL||''}</span><h3 style="margin:8px 0">${b.JUDUL||''}</h3><p style="color:#222;font-size:14px">${(b.ISI||'').toString().slice(0,120)}...</p></div></div>`).join('');
+
+function bukaBerita(i){
+  const b = semuaBerita[i];
+  document.getElementById('mFoto').src = b.foto;
+  document.getElementById('mJudul').textContent = b.judul;
+  document.getElementById('mKategori').textContent = b.kategori;
+  document.getElementById('mTanggal').textContent = b.tanggal;
+  document.getElementById('mIsi').textContent = b.isi;
+  document.getElementById('modalBerita').classList.add('open');
 }
-function renderProduk(){
-  const q = (document.getElementById('searchInput').value||"").toLowerCase();
-  let list = produkData.filter(p=> (p.NAMA||"").toLowerCase().includes(q));
-  if(!list.length) return document.getElementById('produkList').innerHTML="<p>Produk tidak ditemukan / belum ada di Sheets.</p>";
-  document.getElementById('produkList').innerHTML = list.map((p,i)=>{
-    let idx = produkData.indexOf(p);
-    let stok = Number(p.STOK||0);
-    return `<div class="card"><img src="${p.FOTO||'https://picsum.photos/600/400?random='+(idx+10)}" onerror="this.src='https://picsum.photos/600/400'">
-    <div class="in"><span class="badge">${p.KATEGORI||'Sembako'} • Stok: ${stok}</span><h3 style="margin:6px 0">${p.NAMA}</h3><p style="color:#222;font-size:13px">${p.DESKRIPSI||''}</p>
-    <div class="price">${rupiah(p.HARGA)}</div>
-    <button class="add" ${stok<=0?'disabled':''} onclick="addToCart(${idx})">${stok<=0?'Habis':'Tambah Keranjang'}</button></div></div>`
-  }).join('');
+function tutupBerita(){ document.getElementById('modalBerita').classList.remove('open'); }
+function tanyaWA(){
+  const judul = document.getElementById('mJudul').textContent;
+  window.open(`https://wa.me/6285782102726?text=Halo%20Min%2C%20saya%20mau%20tanya%20tentang%20berita%20${encodeURIComponent(judul)}`, '_blank');
 }
-function addToCart(idx){ cart[idx]=(cart[idx]||0)+1; updateCart(); toggleCart(true); }
-function changeQty(idx,delta){ cart[idx]+=delta; if(cart[idx]<=0) delete cart[idx]; updateCart(); }
-function updateCart(){
-  let count=0,total=0,html="";
-  Object.keys(cart).forEach(idx=>{
-    let p=produkData[idx], qty=cart[idx], sub=Number(p.HARGA)*qty; count+=qty; total+=sub;
-    html+=`<div class="cart-item"><div><b>${p.NAMA}</b><br><small>${rupiah(p.HARGA)} x ${qty} = ${rupiah(sub)}</small></div><div class="qty"><button onclick="changeQty(${idx},-1)">-</button><b>${qty}</b><button onclick="changeQty(${idx},1)">+</button></div></div>`
-  });
-  document.getElementById('cartCount').innerText=count;
-  document.getElementById('cartItems').innerHTML=html||"<p>Keranjang masih kosong.</p>";
-  document.getElementById('cartTotal').innerText= total? "Total: "+rupiah(total) : "";
+function filterBerita(kat, el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  if(kat=='all') tampilkanBerita(semuaBerita);
+  else tampilkanBerita(semuaBerita.filter(b=>b.kategori.toLowerCase().includes(kat.toLowerCase())));
 }
-function toggleCart(open){ document.getElementById('drawer').classList.toggle('open',open); }
-function checkoutWA(){
-  let nama=document.getElementById('namaPembeli').value.trim();
-  let alamat=document.getElementById('alamatPembeli').value.trim();
-  if(!Object.keys(cart).length) return alert("Keranjang masih kosong bre!");
-  if(!nama) return alert("Isi nama dulu bre!");
-  let pesan=`Halo KDMP Pendowo Asri, saya mau pesan:\nKEPERLUAN: DAPUR - Kebutuhan Rumah\n----------------\n`;
-  let total=0;
-  Object.keys(cart).forEach(idx=>{ let p=produkData[idx],qty=cart[idx],sub=Number(p.HARGA)*qty; total+=sub; pesan+=`- ${p.NAMA} x ${qty} = ${rupiah(sub)}\n`; });
-  pesan+=`----------------\nTotal: ${rupiah(total)}\nNama: ${nama}\nAlamat: ${alamat}`;
-  window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(pesan),"_blank");
-}
-Promise.all([gviz('PRODUK'), gviz('BERITA')]).then(([p,b])=>{ produkData=p; beritaData=b; renderProduk(); renderBerita(); });
+
+// LOAD DARI SHEETS, KALO GAGAL PAKE DATA CONTOH
+semuaBerita = contohBerita;
+tampilkanBerita(semuaBerita);
+
+// KALO LU UDAH PASANG LINK SHEETS YANG BENER, INI AKAN JALAN OTOMATIS
+// fetch(SHEETS_URL).then(r=>r.text()).then(csv=>{
+//   // parsing CSV Sheets lu disini, format: Judul,Kategori,Tanggal,Foto,Isi
+// });
+
 </script>
 </body>
 </html>
